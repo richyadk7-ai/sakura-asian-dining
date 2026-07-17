@@ -127,12 +127,16 @@ Setup:
 1. Create a Supabase project and copy `.env.example` to `.env.local`.
 2. Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
 3. Apply `supabase/migrations/001_initial.sql`, then `supabase/migrations/002_reservations.sql`, in that order through the Supabase SQL editor or CLI.
-4. Create the owner through Supabase Auth.
-5. Add that Auth user UUID to the allowlist:
+4. Set the Supabase Auth Site URL to the production origin and add `https://YOUR-DOMAIN/admin/auth/confirm` plus `http://localhost:3000/admin/auth/confirm` to the allowed redirect URLs.
+5. Change the Invite user email template link to `{{ .SiteURL }}/admin/auth/confirm?token_hash={{ .TokenHash }}&type=invite`.
+6. Send the owner an invitation through Supabase Auth.
+7. Add that Auth user UUID to the allowlist:
 
 ```sql
 insert into public.admin_users(user_id) values ('AUTH-USER-UUID');
 ```
+
+The owner opens the invitation, chooses a password at `/admin/set-password`, and is then taken to the protected reservations dashboard. Never create or share the owner password on someone else's behalf.
 
 The `restaurant-originals` bucket is private. RLS permits draft/upload access only to allowlisted owners and public reads only for published, authorized, non-excluded records. No service-role key is used in browser code. Public pages read each published document independently and use the complete static document whenever Supabase is missing, empty or unavailable.
 

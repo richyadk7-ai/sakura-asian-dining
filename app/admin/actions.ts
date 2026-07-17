@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import inventory from "@/data/authorized-image-inventory.json";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { assertValidContentDocument } from "@/lib/content-validation";
+import { validateOwnerPassword } from "@/lib/admin-password";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { ContentDocument, ImageInventoryEntry } from "@/types";
 
@@ -35,6 +36,18 @@ export async function login(formData: FormData) {
 export async function logout() {
   if (isSupabaseConfigured()) { const client = await createSupabaseServerClient(); await client.auth.signOut(); }
   redirect("/admin");
+}
+
+export async function setOwnerPassword(formData: FormData) {
+  const password = String(formData.get("password") ?? "");
+  const confirmation = String(formData.get("confirmation") ?? "");
+  const validationError = validateOwnerPassword(password, confirmation);
+  if (validationError) redirect(`/admin/set-password?error=${encodeURIComponent(validationError)}`);
+
+  const { client } = await requireAdmin();
+  const { error } = await client.auth.updateUser({ password });
+  if (error) redirect(`/admin/set-password?error=${encodeURIComponent(error.message)}`);
+  redirect("/admin/reservations?password_updated=1");
 }
 
 export async function saveDraft(formData: FormData) {
