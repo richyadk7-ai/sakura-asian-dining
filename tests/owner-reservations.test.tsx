@@ -41,7 +41,7 @@ const confirmed: OwnerReservation = {
 
 describe("protected owner reservation dashboard", () => {
   it("highlights pending requests and searches customer data", () => {
-    render(<OwnerReservationsDashboard reservations={[base, confirmed]} today="2026-07-20" />);
+    render(<OwnerReservationsDashboard reservations={[base, confirmed]} today="2026-07-20" emailConfigured />);
     expect(screen.getByText("1 pending · 2 total")).toBeVisible();
     fireEvent.change(screen.getByPlaceholderText("Name, phone, email or reference"), { target: { value: "aiko@example.com" } });
     expect(screen.getByRole("heading", { name: "Aiko Tanaka" })).toBeVisible();
@@ -49,7 +49,7 @@ describe("protected owner reservation dashboard", () => {
   });
 
   it("filters today and status views", () => {
-    render(<OwnerReservationsDashboard reservations={[base, confirmed]} today="2026-07-20" />);
+    render(<OwnerReservationsDashboard reservations={[base, confirmed]} today="2026-07-20" emailConfigured />);
     fireEvent.click(screen.getByRole("button", { name: "today" }));
     expect(screen.getByRole("heading", { name: "Aiko Tanaka" })).toBeVisible();
     expect(screen.queryByRole("heading", { name: "Ken Sato" })).not.toBeInTheDocument();
@@ -60,7 +60,12 @@ describe("protected owner reservation dashboard", () => {
   });
 
   it("shows the selected course in reservation details", () => {
-    render(<OwnerReservationsDashboard reservations={[base]} today="2026-07-20" />);
+    render(<OwnerReservationsDashboard reservations={[base]} today="2026-07-20" emailConfigured />);
     expect(screen.getByText("Welcome & Farewell Party: 8 Dishes, Unlimited Naan & Rice, 120-Minute Drink Plan")).toBeInTheDocument();
+  });
+
+  it("shows staff when automatic customer email is ready", () => {
+    render(<OwnerReservationsDashboard reservations={[base]} today="2026-07-20" emailConfigured />);
+    expect(screen.getByText("Customer email active")).toBeVisible();
   });
 });

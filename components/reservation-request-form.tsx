@@ -73,7 +73,7 @@ export function ReservationRequestForm({ locale, dictionary, restaurantInfo = re
     setError("");
     try {
       const response = await fetch("/api/reservations", { method: "POST", credentials: "same-origin", headers: { "content-type": "application/json" }, body: JSON.stringify(parsed.data) });
-      const payload = await response.json().catch(() => null) as { error?: string; field?: string; reservation?: unknown } | null;
+      const payload = await response.json().catch(() => null) as { error?: string; field?: string; reservation?: unknown; customerEmailSent?: boolean } | null;
       if (!response.ok) {
         if (payload?.error === "reservation_service_unavailable") setError(dictionary.reservation.serviceUnavailable);
         else if (payload?.error === "invalid_request" && payload.field) setError(issueMessage(payload.field, dictionary));
@@ -86,7 +86,9 @@ export function ReservationRequestForm({ locale, dictionary, restaurantInfo = re
         return;
       }
       sessionStorage.setItem(`sakura-reservation:${confirmation.reservationReference}`, JSON.stringify(confirmation));
-      router.push(`/${locale}/reservation/confirmation?reference=${encodeURIComponent(confirmation.reservationReference)}`);
+      sessionStorage.setItem(`sakura-reservation-token:${confirmation.reservationReference}`, parsed.data.submissionToken);
+      sessionStorage.setItem(`sakura-reservation-email:${confirmation.reservationReference}`, payload?.customerEmailSent ? "sent" : "not-sent");
+      router.push(`/${locale}/reservation/confirmation?reference=${encodeURIComponent(confirmation.reservationReference)}&token=${encodeURIComponent(parsed.data.submissionToken)}`);
     } catch {
       setError(dictionary.reservation.submissionFailed);
     } finally {

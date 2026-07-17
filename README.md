@@ -53,7 +53,7 @@ The row-level audit is in `data/source-audit.json`. Japanese names and listed pr
 
 The localized `/en/reservation` and `/ja/reservation` pages collect the customer and party details needed for a reservation request. Valid submissions go to the same-origin `/api/reservations` endpoint, which validates the request again and calls the restricted Supabase `submit_reservation_request` function. Each new row starts as `pending` and receives a human-readable `SKR-YYYYMMDD-XXXXXX` reference. The submission token makes retries idempotent, so a repeated request does not create a second row.
 
-The confirmation URL contains only the human-readable reference. The customer name, date, time and guest count are kept in that browser’s session storage for the confirmation screen; internal database IDs are never returned. The page clearly states that staff approval is required. If Supabase is not configured or unavailable, the form stores nothing and shows the existing telephone fallback.
+The confirmation URL contains the human-readable reference and the request's unguessable submission token. Together they provide read-only access to that one reservation through `get_reservation_status`; the API never returns email, phone, allergies, special requests, owner notes or internal IDs. The confirmation screen checks for staff decisions every five seconds while open and refreshes when the customer returns to the tab. If Supabase is not configured or unavailable, the form stores nothing and shows the existing telephone fallback.
 
 The publishable Supabase key is safe to expose as designed: anonymous users have no direct table read, update or delete policy. The only public database operation is the validated submission function. Never add a Supabase service-role key to a `NEXT_PUBLIC_` variable or browser code.
 
@@ -116,7 +116,7 @@ Setup:
 
 1. Create a Supabase project and copy `.env.example` to `.env.local`.
 2. Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
-3. Apply every SQL file in `supabase/migrations` in numeric order through the Supabase SQL editor or CLI. Migration `004_realtime_reservation_alerts.sql` enables the protected live reservation feed, and `005_owner_web_push.sql` adds the owner-only device subscriptions for lock-screen alerts.
+3. Apply every SQL file in `supabase/migrations` in numeric order through the Supabase SQL editor or CLI. Migration `004_realtime_reservation_alerts.sql` enables the protected live reservation feed, `005_owner_web_push.sql` adds owner-only device subscriptions for lock-screen alerts, and `006_customer_reservation_status.sql` enables the token-protected customer status screen.
 4. With the default Supabase mailer, set the Auth Site URL to `https://YOUR-DOMAIN/admin/set-password`. The password page safely completes the default invitation session before showing the owner form.
 5. Add `https://YOUR-DOMAIN/admin/auth/confirm` plus `http://localhost:3000/admin/auth/confirm` to the allowed redirect URLs. If custom SMTP is configured later, its Invite user template can link to `{{ .SiteURL }}/admin/auth/confirm?token_hash={{ .TokenHash }}&type=invite` after changing `.SiteURL` back to the site origin.
 6. Send the owner an invitation through Supabase Auth.
@@ -159,7 +159,20 @@ on conflict(singleton) do update set secret_hash = excluded.secret_hash, updated
 
 Never expose `WEB_PUSH_PRIVATE_KEY` or `PUSH_DISPATCH_SECRET` through a `NEXT_PUBLIC_` variable. Push payloads deliberately include only the reservation reference, date, time and party size; customer contact details remain in the protected dashboard.
 
-Reservation email events are still inserted into `reservation_notification_outbox` for owner-new-request, customer-received, confirmed, rejected and cancelled events. `lib/notifications/reservation-notifications.ts` provides the email delivery interface, but the included implementation is deliberately unconfigured and reports `sent: false`. No customer email is claimed as sent until a real provider and outbox worker are added.
+### Customer email notifications
+
+The reservation API now sends a bilingual request-received email immediately. Confirming, rejecting or cancelling in the owner dashboard sends the matching result and a secure live-status link; staff can resend a result email from the reservation card. The dashboard reports whether delivery succeeded instead of claiming that an unsent message was delivered.
+
+For the simplest free setup, enable Google 2-Step Verification, create a 16-character Google App Password, and add these production environment variables in Vercel:
+
+```text
+GMAIL_USER=restaurant-email@gmail.com
+GMAIL_APP_PASSWORD=the-16-character-app-password
+RESERVATION_OWNER_EMAIL=restaurant-email@gmail.com
+RESERVATION_REPLY_TO=restaurant-email@gmail.com
+```
+
+Use the app password only—never the Google account password. Redeploy after changing environment variables. As an alternative, configure `RESEND_API_KEY` and `RESERVATION_EMAIL_FROM`; Resend takes priority when both are present and requires a verified sending domain for arbitrary customer addresses. Notification outbox rows remain as an auditable delivery record.
 
 ## Project structure
 

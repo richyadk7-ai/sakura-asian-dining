@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { isCourseId } from "@/data/courses";
-import type { ReservationConfirmation, ReservationRequest } from "@/types";
+import type { ReservationConfirmation, ReservationRequest, ReservationStatusSnapshot } from "@/types";
 
 export const MIN_RESERVATION_GUESTS = 1;
 export const MAX_RESERVATION_GUESTS = 40;
@@ -70,12 +70,28 @@ export const reservationConfirmationSchema = z.object({
   status: z.literal("pending"),
 });
 
+export const reservationStatusSnapshotSchema = z.object({
+  reservationReference: z.string().regex(/^SKR-\d{8}-[A-Z0-9]{6}$/),
+  courseId: z.string().refine(isCourseId).nullable().optional().transform((value) => value ?? null),
+  customerName: z.string().min(1),
+  reservationDate: z.string().refine(isCalendarDate),
+  reservationTime: z.string().regex(/^\d{2}:\d{2}$/),
+  guestCount: z.number().int().min(MIN_RESERVATION_GUESTS).max(MAX_RESERVATION_GUESTS),
+  status: z.enum(["pending", "confirmed", "rejected", "cancelled", "completed", "no_show"]),
+  updatedAt: z.string().datetime({ offset: true }),
+});
+
 export function reservationIssueField(error: z.ZodError) {
   return String(error.issues[0]?.path[0] ?? "submission");
 }
 
 export function parseReservationConfirmation(value: unknown): ReservationConfirmation | null {
   const parsed = reservationConfirmationSchema.safeParse(value);
+  return parsed.success ? parsed.data : null;
+}
+
+export function parseReservationStatusSnapshot(value: unknown): ReservationStatusSnapshot | null {
+  const parsed = reservationStatusSnapshotSchema.safeParse(value);
   return parsed.success ? parsed.data : null;
 }
 

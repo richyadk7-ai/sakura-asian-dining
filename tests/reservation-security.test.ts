@@ -6,6 +6,7 @@ const migration = readFileSync(resolve(process.cwd(), "supabase/migrations/002_r
 const courseMigration = readFileSync(resolve(process.cwd(), "supabase/migrations/003_reservation_courses.sql"), "utf8");
 const realtimeMigration = readFileSync(resolve(process.cwd(), "supabase/migrations/004_realtime_reservation_alerts.sql"), "utf8");
 const pushMigration = readFileSync(resolve(process.cwd(), "supabase/migrations/005_owner_web_push.sql"), "utf8");
+const statusMigration = readFileSync(resolve(process.cwd(), "supabase/migrations/006_customer_reservation_status.sql"), "utf8");
 
 describe("reservation database boundary", () => {
   it("stores new requests as pending behind an idempotent server function", () => {
@@ -55,5 +56,12 @@ describe("reservation database boundary", () => {
     expect(pushMigration).toContain("extensions.digest(p_dispatch_secret, 'sha256')");
     expect(pushMigration).toContain("revoke all on schema private from public, anon, authenticated");
     expect(pushMigration).toContain("security definer");
+  });
+
+  it("exposes only one token-matched reservation through the customer status function", () => {
+    expect(statusMigration).toContain("security definer");
+    expect(statusMigration).toContain("reservation.submission_token = p_submission_token");
+    expect(statusMigration).toContain("grant execute on function public.get_reservation_status(text, uuid) to anon, authenticated");
+    expect(statusMigration).not.toMatch(/customer_email|customer_phone|allergies|special_requests|owner_notes/);
   });
 });

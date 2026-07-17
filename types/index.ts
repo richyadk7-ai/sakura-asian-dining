@@ -143,6 +143,11 @@ export type ReservationConfirmation = {
   status: "pending";
 };
 
+export type ReservationStatusSnapshot = Omit<ReservationConfirmation, "status"> & {
+  status: ReservationStatus;
+  updatedAt: string;
+};
+
 export type OwnerReservation = {
   id: string;
   reservation_reference: string;

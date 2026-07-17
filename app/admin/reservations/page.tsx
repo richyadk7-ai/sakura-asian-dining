@@ -1,7 +1,8 @@
-import { CalendarCheck2, ShieldAlert, ShieldCheck } from "lucide-react";
+import { AlertTriangle, CalendarCheck2, CheckCircle2, Info, ShieldAlert, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { login, logout } from "@/app/admin/actions";
 import { OwnerReservationsDashboard } from "@/components/owner-reservations-dashboard";
+import { reservationNotificationService } from "@/lib/notifications/reservation-notifications";
 import { getTokyoNow } from "@/lib/reservation-request";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -23,7 +24,16 @@ export default async function OwnerReservationsPage({ searchParams }: { searchPa
   const { data, error } = await client.from("reservations").select("id,reservation_reference,course_id,customer_name,customer_email,customer_phone,reservation_date,reservation_time,guest_count,seating_preference,occasion,allergies,special_requests,preferred_language,status,owner_notes,created_at,updated_at,confirmed_at,cancelled_at").order("reservation_date", { ascending: true }).order("reservation_time", { ascending: true });
   if (error) return <AdminFrame><div className="admin-auth-card"><CalendarCheck2 /><p className="eyebrow">Reservation database</p><h1>Reservations are not ready</h1><p>{error.message}</p><p>Apply all files in <code>supabase/migrations</code>, then reload this page.</p><Link className="button button-outline" href="/admin">Content studio</Link></div></AdminFrame>;
 
-  return <AdminFrame><OwnerReservationsDashboard reservations={(data ?? []) as OwnerReservation[]} today={getTokyoNow().date} liveAlerts pushPublicKey={process.env.NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY ?? ""} /></AdminFrame>;
+  const emailState = typeof query.email === "string" ? query.email : "";
+  return <AdminFrame><EmailDeliveryFeedback state={emailState} /><OwnerReservationsDashboard reservations={(data ?? []) as OwnerReservation[]} today={getTokyoNow().date} liveAlerts pushPublicKey={process.env.NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY ?? ""} emailConfigured={reservationNotificationService.configured} /></AdminFrame>;
+}
+
+function EmailDeliveryFeedback({ state }: { state: string }) {
+  if (!state) return null;
+  if (state === "sent") return <div className="admin-email-feedback is-success" role="status"><CheckCircle2 /><div><strong>Status saved and customer email sent</strong><span>The guest received the latest reservation result and a live status link.</span></div></div>;
+  if (state === "not-configured") return <div className="admin-email-feedback is-warning" role="alert"><AlertTriangle /><div><strong>Status saved, but no email was sent</strong><span>Connect Gmail or Resend in the Vercel environment before relying on automatic customer mail.</span></div></div>;
+  if (state === "failed") return <div className="admin-email-feedback is-error" role="alert"><AlertTriangle /><div><strong>Status saved, but email delivery failed</strong><span>Check the email credentials, then use the resend button on this reservation.</span></div></div>;
+  return <div className="admin-email-feedback" role="status"><Info /><div><strong>Reservation status saved</strong><span>This status does not send a customer email.</span></div></div>;
 }
 
 function AdminFrame({ children }: { children: React.ReactNode }) {

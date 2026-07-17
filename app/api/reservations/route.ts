@@ -46,13 +46,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "reservation_submission_failed" }, { status: 500 });
   }
 
+  let customerEmailSent = false;
   if (row?.was_created) {
-    await Promise.all([
-      reservationNotificationService.deliver({ event: "owner_new_request", reservation: confirmation.data }),
-      reservationNotificationService.deliver({ event: "customer_request_received", reservation: confirmation.data, customerEmail: parsed.data.customerEmail, preferredLanguage: parsed.data.preferredLanguage }),
+    const [, customerNotification] = await Promise.all([
+      reservationNotificationService.deliver({ event: "owner_new_request", reservation: confirmation.data, customerEmail: parsed.data.customerEmail, preferredLanguage: parsed.data.preferredLanguage, idempotencyKey: `owner-new-${parsed.data.submissionToken}` }),
+      reservationNotificationService.deliver({ event: "customer_request_received", reservation: confirmation.data, customerEmail: parsed.data.customerEmail, preferredLanguage: parsed.data.preferredLanguage, statusToken: parsed.data.submissionToken, idempotencyKey: `customer-received-${parsed.data.submissionToken}` }),
       sendOwnerReservationPush(confirmation.data),
     ]);
+    customerEmailSent = customerNotification.sent;
   }
 
-  return NextResponse.json({ reservation: confirmation.data, notificationProviderConfigured: reservationNotificationService.configured }, { status: row?.was_created ? 201 : 200 });
+  return NextResponse.json({ reservation: confirmation.data, customerEmailSent, notificationProviderConfigured: reservationNotificationService.configured }, { status: row?.was_created ? 201 : 200 });
 }

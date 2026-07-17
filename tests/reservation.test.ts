@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getTokyoNow, reservationRequestSchema } from "@/lib/reservation-request";
+import { getTokyoNow, reservationRequestSchema, reservationStatusSnapshotSchema } from "@/lib/reservation-request";
 
 function futureDate(days = 1) {
   const date = new Date(`${getTokyoNow().date}T00:00:00.000Z`);
@@ -36,4 +36,19 @@ describe("reservation request validation", () => {
     ["unknown course", { courseId: "not-a-real-course" }],
     ["missing agreement", { agreement: false }],
   ])("rejects %s", (_label, change) => expect(reservationRequestSchema.safeParse({ ...validRequest(), ...change }).success).toBe(false));
+
+  it("accepts every owner decision in the safe customer status payload", () => {
+    for (const status of ["pending", "confirmed", "rejected", "cancelled", "completed", "no_show"]) {
+      expect(reservationStatusSnapshotSchema.safeParse({
+        reservationReference: "SKR-20260720-A1B2C3",
+        courseId: "welcome-party-course",
+        customerName: "Aiko Tanaka",
+        reservationDate: "2026-07-20",
+        reservationTime: "19:00",
+        guestCount: 2,
+        status,
+        updatedAt: "2026-07-17T12:00:00.000Z",
+      }).success).toBe(true);
+    }
+  });
 });
