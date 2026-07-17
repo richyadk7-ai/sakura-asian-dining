@@ -6,7 +6,7 @@ A production-ready bilingual Next.js website for さくらアジアンダイニ�
 
 - Phase 1 public website: implemented with `/en` and `/ja` routes, all audited menu records, five exact course links, internal bilingual reservation requests, responsive design, accessibility, SEO, tests and static content fallback.
 - Phase 2 owner tools: implemented at `/admin` and `/admin/reservations` with Supabase SSR auth, owner allowlist, RLS, reservation management, drafts, explicit publishing and private authorized-original uploads.
-- Restaurant photography: 55 unique official restaurant-uploaded Tabelog photographs are imported, visually reviewed and shown without generative alteration or destructive cropping. Customer-uploaded photographs are deliberately excluded.
+- Restaurant photography: 55 unique authorized restaurant photographs are stored locally, visually reviewed and shown without generative alteration or destructive cropping. Customer-uploaded photographs are deliberately excluded.
 
 ## Run locally
 
@@ -24,7 +24,6 @@ Production verification:
 
 ```bash
 npm run photos:inventory
-npm run photos:import-tabelog
 npm run photos:audit
 npm run audit:source
 npm run check
@@ -54,27 +53,18 @@ The row-level audit is in `data/source-audit.json`. Japanese names and listed pr
 
 The localized `/en/reservation` and `/ja/reservation` pages collect the customer and party details needed for a reservation request. Valid submissions go to the same-origin `/api/reservations` endpoint, which validates the request again and calls the restricted Supabase `submit_reservation_request` function. Each new row starts as `pending` and receives a human-readable `SKR-YYYYMMDD-XXXXXX` reference. The submission token makes retries idempotent, so a repeated request does not create a second row.
 
-The confirmation URL contains only the human-readable reference. The customer name, date, time and guest count are kept in that browser’s session storage for the confirmation screen; internal database IDs are never returned. The page clearly states that staff approval is required. If Supabase is not configured or unavailable, the form stores nothing and shows the existing telephone and Tabelog fallbacks.
+The confirmation URL contains only the human-readable reference. The customer name, date, time and guest count are kept in that browser’s session storage for the confirmation screen; internal database IDs are never returned. The page clearly states that staff approval is required. If Supabase is not configured or unavailable, the form stores nothing and shows the existing telephone fallback.
 
 The publishable Supabase key is safe to expose as designed: anonymous users have no direct table read, update or delete policy. The only public database operation is the validated submission function. Never add a Supabase service-role key to a `NEXT_PUBLIC_` variable or browser code.
 
 ## Authorized restaurant photography
 
-The inventory contains 169 expected reference slots: 113 food, 10 drinks, 16 interior, 8 exterior, 17 menu photos and 5 course images. The verified Tabelog owner gallery currently supplies 55 unique originals: 37 food, 3 drinks, 14 interior and 1 exterior. Five course slots reuse two of those food photographs. The import excludes 92 customer gallery uploads and all 17 customer-uploaded Menu Photo entries.
+The inventory contains 169 expected reference slots: 113 food, 10 drinks, 16 interior, 8 exterior, 17 menu photos and 5 course images. The project currently includes 55 unique authorized originals: 37 food, 3 drinks, 14 interior and 1 exterior. Five course slots reuse two of those food photographs. Customer uploads and all 17 customer-uploaded Menu Photo entries are excluded.
 
 The current audit contains 55 included unique originals, 5 excluded duplicate course-slot mappings and 109 reference slots awaiting a future authorized owner original. Review:
 
 - `data/authorized-image-inventory.json`
 - `data/authorized-image-inventory.csv`
-
-To reproduce the verified restaurant-owner import, run:
-
-```bash
-npm run photos:import-tabelog
-npm run photos:audit
-```
-
-The import script reads only Tabelog records explicitly marked as owner posts, downloads the original asset, records its source and never copies customer posts. Provenance is stored in `data/tabelog-owner-photo-sources.json`.
 
 For additional authorized originals, place files anywhere inside the repository (for example, the ignored `photo-imports/` folder), then map—do not rename—the supplied files in `data/image-authorization.json`:
 

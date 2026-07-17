@@ -4,11 +4,9 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Check, Flame, Images, Search, Sparkles, Sprout, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { CourseGrid } from "@/components/course-grid";
-import { ExternalLink } from "@/components/external-link";
 import { allMenuItems, menuPhotoEntries } from "@/data/menu";
 import { courses } from "@/data/courses";
 import { authorizedPhotos } from "@/data/photos";
-import { TABELOG_GALLERY_URL } from "@/lib/constants";
 import type { Dictionary } from "@/locales";
 import type { Course, Locale, MenuItem, MenuSection, RestaurantPhoto } from "@/types";
 
@@ -74,7 +72,6 @@ export function MenuExplorer({ locale, dictionary, items = allMenuItems, courseD
           <p className="eyebrow">{menuPhotoEntries.length} {dictionary.menu.itemCount}</p>
           <h2>{dictionary.menu.photoPendingTitle}</h2>
           <p>{dictionary.menu.photoPendingBody}</p>
-          <ExternalLink className="button button-outline" href={TABELOG_GALLERY_URL} showIcon>{dictionary.gallery.sourceLink}</ExternalLink>
         </div>
       ) : null}
 

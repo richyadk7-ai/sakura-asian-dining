@@ -2,665 +2,550 @@
   "authorizedFiles": [
     {
       "referenceId": "food-001",
-      "suppliedPath": "photo-imports/tabelog-owner/food/370607831.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/370607831.jpg",
       "authorizationConfirmed": true,
       "altEn": "Seasoned edamame with sliced garlic at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのスライスしたニンニクを添えた味付き枝豆",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/370607/640x640_rect_6cd834521a44bbe0d592fea7e8f0e9dc.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "370607831"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-002",
-      "suppliedPath": "photo-imports/tabelog-owner/food/370606494.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/370606494.jpg",
       "authorizationConfirmed": true,
       "altEn": "Stir-fried sliced meat with onions and green chives at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの玉ねぎとニラを添えた薄切り肉の炒め物",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/370606/640x640_rect_194238d99841c4aa4074f6f98bd423d0.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "370606494"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-003",
-      "suppliedPath": "photo-imports/tabelog-owner/food/370605923.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/370605923.jpg",
       "authorizationConfirmed": true,
       "altEn": "Yogurt raita with diced vegetables and herbs at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの刻み野菜とハーブ入りのライタ",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/370605/640x640_rect_4ca97785f9762b5e903efbb2b050c02e.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "370605923"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-004",
-      "suppliedPath": "photo-imports/tabelog-owner/food/370605567.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/370605567.jpg",
       "authorizationConfirmed": true,
       "altEn": "French fries with tomato ketchup at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのケチャップを添えたフライドポテト",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/370605/640x640_rect_b06e2b352d14afcda351b93617e78cd6.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "370605567"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-005",
-      "suppliedPath": "photo-imports/tabelog-owner/food/370605360.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/370605360.jpg",
       "authorizationConfirmed": true,
       "altEn": "Basket of crisp papad at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのかごに盛り付けたパパド",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/370605/640x640_rect_d73ba6e56cf199e479b77f880171f824.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "370605360"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-006",
-      "suppliedPath": "photo-imports/tabelog-owner/food/370604673.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/370604673.jpg",
       "authorizationConfirmed": true,
       "altEn": "Grilled chicken salad with boiled eggs and mixed greens at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのゆで卵と葉野菜を添えたグリルチキンサラダ",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/370604/640x640_rect_0c768e571df922ad260c1dcc7b673f30.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "370604673"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-007",
-      "suppliedPath": "photo-imports/tabelog-owner/food/370599369.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/370599369.jpg",
       "authorizationConfirmed": true,
       "altEn": "Mixed bean salad with diced vegetables at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの刻み野菜入りのミックスビーンズサラダ",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/370599/640x640_rect_c93d665cc73fc55162ce6f1b842b4b3a.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "370599369"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-008",
-      "suppliedPath": "photo-imports/tabelog-owner/food/368294165.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/368294165.jpg",
       "authorizationConfirmed": true,
       "altEn": "Plate of sliced fresh tomatoes at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのスライスしたトマトの盛り合わせ",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/368294/ee27e5713ca4adb2e629e0366ac51d83.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "368294165"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-009",
-      "suppliedPath": "photo-imports/tabelog-owner/food/368291340.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/368291340.jpg",
       "authorizationConfirmed": true,
       "altEn": "Fresh shrimp rolls with lettuce and dipping sauce at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのレタスとつけだれを添えた海老の生春巻き",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/368291/640x640_rect_32816c8f2af67e232ca84295faad88fd.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "368291340"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-010",
-      "suppliedPath": "photo-imports/tabelog-owner/food/121383978.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/121383978.jpg",
       "authorizationConfirmed": true,
       "altEn": "Melted cheese stretching from freshly baked cheese naan at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの焼きたてのチーズナンから伸びる溶けたチーズ",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/121383/121383978.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "121383978"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-011",
-      "suppliedPath": "photo-imports/tabelog-owner/food/121383743.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/121383743.jpg",
       "authorizationConfirmed": true,
       "altEn": "Restaurant-provided food photograph 11 at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの店舗提供料理写真 11",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/121383/121383743.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "121383743"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-012",
-      "suppliedPath": "photo-imports/tabelog-owner/food/99733841.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/99733841.jpg",
       "authorizationConfirmed": true,
       "altEn": "Green salad at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのグリーンサラダ",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733841.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733841"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-013",
-      "suppliedPath": "photo-imports/tabelog-owner/food/99733839.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/99733839.jpg",
       "authorizationConfirmed": true,
       "altEn": "Course meal at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのコース",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733839.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733839"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-014",
-      "suppliedPath": "photo-imports/tabelog-owner/food/99733838.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/99733838.jpg",
       "authorizationConfirmed": true,
       "altEn": "Seekh kebab at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのシークカバブ",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733838.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733838"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-015",
-      "suppliedPath": "photo-imports/tabelog-owner/food/99733835.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/99733835.jpg",
       "authorizationConfirmed": true,
       "altEn": "Caesar salad at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのシーザーサラダ",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733835.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733835"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-016",
-      "suppliedPath": "photo-imports/tabelog-owner/food/99733834.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/99733834.jpg",
       "authorizationConfirmed": true,
       "altEn": "Whole tandoori chicken at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのタンドリーチキン1羽",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733834.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733834"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-017",
-      "suppliedPath": "photo-imports/tabelog-owner/food/99733832.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/99733832.jpg",
       "authorizationConfirmed": true,
       "altEn": "Half tandoori chicken at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのタンドリーチキンハーフ",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733832.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733832"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-018",
-      "suppliedPath": "photo-imports/tabelog-owner/food/99733830.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/99733830.jpg",
       "authorizationConfirmed": true,
       "altEn": "Cheese chicken at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのチーズチキン",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733830.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733830"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-019",
-      "suppliedPath": "photo-imports/tabelog-owner/food/99733829.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/99733829.jpg",
       "authorizationConfirmed": true,
       "altEn": "Dinner ladies’ set at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのディナーレディースセット",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733829.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733829"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-020",
-      "suppliedPath": "photo-imports/tabelog-owner/food/99733828.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/99733828.jpg",
       "authorizationConfirmed": true,
       "altEn": "Lunch set at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのランチセット",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733828.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733828"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-021",
-      "suppliedPath": "photo-imports/tabelog-owner/food/99733827.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/99733827.jpg",
       "authorizationConfirmed": true,
       "altEn": "Grilled lamb at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの焼きラム",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733827.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733827"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-022",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251122761.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251122761.jpg",
       "authorizationConfirmed": true,
       "altEn": "Orange curry garnished with cream at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのクリームを添えたオレンジ色のカレー",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251122/640x640_rect_60240d576e7136b2991db0629433f8d4.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251122761"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-023",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251122795.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251122795.jpg",
       "authorizationConfirmed": true,
       "altEn": "Spinach curry with paneer cubes and cream at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのパニールとクリームを添えたほうれん草カレー",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251122/640x640_rect_6abfff13a67684017a7a7964ea6a3d94.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251122795"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-024",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251122806.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251122806.jpg",
       "authorizationConfirmed": true,
       "altEn": "Round naan topped with golden melted cheese at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのこんがり溶けたチーズをのせた丸いナン",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251122/640x640_rect_9532b5e35876d46ec5bc78ca35644533.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251122806"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-025",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251122838.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251122838.jpg",
       "authorizationConfirmed": true,
       "altEn": "Orange curry garnished with cream and cashews at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのクリームとカシューナッツを添えたオレンジ色のカレー",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251122/640x640_rect_0418777377353a5f44b451026a192615.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251122838"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-026",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251122881.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251122881.jpg",
       "authorizationConfirmed": true,
       "altEn": "Spinach curry finished with a cream swirl at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのクリームを渦巻き状に添えたほうれん草カレー",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251122/640x640_rect_56f78251d10ff94e167616508ead0b86.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251122881"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-027",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251122884.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251122884.jpg",
       "authorizationConfirmed": true,
       "altEn": "Spinach curry topped with shredded ginger and cream at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの細切り生姜とクリームを添えたほうれん草カレー",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251122/640x640_rect_4a4e7b203fca88d0a24d46e6dc8dcf93.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251122884"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-028",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251122890.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251122890.jpg",
       "authorizationConfirmed": true,
       "altEn": "Set meal with naan, curries, grilled dishes, rice, salad and drinks at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのナン、カレー、グリル料理、ライス、サラダ、ドリンクのセット",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251122/640x640_rect_3db2522597e68c796cb4ecaeca99e46c.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251122890"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-029",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251122897.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251122897.jpg",
       "authorizationConfirmed": true,
       "altEn": "Cheese-filled naan with melted cheese being lifted at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの溶けたチーズを持ち上げたチーズ入りナン",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251122/640x640_rect_eafb523794c727529226f01437d81671.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251122897"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-030",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251122916.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251122916.jpg",
       "authorizationConfirmed": true,
       "altEn": "Tandoori chicken on a sizzling vegetable platter at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの野菜と一緒に鉄板で提供するタンドリーチキン",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251122/640x640_rect_abe3584ce1788f4da41d9f398d3188bb.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251122916"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-031",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251122943.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251122943.jpg",
       "authorizationConfirmed": true,
       "altEn": "Vegetable curry with cauliflower, peppers and green beans at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのカリフラワー、パプリカ、いんげん入りの野菜カレー",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251122/640x640_rect_4300c010b5f05827281e7ce0450a336b.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251122943"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-032",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251122952.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251122952.jpg",
       "authorizationConfirmed": true,
       "altEn": "Spinach curry served in a copper bowl at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの銅製の器で提供するほうれん草カレー",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251122/640x640_rect_c555152b9f5abb6f23a99932e3631161.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251122952"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-033",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251122958.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251122958.jpg",
       "authorizationConfirmed": true,
       "altEn": "Naan served with spinach curry and salad at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのほうれん草カレーとサラダを添えたナン",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251122/640x640_rect_11e8101bdb57b90ff2ecb2248f9790fd.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251122958"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-034",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251122980.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251122980.jpg",
       "authorizationConfirmed": true,
       "altEn": "Steamed momo dumplings with dipping sauce at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのつけだれを添えた蒸しモモ",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251122/640x640_rect_5883a97c7ae59ba46dd7eefa78ea9c4b.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251122980"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-035",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251123007.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251123007.jpg",
       "authorizationConfirmed": true,
       "altEn": "Stir-fried flat noodles with chicken and vegetables at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの鶏肉と野菜入りの平麺炒め",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251123/640x640_rect_3e4eb3a728fa8a224d551c2f50079172.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251123007"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-036",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251123037.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251123037.jpg",
       "authorizationConfirmed": true,
       "altEn": "Stir-fried noodles with meat and vegetables at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの肉と野菜入りの炒め麺",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251123/640x640_rect_7a76e075daec9367784e3626dfb612e2.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251123037"
+      "posterType": "owner"
     },
     {
       "referenceId": "food-037",
-      "suppliedPath": "photo-imports/tabelog-owner/food/251123043.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/251123043.jpg",
       "authorizationConfirmed": true,
       "altEn": "Cheese-topped grilled chicken and vegetables lifted with chopsticks at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの箸で持ち上げたチーズのせグリルチキンと野菜",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/251123/640x640_rect_6640de44c2f235054d42e13c67005cd2.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "251123043"
+      "posterType": "owner"
     },
     {
       "referenceId": "drinks-001",
-      "suppliedPath": "photo-imports/tabelog-owner/drinks/99733886.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/drinks/99733886.jpg",
       "authorizationConfirmed": true,
       "altEn": "Selection of spirits, Asian beer, lassi and wine at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのスピリッツ、アジアビール、ラッシー、ワインの品揃え",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733886.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733886"
+      "posterType": "owner"
     },
     {
       "referenceId": "drinks-002",
-      "suppliedPath": "photo-imports/tabelog-owner/drinks/99167355.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/drinks/99167355.jpg",
       "authorizationConfirmed": true,
       "altEn": "Selection of cocktails, wine, spirits and soft drinks at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのカクテル、ワイン、スピリッツ、ソフトドリンクの品揃え",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99167/99167355.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99167355"
+      "posterType": "owner"
     },
     {
       "referenceId": "drinks-003",
-      "suppliedPath": "photo-imports/tabelog-owner/drinks/99167356.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/drinks/99167356.jpg",
       "authorizationConfirmed": true,
       "altEn": "Three glasses of draft beer raised in a toast at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの乾杯する3杯の生ビール",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99167/99167356.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99167356"
+      "posterType": "owner"
     },
     {
       "referenceId": "interior-001",
-      "suppliedPath": "photo-imports/tabelog-owner/interior/99733893.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/interior/99733893.jpg",
       "authorizationConfirmed": true,
       "altEn": "Four-seat table at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのテーブル席_4名",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733893.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733893"
+      "posterType": "owner"
     },
     {
       "referenceId": "interior-002",
-      "suppliedPath": "photo-imports/tabelog-owner/interior/99733892.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/interior/99733892.jpg",
       "authorizationConfirmed": true,
       "altEn": "Four-seat booth at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのボックス席_4名",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733892.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733892"
+      "posterType": "owner"
     },
     {
       "referenceId": "interior-003",
-      "suppliedPath": "photo-imports/tabelog-owner/interior/99733890.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/interior/99733890.jpg",
       "authorizationConfirmed": true,
       "altEn": "Dining room overview at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの全景",
       "featured": true,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733890.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733890"
+      "posterType": "owner"
     },
     {
       "referenceId": "interior-004",
-      "suppliedPath": "photo-imports/tabelog-owner/interior/99733960.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/interior/99733960.jpg",
       "authorizationConfirmed": true,
       "altEn": "Restaurant interior at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの内観写真",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733960.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733960"
+      "posterType": "owner"
     },
     {
       "referenceId": "interior-005",
-      "suppliedPath": "photo-imports/tabelog-owner/interior/99733959.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/interior/99733959.jpg",
       "authorizationConfirmed": true,
       "altEn": "Restaurant interior at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの内観写真",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733959.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733959"
+      "posterType": "owner"
     },
     {
       "referenceId": "interior-006",
-      "suppliedPath": "photo-imports/tabelog-owner/interior/99167330.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/interior/99167330.jpg",
       "authorizationConfirmed": true,
       "altEn": "Restaurant interior at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの内観写真",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99167/99167330.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99167330"
+      "posterType": "owner"
     },
     {
       "referenceId": "interior-007",
-      "suppliedPath": "photo-imports/tabelog-owner/interior/99167331.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/interior/99167331.jpg",
       "authorizationConfirmed": true,
       "altEn": "Restaurant interior at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの内観写真",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99167/99167331.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99167331"
+      "posterType": "owner"
     },
     {
       "referenceId": "interior-008",
-      "suppliedPath": "photo-imports/tabelog-owner/interior/99167332.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/interior/99167332.jpg",
       "authorizationConfirmed": true,
       "altEn": "Restaurant interior at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの内観写真",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99167/99167332.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99167332"
+      "posterType": "owner"
     },
     {
       "referenceId": "interior-009",
-      "suppliedPath": "photo-imports/tabelog-owner/interior/99167334.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/interior/99167334.jpg",
       "authorizationConfirmed": true,
       "altEn": "Restaurant interior at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの内観写真",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99167/99167334.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99167334"
+      "posterType": "owner"
     },
     {
       "referenceId": "interior-010",
-      "suppliedPath": "photo-imports/tabelog-owner/interior/99167335.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/interior/99167335.jpg",
       "authorizationConfirmed": true,
       "altEn": "Restaurant interior at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの内観写真",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99167/99167335.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99167335"
+      "posterType": "owner"
     },
     {
       "referenceId": "interior-011",
-      "suppliedPath": "photo-imports/tabelog-owner/interior/99167336.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/interior/99167336.jpg",
       "authorizationConfirmed": true,
       "altEn": "Restaurant interior at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの内観写真",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99167/99167336.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99167336"
+      "posterType": "owner"
     },
     {
       "referenceId": "interior-012",
-      "suppliedPath": "photo-imports/tabelog-owner/interior/99167337.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/interior/99167337.jpg",
       "authorizationConfirmed": true,
       "altEn": "Restaurant interior at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの内観写真",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99167/99167337.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99167337"
+      "posterType": "owner"
     },
     {
       "referenceId": "interior-013",
-      "suppliedPath": "photo-imports/tabelog-owner/interior/99167339.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/interior/99167339.jpg",
       "authorizationConfirmed": true,
       "altEn": "Restaurant interior at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの内観写真",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99167/99167339.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99167339"
+      "posterType": "owner"
     },
     {
       "referenceId": "interior-014",
-      "suppliedPath": "photo-imports/tabelog-owner/interior/99167341.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/interior/99167341.jpg",
       "authorizationConfirmed": true,
       "altEn": "Restaurant interior at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーの内観写真",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99167/99167341.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99167341"
+      "posterType": "owner"
     },
     {
       "referenceId": "exterior-001",
-      "suppliedPath": "photo-imports/tabelog-owner/exterior/99733902.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/exterior/99733902.jpg",
       "authorizationConfirmed": true,
       "altEn": "Sakura Asian Dining & Bar storefront and entrance at Sakura Asian Dining & Bar",
       "altJa": "さくらアジアンダイニング&バーのさくらアジアンダイニング&バーの店頭と入口",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733902.jpg",
-      "posterType": "owner",
-      "tabelogPhotoId": "99733902"
+      "posterType": "owner"
     },
     {
       "referenceId": "course-001",
-      "suppliedPath": "photo-imports/tabelog-owner/food/99733839.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/99733839.jpg",
       "authorizationConfirmed": true,
       "altEn": "Sakura group course meal",
       "altJa": "さくらの宴会コース料理",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733839.jpg",
       "posterType": "owner",
       "reusedFrom": "food-013",
       "sourceOrder": 1
     },
     {
       "referenceId": "course-002",
-      "suppliedPath": "photo-imports/tabelog-owner/food/99733839.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/99733839.jpg",
       "authorizationConfirmed": true,
       "altEn": "Sakura all-you-can-eat and drink course meal",
       "altJa": "さくら食べ飲み放題コース料理",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733839.jpg",
       "posterType": "owner",
       "reusedFrom": "food-013",
       "sourceOrder": 2
     },
     {
       "referenceId": "course-003",
-      "suppliedPath": "photo-imports/tabelog-owner/food/121383743.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/121383743.jpg",
       "authorizationConfirmed": true,
       "altEn": "Tandoori barbecue course platter",
       "altJa": "串焼きタンドリーBBQコース料理",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/121383/121383743.jpg",
       "posterType": "owner",
       "reusedFrom": "food-011",
       "sourceOrder": 3
     },
     {
       "referenceId": "course-004",
-      "suppliedPath": "photo-imports/tabelog-owner/food/99733839.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/99733839.jpg",
       "authorizationConfirmed": true,
       "altEn": "Sakura special drink course meal",
       "altJa": "さくらスペシャル飲み放題コース料理",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733839.jpg",
       "posterType": "owner",
       "reusedFrom": "food-013",
       "sourceOrder": 4
     },
     {
       "referenceId": "course-005",
-      "suppliedPath": "photo-imports/tabelog-owner/food/99733839.jpg",
+      "suppliedPath": "photo-imports/restaurant-owned/food/99733839.jpg",
       "authorizationConfirmed": true,
       "altEn": "Grilled chicken drink course meal",
       "altJa": "グリルチキン付き飲み放題コース料理",
       "featured": false,
-      "sourceUrl": "https://tblg.k-img.com/restaurant/images/Rvw/99733/640x640_rect_99733839.jpg",
       "posterType": "owner",
       "reusedFrom": "food-013",
       "sourceOrder": 5

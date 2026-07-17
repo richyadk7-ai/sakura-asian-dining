@@ -35,7 +35,6 @@ export type Course = {
   itemCount?: number;
   allYouCanEat: boolean;
   allYouCanDrink: boolean;
-  tabelogUrl: string;
   imageId?: string;
   enabled: boolean;
 };
@@ -83,12 +82,6 @@ export type PhotoQualityResult = {
   flags: Array<"tiny" | "blurry" | "underexposed" | "corrupted">;
   included: boolean;
   reason?: string;
-};
-
-export type ReservationHandoff = {
-  date: string;
-  time: string;
-  guests: number;
 };
 
 export type ReservationStatus = "pending" | "confirmed" | "rejected" | "cancelled" | "completed" | "no_show";

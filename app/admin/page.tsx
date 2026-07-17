@@ -7,6 +7,7 @@ import { allMenuItems } from "@/data/menu";
 import { restaurant } from "@/data/restaurant";
 import { en } from "@/locales/en";
 import { ja } from "@/locales/ja";
+import { validateContentDocument } from "@/lib/content-validation";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { login, logout } from "@/app/admin/actions";
@@ -39,7 +40,11 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
   ]);
   const draftMap = new Map((drafts ?? []).map((item) => [item.id, item]));
   const publishedMap = new Map((published ?? []).map((item) => [item.id, item.published_at]));
-  const documents = (Object.keys(staticDocuments) as ContentDocument["id"][]).map((id) => ({ id, payload: draftMap.get(id)?.payload ?? staticDocuments[id], publishedAt: publishedMap.get(id) ?? null }));
+  const documents = (Object.keys(staticDocuments) as ContentDocument["id"][]).map((id) => {
+    const draftPayload = draftMap.get(id)?.payload;
+    const parsed = draftPayload ? validateContentDocument(id, draftPayload) : null;
+    return { id, payload: parsed?.success ? parsed.data : staticDocuments[id], publishedAt: publishedMap.get(id) ?? null };
+  });
   return <AdminFrame><AdminDashboard initialDocuments={documents} inventory={inventory as ImageInventoryEntry[]} photoRows={photoRows ?? []} /></AdminFrame>;
 }
 

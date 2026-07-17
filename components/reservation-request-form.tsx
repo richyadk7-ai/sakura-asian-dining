@@ -3,10 +3,8 @@
 import { CalendarDays, CheckCircle2, Clock3, Mail, Phone, ShieldCheck, UserRound, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useRef, useState, type FormEvent } from "react";
-import { ExternalLink } from "@/components/external-link";
 import { courses } from "@/data/courses";
 import { restaurant } from "@/data/restaurant";
-import { TABELOG_AVAILABILITY_URL } from "@/lib/constants";
 import { getRequestableTimes, getTokyoNow, MAX_RESERVATION_GUESTS, MIN_RESERVATION_GUESTS, parseReservationConfirmation, reservationIssueField, reservationRequestSchema } from "@/lib/reservation-request";
 import type { Dictionary } from "@/locales";
 import type { Course, Locale, ReservationOccasion, RestaurantInfo, SeatingPreference } from "@/types";
@@ -128,7 +126,6 @@ export function ReservationRequestForm({ locale, dictionary, restaurantInfo = re
         <button className="button button-gold" type="submit" disabled={submitting || !requestableTimes.length}>{submitting ? dictionary.reservation.submitting : dictionary.reservation.submit}</button>
       </form>
       <div className="reservation-fallbacks">
-        <ExternalLink className="text-link" href={TABELOG_AVAILABILITY_URL} showIcon>{dictionary.reservation.fallback}</ExternalLink>
         <a className="text-link" href={`tel:${restaurantInfo.reservationPhone}`}>{dictionary.reservation.phoneFallback} {restaurantInfo.reservationPhone}</a>
       </div>
     </div>

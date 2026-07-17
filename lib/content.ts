@@ -11,8 +11,10 @@ export async function getPublishedPayload<T>(id: ContentDocument["id"], fallback
     const { url, key } = supabaseEnvironment();
     const client = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
     const { data, error } = await client.from("published_content").select("payload").eq("id", id).maybeSingle();
-    if (error || !data?.payload || !validateContentDocument(id, data.payload).success) return fallback;
-    return data.payload as T;
+    if (error || !data?.payload) return fallback;
+    const parsed = validateContentDocument(id, data.payload);
+    if (!parsed.success) return fallback;
+    return parsed.data as T;
   } catch { return fallback; }
 }
 

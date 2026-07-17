@@ -14,11 +14,11 @@ export const en = {
   common: {
     viewMenu: "View menu",
     viewCourses: "Explore courses",
-    reserve: "Reserve on Tabelog",
+    reserve: "Reserve directly with Sakura",
     learnMore: "Learn more",
     viewAll: "View all",
     external: "Opens an external site in a new tab",
-    sourceNotice: "Menu and pricing may change. Confirm current details on Tabelog.",
+    sourceNotice: "Menu and pricing may change. Contact Sakura for current details.",
     taxIncluded: "Tax included",
     loading: "Preparing your table",
     location: "Takadanobaba, Tokyo",
@@ -48,7 +48,7 @@ export const en = {
     galleryTitle: "A real look at Sakura",
     accessTitle: "Easy to reach, easy to stay",
     finalTitle: "Your table in Takadanobaba is waiting",
-    finalBody: "Choose a time and continue securely to Tabelog to check availability and complete your reservation.",
+    finalBody: "Choose a date and time and send your reservation request directly to Sakura.",
   },
   menu: {
     title: "The complete menu",
@@ -72,7 +72,7 @@ export const en = {
   },
   courses: {
     title: "Courses for gatherings",
-    intro: "Five current Tabelog courses for parties, group dinners and easy evenings with food and drinks included.",
+    intro: "Five Sakura courses for parties, group dinners and easy evenings with food and drinks included.",
     dishes: "dishes",
     minutes: "minutes",
     allEat: "All-you-can-eat",
@@ -94,7 +94,6 @@ export const en = {
     next: "Next photograph",
     close: "Close gallery",
     counter: "Photograph {current} of {total}",
-    sourceLink: "View the reference gallery on Tabelog",
   },
   about: {
     title: "A welcoming Asian dining bar",
@@ -148,10 +147,7 @@ export const en = {
     privacySummary: "Your details are stored securely for managing this reservation request and are available only to authorized Sakura staff. Submitting a request does not guarantee a table. Sakura will not treat the request as confirmed until staff approve it.",
     submit: "Submit reservation request",
     submitting: "Submitting request…",
-    continue: "Check availability on Tabelog",
-    opening: "Opening Tabelog reservation…",
     notice: "Every new request is recorded as Pending. Your table is not confirmed until Sakura staff approve the request.",
-    fallback: "Open Tabelog’s availability section",
     phoneFallback: "Prefer to speak with someone? Call the reservation line.",
     groups: "Groups & parties",
     groupsBody: "Courses serve groups of two and up. The current listing accepts seated reservations up to 40 guests; contact the restaurant for private gatherings.",
@@ -164,7 +160,7 @@ export const en = {
     agreementRequired: "Agreement is required before submitting.",
     requiredFields: "Complete all required fields.",
     noTimes: "No request times remain today. Choose a future date.",
-    serviceUnavailable: "Online reservation requests are temporarily unavailable. Please use the telephone or Tabelog fallback below.",
+    serviceUnavailable: "Online reservation requests are temporarily unavailable. Please call the restaurant using the number below.",
     submissionFailed: "The request could not be submitted. Nothing was booked. Please try again or call the restaurant.",
     confirmationTitle: "Reservation request received",
     confirmationIntro: "Sakura has received your request. Please keep the reference below.",
@@ -178,7 +174,7 @@ export const en = {
   },
   footer: {
     tagline: "Indian, Nepalese and Asian dining in Takadanobaba.",
-    verify: "Information last checked July 17, 2026. Confirm current details on Tabelog.",
+    verify: "Information last checked July 17, 2026. Contact Sakura for current details.",
     admin: "Owner dashboard",
   },
 } as const;

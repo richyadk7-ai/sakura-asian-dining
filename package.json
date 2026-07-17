@@ -15,7 +15,6 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "photos:inventory": "tsx scripts/generate-image-inventory.ts",
-    "photos:import-tabelog": "tsx scripts/import-tabelog-owner-photos.ts",
     "photos:audit": "tsx scripts/audit-photos.ts",
     "audit:source": "tsx scripts/generate-source-audit.ts",
     "check": "npm run lint && npm run typecheck && npm run test && npm run build"

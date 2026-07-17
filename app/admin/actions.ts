@@ -56,8 +56,8 @@ export async function saveDraft(formData: FormData) {
   if (!["restaurant", "menu", "courses", "pages"].includes(id)) throw new Error("Unsupported document");
   let payload: unknown;
   try { payload = JSON.parse(String(formData.get("payload"))); } catch { throw new Error("Draft must be valid JSON"); }
-  assertValidContentDocument(id, payload);
-  const { error } = await client.from("content_drafts").upsert({ id, payload, updated_by: user.id, updated_at: new Date().toISOString() });
+  const sanitizedPayload = assertValidContentDocument(id, payload);
+  const { error } = await client.from("content_drafts").upsert({ id, payload: sanitizedPayload, updated_by: user.id, updated_at: new Date().toISOString() });
   if (error) throw new Error(error.message);
   revalidatePath("/admin");
 }
@@ -67,7 +67,9 @@ export async function publishDocument(formData: FormData) {
   const id = String(formData.get("id")) as ContentDocument["id"];
   const { data: draft } = await client.from("content_drafts").select("payload").eq("id", id).maybeSingle();
   if (!draft) throw new Error("Save a valid draft before publishing");
-  assertValidContentDocument(id, draft.payload);
+  const sanitizedPayload = assertValidContentDocument(id, draft.payload);
+  const { error: cleanupError } = await client.from("content_drafts").update({ payload: sanitizedPayload }).eq("id", id);
+  if (cleanupError) throw new Error(cleanupError.message);
   const { error } = await client.rpc("publish_content_document", { document_id: id });
   if (error) throw new Error(error.message);
   revalidatePath("/", "layout");

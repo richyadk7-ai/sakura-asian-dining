@@ -4,9 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Images, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { ExternalLink } from "@/components/external-link";
 import { authorizedPhotos } from "@/data/photos";
-import { TABELOG_GALLERY_URL } from "@/lib/constants";
 import type { Dictionary } from "@/locales";
 import type { Locale, RestaurantPhotoCategory } from "@/types";
 
@@ -59,7 +57,6 @@ export function Gallery({ locale, dictionary, preview = false, photoData = autho
         <p className="eyebrow">Photo launch dependency</p>
         <h2>{dictionary.common.photoPending}</h2>
         <p>{dictionary.common.photoPendingBody}</p>
-        <ExternalLink className="button button-outline" href={TABELOG_GALLERY_URL} showIcon>{dictionary.gallery.sourceLink}</ExternalLink>
       </div>
     );
   }

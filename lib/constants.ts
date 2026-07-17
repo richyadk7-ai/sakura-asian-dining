@@ -1,10 +1,5 @@
 export const SITE_NAME_EN = "Sakura Asian Dining & Bar";
 export const SITE_NAME_JA = "さくらアジアンダイニング&バー";
-export const RESTAURANT_CODE = "13218334";
-export const TABELOG_ORIGIN = "https://tabelog.com";
-export const TABELOG_LISTING_URL = `${TABELOG_ORIGIN}/tokyo/A1305/A130503/${RESTAURANT_CODE}/`;
-export const TABELOG_AVAILABILITY_URL = `${TABELOG_LISTING_URL}?cid=faq_yoyaku`;
-export const TABELOG_GALLERY_URL = `${TABELOG_LISTING_URL}dtlphotolst/`;
 export const GOOGLE_MAPS_URL =
   "https://www.google.com/maps/search/?api=1&query=%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%96%B0%E5%AE%BF%E5%8C%BA%E9%AB%98%E7%94%B0%E9%A6%AC%E5%A0%B43-22-5%20%E7%9B%B8%E6%B2%A2%E3%83%93%E3%83%AB";
 

@@ -2,11 +2,10 @@ import { describe, expect, it } from "vitest";
 import inventory from "@/data/authorized-image-inventory.json";
 import manifest from "@/data/photo-manifest.json";
 import sourceReport from "@/data/source-audit.json";
-import ownerPhotoSources from "@/data/tabelog-owner-photo-sources.json";
 import { courses } from "@/data/courses";
 import { drinkItems, foodItems, lunchItems, menuPhotoEntries } from "@/data/menu";
 
-const photoManifest = manifest as Array<{ id: string; category: string; authorized: boolean; excluded?: boolean }>;
+const photoManifest = manifest as Array<{ id: string; src: string; category: string; authorized: boolean; excluded?: boolean }>;
 
 describe("audited reference datasets", () => {
   it("contains every audited menu entry", () => {
@@ -31,12 +30,9 @@ describe("audited reference datasets", () => {
     expect(photoManifest.every((photo) => photo.authorized && !photo.excluded)).toBe(true);
   });
 
-  it("publishes every unique restaurant-owner photo and no customer upload", () => {
-    expect(ownerPhotoSources.ownerPhotoCount).toBe(55);
-    expect(ownerPhotoSources.excludedCustomerPhotoCount).toBe(92);
-    expect(ownerPhotoSources.sources).toHaveLength(55);
-    expect(ownerPhotoSources.sources.every((photo) => photo.posterType === "owner")).toBe(true);
+  it("publishes every authorized restaurant photograph from local assets", () => {
     expect(photoManifest).toHaveLength(55);
+    expect(photoManifest.every((photo) => photo.src.startsWith("/images/originals/"))).toBe(true);
     expect(Object.fromEntries([...Map.groupBy(photoManifest, (photo) => photo.category)].map(([category, photos]) => [category, photos.length]))).toEqual({ food: 37, drinks: 3, interior: 14, exterior: 1 });
   });
 

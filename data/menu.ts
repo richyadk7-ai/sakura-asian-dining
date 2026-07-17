@@ -200,7 +200,7 @@ const drinkRows: RawMenuItem[] = [
   ["ソフトドリンク", "Soft Drinks", "ウーロン茶", "Oolong Tea", "¥299"],
   ["ソフトドリンク", "Soft Drinks", "コーヒー", "Coffee — Hot or Iced", "¥299"],
   ["ソフトドリンク", "Soft Drinks", "マサラチャイ", "Masala Chai", "¥299"],
-  ["飲み放題", "Drink Plans", "飲み放題", "All-You-Can-Drink Selection", "See the current course details on Tabelog"],
+  ["飲み放題", "Drink Plans", "飲み放題", "All-You-Can-Drink Selection", "See the current course options for details"],
   ["■■", "Information", "備考", "Drink Menu Notes", "All listed prices include tax.", { kind: "notice" }],
 ];
 
@@ -248,12 +248,5 @@ export const menuPhotoEntries = Array.from({ length: 17 }, (_, index) => ({
 
 export const sourceAudit = {
   lastVerified: "2026-07-17",
-  sources: {
-    food: "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
-    drinks: "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
-    lunch: "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
-    courses: "https://tabelog.com/tokyo/A1305/A130503/13218334/party/",
-    photos: "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
-  },
   counts: { food: 100, courses: 5, drinks: 74, lunch: 27, photos: 17 },
 };
