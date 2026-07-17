@@ -40,6 +40,9 @@ yarn-error.log*
 
 # vercel
 .vercel
+ios/**/DerivedData/
+ios/**/*.xcuserstate
+ios/**/*.xcuserdata/
 
 # typescript
 *.tsbuildinfo

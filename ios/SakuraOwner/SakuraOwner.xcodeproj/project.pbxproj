@@ -1,0 +1,534 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1465E4BABD5DB376BA893F9F /* ReservationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F3C42F7A6F16BD979CACE0 /* ReservationDetailView.swift */; };
+		402606FA42FEB57C88A027F6 /* SupabaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B8B5AFECCF4C9DA9BF9A31 /* SupabaseClient.swift */; };
+		568C453AECECFAAED21EBCDC /* ReservationDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FC9C7617F371CE3D7C9FC9 /* ReservationDashboardView.swift */; };
+		5FB4756073FF1A2482B401A1 /* ReservationAlertPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A43F31119F495E82D3D58E0 /* ReservationAlertPlayer.swift */; };
+		642C47E3551D293C3D13D5C8 /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9B095F515D08450A32671A /* Reservation.swift */; };
+		6ABD31C02B5A45C892CD9DC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 891FC7E709A4F943BAE6600C /* Assets.xcassets */; };
+		7EC86428F091617F9788FBE5 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC28A6D8DDA1E434BCF3DC6E /* SignInView.swift */; };
+		80534584A9FF981CEFA5BE3E /* SakuraTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA85AF3EE02F5ABDEFA6534D /* SakuraTheme.swift */; };
+		86309CA43B42A88E165DF4E8 /* AuthSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB00042CA86353D511B0BD71 /* AuthSession.swift */; };
+		8CC3979235A33C5CF57C8AA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5531DF03C82E4C7B14801BB /* AppDelegate.swift */; };
+		8F014B342620CD84BB436E38 /* PreviewFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF9A7273C80DDA165210D28 /* PreviewFixtures.swift */; };
+		A7503228D2A7F25387A74227 /* SakuraOwnerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DD1AF3C309E26EF01C400B /* SakuraOwnerApp.swift */; };
+		AE0D3154C718FD7427B53255 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34D5536A50E1FCAA88E2D5A /* KeychainStore.swift */; };
+		D717E96868502477362AAB31 /* ReservationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2654DB5CF088EE40614A0122 /* ReservationListView.swift */; };
+		D8315196E5B162BA788615E1 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BF12084394FABD9837FE91 /* AppState.swift */; };
+		F6965D33D37718B8942CDCD4 /* ReservationModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7255AD2740074F37DD16E6FE /* ReservationModelTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6E75DF3F53BC90670B356EB4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 99FBE4646302C0D1C0EF1B09 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7BA78735D2432F614A943143;
+			remoteInfo = SakuraOwner;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		01F3C42F7A6F16BD979CACE0 /* ReservationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationDetailView.swift; sourceTree = "<group>"; };
+		2654DB5CF088EE40614A0122 /* ReservationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationListView.swift; sourceTree = "<group>"; };
+		28DD1AF3C309E26EF01C400B /* SakuraOwnerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakuraOwnerApp.swift; sourceTree = "<group>"; };
+		3A43F31119F495E82D3D58E0 /* ReservationAlertPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationAlertPlayer.swift; sourceTree = "<group>"; };
+		4E9B095F515D08450A32671A /* Reservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reservation.swift; sourceTree = "<group>"; };
+		7255AD2740074F37DD16E6FE /* ReservationModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationModelTests.swift; sourceTree = "<group>"; };
+		835F349C95E3E7C58BDA22B0 /* SakuraOwner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SakuraOwner.entitlements; sourceTree = "<group>"; };
+		891FC7E709A4F943BAE6600C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		90FC9C7617F371CE3D7C9FC9 /* ReservationDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationDashboardView.swift; sourceTree = "<group>"; };
+		9F35DD3373A74F7908E4A164 /* SakuraOwnerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SakuraOwnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3B8B5AFECCF4C9DA9BF9A31 /* SupabaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseClient.swift; sourceTree = "<group>"; };
+		A4BF12084394FABD9837FE91 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		B5531DF03C82E4C7B14801BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BAF9A7273C80DDA165210D28 /* PreviewFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewFixtures.swift; sourceTree = "<group>"; };
+		D34D5536A50E1FCAA88E2D5A /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		DA85AF3EE02F5ABDEFA6534D /* SakuraTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SakuraTheme.swift; sourceTree = "<group>"; };
+		DB00042CA86353D511B0BD71 /* AuthSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSession.swift; sourceTree = "<group>"; };
+		F21A66B63F586A28456F18FE /* SakuraOwner.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SakuraOwner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC28A6D8DDA1E434BCF3DC6E /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		048A485A5039F59DAA1F9208 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D34D5536A50E1FCAA88E2D5A /* KeychainStore.swift */,
+				3A43F31119F495E82D3D58E0 /* ReservationAlertPlayer.swift */,
+				A3B8B5AFECCF4C9DA9BF9A31 /* SupabaseClient.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		0A505F53DDAF936C50D09D2A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F21A66B63F586A28456F18FE /* SakuraOwner.app */,
+				9F35DD3373A74F7908E4A164 /* SakuraOwnerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0D14029CAF8ECF9CF6F49E95 /* Reservations */ = {
+			isa = PBXGroup;
+			children = (
+				90FC9C7617F371CE3D7C9FC9 /* ReservationDashboardView.swift */,
+				01F3C42F7A6F16BD979CACE0 /* ReservationDetailView.swift */,
+				2654DB5CF088EE40614A0122 /* ReservationListView.swift */,
+			);
+			path = Reservations;
+			sourceTree = "<group>";
+		};
+		1A51528415C8EC220D93CEB3 = {
+			isa = PBXGroup;
+			children = (
+				211C5961F6320894AD39E805 /* SakuraOwner */,
+				ACAB70B471D246B18B12DE1D /* SakuraOwnerTests */,
+				0A505F53DDAF936C50D09D2A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		211C5961F6320894AD39E805 /* SakuraOwner */ = {
+			isa = PBXGroup;
+			children = (
+				835F349C95E3E7C58BDA22B0 /* SakuraOwner.entitlements */,
+				2FA3BA2E5F5EB67644343845 /* App */,
+				EA4E2773136EF12912FB155D /* Design */,
+				A4594CDE42D0B98A30DC041B /* Features */,
+				45E48C6806149E268B380C0F /* Models */,
+				B54434862EF3F58E8B73AA8A /* Resources */,
+				048A485A5039F59DAA1F9208 /* Services */,
+			);
+			path = SakuraOwner;
+			sourceTree = "<group>";
+		};
+		2FA3BA2E5F5EB67644343845 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B5531DF03C82E4C7B14801BB /* AppDelegate.swift */,
+				A4BF12084394FABD9837FE91 /* AppState.swift */,
+				28DD1AF3C309E26EF01C400B /* SakuraOwnerApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		45E48C6806149E268B380C0F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DB00042CA86353D511B0BD71 /* AuthSession.swift */,
+				BAF9A7273C80DDA165210D28 /* PreviewFixtures.swift */,
+				4E9B095F515D08450A32671A /* Reservation.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A4594CDE42D0B98A30DC041B /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				CBC894D9D8635926C711E1F5 /* Authentication */,
+				0D14029CAF8ECF9CF6F49E95 /* Reservations */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		ACAB70B471D246B18B12DE1D /* SakuraOwnerTests */ = {
+			isa = PBXGroup;
+			children = (
+				7255AD2740074F37DD16E6FE /* ReservationModelTests.swift */,
+			);
+			path = SakuraOwnerTests;
+			sourceTree = "<group>";
+		};
+		B54434862EF3F58E8B73AA8A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				891FC7E709A4F943BAE6600C /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CBC894D9D8635926C711E1F5 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				FC28A6D8DDA1E434BCF3DC6E /* SignInView.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		EA4E2773136EF12912FB155D /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				DA85AF3EE02F5ABDEFA6534D /* SakuraTheme.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7BA78735D2432F614A943143 /* SakuraOwner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9BED0A7D0D7C0AD43BDB5661 /* Build configuration list for PBXNativeTarget "SakuraOwner" */;
+			buildPhases = (
+				DC27054E1925B103DF250835 /* Sources */,
+				DD8FC58CD1A218AE7D73A39C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SakuraOwner;
+			packageProductDependencies = (
+			);
+			productName = SakuraOwner;
+			productReference = F21A66B63F586A28456F18FE /* SakuraOwner.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CF30592A26E5F661389A576C /* SakuraOwnerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F91EA95C794123555052A1E6 /* Build configuration list for PBXNativeTarget "SakuraOwnerTests" */;
+			buildPhases = (
+				2055EA4456EFD04998EAABDA /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4D4981B5ECFB7E5B82C16816 /* PBXTargetDependency */,
+			);
+			name = SakuraOwnerTests;
+			packageProductDependencies = (
+			);
+			productName = SakuraOwnerTests;
+			productReference = 9F35DD3373A74F7908E4A164 /* SakuraOwnerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		99FBE4646302C0D1C0EF1B09 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 5B23D6881A9D49267EF36B8D /* Build configuration list for PBXProject "SakuraOwner" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 1A51528415C8EC220D93CEB3;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0A505F53DDAF936C50D09D2A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7BA78735D2432F614A943143 /* SakuraOwner */,
+				CF30592A26E5F661389A576C /* SakuraOwnerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DD8FC58CD1A218AE7D73A39C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6ABD31C02B5A45C892CD9DC4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2055EA4456EFD04998EAABDA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6965D33D37718B8942CDCD4 /* ReservationModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC27054E1925B103DF250835 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CC3979235A33C5CF57C8AA6 /* AppDelegate.swift in Sources */,
+				D8315196E5B162BA788615E1 /* AppState.swift in Sources */,
+				86309CA43B42A88E165DF4E8 /* AuthSession.swift in Sources */,
+				AE0D3154C718FD7427B53255 /* KeychainStore.swift in Sources */,
+				8F014B342620CD84BB436E38 /* PreviewFixtures.swift in Sources */,
+				642C47E3551D293C3D13D5C8 /* Reservation.swift in Sources */,
+				5FB4756073FF1A2482B401A1 /* ReservationAlertPlayer.swift in Sources */,
+				568C453AECECFAAED21EBCDC /* ReservationDashboardView.swift in Sources */,
+				1465E4BABD5DB376BA893F9F /* ReservationDetailView.swift in Sources */,
+				D717E96868502477362AAB31 /* ReservationListView.swift in Sources */,
+				A7503228D2A7F25387A74227 /* SakuraOwnerApp.swift in Sources */,
+				80534584A9FF981CEFA5BE3E /* SakuraTheme.swift in Sources */,
+				7EC86428F091617F9788FBE5 /* SignInView.swift in Sources */,
+				402606FA42FEB57C88A027F6 /* SupabaseClient.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4D4981B5ECFB7E5B82C16816 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7BA78735D2432F614A943143 /* SakuraOwner */;
+			targetProxy = 6E75DF3F53BC90670B356EB4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		30718011D864C5CD05C1F8AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sakuraasiandining.owner.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SakuraOwner.app/SakuraOwner";
+			};
+			name = Debug;
+		};
+		37E858291FB8DF94FD457A95 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		86C75C631BBB0D40C1DAA116 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		BBB897CFBB9FAE28A377BA68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sakuraasiandining.owner.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SakuraOwner.app/SakuraOwner";
+			};
+			name = Release;
+		};
+		C15367DEA604BC7518C10FEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SakuraOwner/SakuraOwner.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Sakura Reservations";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sakuraasiandining.owner;
+				PRODUCT_NAME = SakuraOwner;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C7D277223174F56684A70E94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SakuraOwner/SakuraOwner.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Sakura Reservations";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sakuraasiandining.owner;
+				PRODUCT_NAME = SakuraOwner;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5B23D6881A9D49267EF36B8D /* Build configuration list for PBXProject "SakuraOwner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37E858291FB8DF94FD457A95 /* Debug */,
+				86C75C631BBB0D40C1DAA116 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9BED0A7D0D7C0AD43BDB5661 /* Build configuration list for PBXNativeTarget "SakuraOwner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C7D277223174F56684A70E94 /* Debug */,
+				C15367DEA604BC7518C10FEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F91EA95C794123555052A1E6 /* Build configuration list for PBXNativeTarget "SakuraOwnerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30718011D864C5CD05C1F8AA /* Debug */,
+				BBB897CFBB9FAE28A377BA68 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 99FBE4646302C0D1C0EF1B09 /* Project object */;
+}
