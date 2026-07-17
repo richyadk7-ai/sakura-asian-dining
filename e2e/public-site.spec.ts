@@ -61,13 +61,17 @@ test("sakura motion scales for iPhone and respects reduced-motion preferences", 
   await page.goto("/en");
   const petals = page.locator("[data-sakura-petals] .sakura-petal");
   await expect(petals).toHaveCount(24);
+  await expect(page.locator(".scroll-progress-fill")).toHaveCount(1);
 
   await page.setViewportSize({ width: 390, height: 844 });
   const mobilePetalCount = await petals.evaluateAll((items) => items.filter((item) => getComputedStyle(item).display !== "none").length);
   expect(mobilePetalCount).toBe(13);
+  const viewportWidths = await page.evaluate(() => ({ viewport: window.innerWidth, document: document.documentElement.scrollWidth }));
+  expect(viewportWidths.document).toBeLessThanOrEqual(viewportWidths.viewport);
 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(page.locator("[data-sakura-petals]")).toHaveCSS("display", "none");
+  await expect(page.locator(".film-grain")).toHaveCSS("display", "none");
 });
 
 test("customer reservation request validates and shows a private pending confirmation", async ({ page }) => {

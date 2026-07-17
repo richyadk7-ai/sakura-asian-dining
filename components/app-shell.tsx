@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { LoadingScreen } from "@/components/loading-screen";
+import { CinematicEffects } from "@/components/cinematic-effects";
 import { SakuraPetals } from "@/components/sakura-petals";
 import { restaurant } from "@/data/restaurant";
 import { alternateLocale, localizePath } from "@/lib/locale";
@@ -73,6 +74,7 @@ export function AppShell({ children, locale, dictionary, restaurantInfo = restau
   return (
     <>
       <LoadingScreen dictionary={dictionary} />
+      <CinematicEffects />
       <SakuraPetals />
       <a href="#main-content" className="skip-link">Skip to content</a>
       <header className={`site-header ${scrolled ? "is-scrolled" : ""}`}>

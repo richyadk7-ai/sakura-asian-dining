@@ -21,6 +21,9 @@ export function HomePage({ locale, dictionary, restaurantInfo = restaurant, menu
     <>
       <section className="home-hero">
         <div className="hero-spotlight" aria-hidden="true" />
+        <div className="hero-wordmark" aria-hidden="true">Sakura</div>
+        <div className="hero-orbit hero-orbit-one" aria-hidden="true" />
+        <div className="hero-orbit hero-orbit-two" aria-hidden="true" />
         <div className="container home-hero-grid">
           <div className="hero-copy">
             <p className="eyebrow">{dictionary.home.eyebrow}</p>
@@ -38,6 +41,7 @@ export function HomePage({ locale, dictionary, restaurantInfo = restaurant, menu
             </div>
           </div>
           <div className={`hero-image-frame ${heroPhoto ? "has-photo" : ""}`} aria-label={heroPhoto ? (locale === "ja" ? heroPhoto.altJa : heroPhoto.altEn) : dictionary.common.photoPending}>
+            <span className="hero-frame-label" aria-hidden="true">桜 · SAKURA</span>
             {heroPhoto ? <Image src={heroPhoto.src} alt={locale === "ja" ? heroPhoto.altJa : heroPhoto.altEn} width={heroPhoto.width} height={heroPhoto.height} sizes="(max-width: 1050px) 100vw, 55vw" priority placeholder={heroPhoto.blurDataUrl ? "blur" : "empty"} blurDataURL={heroPhoto.blurDataUrl} /> : <><span className="hero-kanji" aria-hidden="true">桜</span><div><Images aria-hidden="true" /><p>{dictionary.common.photoPending}</p><small>{dictionary.common.photoPendingBody}</small></div></>}
           </div>
         </div>
