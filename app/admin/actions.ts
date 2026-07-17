@@ -25,9 +25,11 @@ export async function login(formData: FormData) {
   const client = await createSupabaseServerClient();
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
+  const requestedNext = String(formData.get("next") ?? "/admin");
+  const next = requestedNext.startsWith("/admin") && !requestedNext.startsWith("//") ? requestedNext : "/admin";
   const { error } = await client.auth.signInWithPassword({ email, password });
-  if (error) redirect(`/admin?error=${encodeURIComponent(error.message)}`);
-  redirect("/admin");
+  if (error) redirect(`${next}?error=${encodeURIComponent(error.message)}`);
+  redirect(next);
 }
 
 export async function logout() {

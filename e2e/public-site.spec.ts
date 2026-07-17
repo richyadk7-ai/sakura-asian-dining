@@ -27,19 +27,38 @@ test("all five course anchors retain their matching page", async ({ page }) => {
   for (let index = 0; index < courseUrls.length; index++) await expect(links.nth(index)).toHaveAttribute("href", new RegExp(`/party/${courseUrls[index]}$`));
 });
 
-test("reservation builds the direct official booking URL", async ({ page }) => {
+test("existing reservation calls to action open the internal request page", async ({ page }) => {
+  await page.goto("/en");
+  const internalLinks = page.locator('a[href="/en/reservation"]');
+  expect(await internalLinks.count()).toBeGreaterThanOrEqual(3);
+  await expect(page.locator(".header-reserve")).toHaveAttribute("href", "/en/reservation");
+  await page.goto("/ja");
+  await expect(page.locator(".header-reserve")).toHaveAttribute("href", "/ja/reservation");
+});
+
+test("customer reservation request validates and shows a private pending confirmation", async ({ page }) => {
+  const reference = "SKR-20260720-A1B2C3";
+  await page.route("**/api/reservations", async (route) => {
+    const request = route.request().postDataJSON();
+    await route.fulfill({
+      status: 201,
+      contentType: "application/json",
+      body: JSON.stringify({ reservation: { reservationReference: reference, customerName: request.customerName, reservationDate: request.reservationDate, reservationTime: request.reservationTime, guestCount: request.guestCount, status: "pending" }, notificationProviderConfigured: false }),
+    });
+  });
   await page.goto("/en/reservation");
-  const dateInput = page.locator('input[type="date"]');
-  const date = await dateInput.getAttribute("min");
-  expect(date).toBeTruthy();
-  await dateInput.fill(date!);
+  await page.getByLabel("Full name").fill("Aiko Tanaka");
+  await page.getByLabel("Email address").fill("aiko@example.com");
+  await page.getByLabel("Phone number").fill("+81 90-1234-5678");
   await page.getByLabel("Preferred time").selectOption("19:30");
   await page.getByLabel("Guests").selectOption("4");
-  const opened: string[] = [];
-  await page.exposeFunction("recordOpen", (url: string) => opened.push(url));
-  await page.evaluate(() => { window.open = (url) => { void (window as unknown as { recordOpen: (value: string) => void }).recordOpen(String(url)); return null; }; });
-  await page.getByRole("button", { name: /Check availability/ }).click();
-  await expect.poll(() => opened[0]).toBe(`https://tabelog.com/booking/form/new?member=4&rcd=13218334&visit_date=${date!.replaceAll("-", "")}&visit_time=1930&lid=yoyaku_rstdtl_side_calendar`);
+  await page.getByRole("checkbox").check();
+  await page.getByRole("button", { name: "Submit reservation request" }).click();
+  await expect(page).toHaveURL(new RegExp(`/en/reservation/confirmation\\?reference=${reference}$`));
+  await expect(page.getByText(reference)).toBeVisible();
+  await expect(page.getByText("Aiko Tanaka")).toBeVisible();
+  await expect(page.getByText("Pending", { exact: true }).last()).toBeVisible();
+  await expect(page.getByText(/not confirmed until Sakura staff review and approve/)).toBeVisible();
 });
 
 test("core page has no serious accessibility violations", async ({ page }) => {

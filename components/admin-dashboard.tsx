@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, CheckCircle2, Eye, ImageUp, LogOut, Save, Send, Star } from "lucide-react";
+import { AlertTriangle, CalendarCheck2, CheckCircle2, Eye, ImageUp, LogOut, Save, Send, Star } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { logout, publishDocument, publishPhoto, saveDraft, toggleFeatured, uploadPhoto } from "@/app/admin/actions";
@@ -31,7 +31,7 @@ export function AdminDashboard({ initialDocuments, inventory, photoRows }: { ini
   const [tab, setTab] = useState<ContentDocument["id"] | "photos">("restaurant");
   return (
     <div className="admin-dashboard">
-      <header className="admin-header"><div><p className="eyebrow">Protected owner area</p><h1>Sakura content studio</h1></div><div className="admin-header-actions"><Link className="button button-outline" href="/admin/preview" target="_blank"><Eye />Preview drafts</Link><form action={logout}><button className="button button-outline"><LogOut />Sign out</button></form></div></header>
+      <header className="admin-header"><div><p className="eyebrow">Protected owner area</p><h1>Sakura content studio</h1></div><div className="admin-header-actions"><Link className="button button-outline" href="/admin/reservations"><CalendarCheck2 />Reservations</Link><Link className="button button-outline" href="/admin/preview" target="_blank"><Eye />Preview drafts</Link><form action={logout}><button className="button button-outline"><LogOut />Sign out</button></form></div></header>
       <nav className="admin-tabs" aria-label="Dashboard sections">{[...initialDocuments.map((item) => item.id), "photos"].map((id) => <button key={id} className={tab === id ? "active" : ""} onClick={() => setTab(id as typeof tab)}>{id}</button>)}</nav>
       {initialDocuments.map((document) => tab === document.id ? <DocumentEditor key={document.id} document={document} /> : null)}
       {tab === "photos" ? <PhotoManager inventory={inventory} photoRows={photoRows} /> : null}

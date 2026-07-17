@@ -91,6 +91,57 @@ export type ReservationHandoff = {
   guests: number;
 };
 
+export type ReservationStatus = "pending" | "confirmed" | "rejected" | "cancelled" | "completed" | "no_show";
+export type SeatingPreference = "no_preference" | "table" | "booth";
+export type ReservationOccasion = "none" | "birthday" | "anniversary" | "business" | "celebration" | "other";
+
+export type ReservationRequest = {
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  reservationDate: string;
+  reservationTime: string;
+  guestCount: number;
+  seatingPreference: SeatingPreference;
+  occasion: ReservationOccasion;
+  allergies: string;
+  specialRequests: string;
+  preferredLanguage: Locale;
+  agreement: true;
+  submissionToken: string;
+};
+
+export type ReservationConfirmation = {
+  reservationReference: string;
+  customerName: string;
+  reservationDate: string;
+  reservationTime: string;
+  guestCount: number;
+  status: "pending";
+};
+
+export type OwnerReservation = {
+  id: string;
+  reservation_reference: string;
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  reservation_date: string;
+  reservation_time: string;
+  guest_count: number;
+  seating_preference: SeatingPreference;
+  occasion: ReservationOccasion;
+  allergies: string | null;
+  special_requests: string | null;
+  preferred_language: Locale;
+  status: ReservationStatus;
+  owner_notes: string | null;
+  created_at: string;
+  updated_at: string;
+  confirmed_at: string | null;
+  cancelled_at: string | null;
+};
+
 export type RestaurantInfo = {
   nameEn: string;
   nameJa: string;
