@@ -1,6 +1,7 @@
 import { KeyRound, ShieldAlert } from "lucide-react";
 import Link from "next/link";
 import { setOwnerPassword } from "@/app/admin/actions";
+import { AdminSessionBootstrap } from "@/components/admin-session-bootstrap";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -12,7 +13,7 @@ export default async function SetPasswordPage({ searchParams }: { searchParams: 
 
   const client = await createSupabaseServerClient();
   const { data: { user } } = await client.auth.getUser();
-  if (!user) return <AdminFrame><StatusCard title="Invitation session expired" message="Open the latest owner invitation email again. If the link has expired, request a new invitation." /></AdminFrame>;
+  if (!user) return <AdminFrame><div className="admin-auth-card"><ShieldAlert /><p className="eyebrow">Owner setup</p><h1>Confirming your invitation</h1><AdminSessionBootstrap /><Link className="button button-outline" href="/admin">Owner sign in</Link></div></AdminFrame>;
 
   const { data: allowed } = await client.from("admin_users").select("user_id").eq("user_id", user.id).maybeSingle();
   if (!allowed) return <AdminFrame><StatusCard title="Owner access was not approved" message="This authenticated account is not on the Sakura owner allowlist." /></AdminFrame>;

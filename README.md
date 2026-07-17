@@ -127,8 +127,8 @@ Setup:
 1. Create a Supabase project and copy `.env.example` to `.env.local`.
 2. Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
 3. Apply `supabase/migrations/001_initial.sql`, then `supabase/migrations/002_reservations.sql`, in that order through the Supabase SQL editor or CLI.
-4. Set the Supabase Auth Site URL to the production origin and add `https://YOUR-DOMAIN/admin/auth/confirm` plus `http://localhost:3000/admin/auth/confirm` to the allowed redirect URLs.
-5. Change the Invite user email template link to `{{ .SiteURL }}/admin/auth/confirm?token_hash={{ .TokenHash }}&type=invite`.
+4. With the default Supabase mailer, set the Auth Site URL to `https://YOUR-DOMAIN/admin/set-password`. The password page safely completes the default invitation session before showing the owner form.
+5. Add `https://YOUR-DOMAIN/admin/auth/confirm` plus `http://localhost:3000/admin/auth/confirm` to the allowed redirect URLs. If custom SMTP is configured later, its Invite user template can link to `{{ .SiteURL }}/admin/auth/confirm?token_hash={{ .TokenHash }}&type=invite` after changing `.SiteURL` back to the site origin.
 6. Send the owner an invitation through Supabase Auth.
 7. Add that Auth user UUID to the allowlist:
 
