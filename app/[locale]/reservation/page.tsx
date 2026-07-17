@@ -2,7 +2,7 @@ import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { CourseGrid } from "@/components/course-grid";
 import { PageHero } from "@/components/page-hero";
 import { ReservationRequestForm } from "@/components/reservation-request-form";
-import { courses } from "@/data/courses";
+import { courses, getCourseById } from "@/data/courses";
 import { authorizedPhotos } from "@/data/photos";
 import { restaurant } from "@/data/restaurant";
 import { getPublishedDictionary, getPublishedPayload, getPublishedPhotos } from "@/lib/content";
@@ -17,9 +17,10 @@ export async function generateMetadata({ params }: LocalePageProps) {
   return pageMetadata(lang, "reservation", d.reservation.title, d.reservation.intro);
 }
 
-export default async function ReservationPage({ params }: LocalePageProps) {
-  const { locale } = await params;
+export default async function ReservationPage({ params, searchParams }: LocalePageProps & { searchParams: Promise<{ course?: string | string[] }> }) {
+  const [{ locale }, query] = await Promise.all([params, searchParams]);
   const lang = isLocale(locale) ? locale : "en";
   const [d, restaurantInfo, courseData, photos] = await Promise.all([getPublishedDictionary(lang), getPublishedPayload("restaurant", restaurant), getPublishedPayload("courses", courses), getPublishedPhotos(authorizedPhotos)]);
-  return <><BreadcrumbJsonLd locale={lang} path="reservation" label={d.reservation.title} /><PageHero eyebrow="Sakura · Reservation" title={d.reservation.title} intro={d.reservation.intro} /><section className="section"><div className="container"><ReservationRequestForm locale={lang} dictionary={d} restaurantInfo={restaurantInfo} /></div></section><section className="section reservation-courses"><div className="container"><div className="section-heading"><p className="eyebrow">Sakura · Group dining</p><h2>{d.reservation.groups}</h2><p>{d.reservation.groupsBody}</p></div><CourseGrid locale={lang} dictionary={d} courseData={courseData} photos={photos} /></div></section></>;
+  const selectedCourse = getCourseById(query.course, courseData);
+  return <><BreadcrumbJsonLd locale={lang} path="reservation" label={d.reservation.title} /><PageHero eyebrow="Sakura · Reservation" title={d.reservation.title} intro={d.reservation.intro} /><section className="section"><div className="container"><ReservationRequestForm locale={lang} dictionary={d} restaurantInfo={restaurantInfo} courseData={courseData} initialCourseId={selectedCourse?.id} /></div></section><section className="section reservation-courses"><div className="container"><div className="section-heading"><p className="eyebrow">Sakura · Group dining</p><h2>{d.reservation.groups}</h2><p>{d.reservation.groupsBody}</p></div><CourseGrid locale={lang} dictionary={d} courseData={courseData} photos={photos} /></div></section></>;
 }

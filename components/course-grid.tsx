@@ -6,7 +6,7 @@ import { authorizedPhotos } from "@/data/photos";
 import type { Dictionary } from "@/locales";
 import type { Course, Locale, RestaurantPhoto } from "@/types";
 
-export function CourseGrid({ locale, dictionary, limit, courseData = courses, photos = authorizedPhotos }: { locale: Locale; dictionary: Dictionary; limit?: number; courseData?: Course[]; photos?: RestaurantPhoto[] }) {
+export function CourseGrid({ locale, dictionary, limit, courseData = courses, photos = authorizedPhotos, useInternalReservationLinks = false }: { locale: Locale; dictionary: Dictionary; limit?: number; courseData?: Course[]; photos?: RestaurantPhoto[]; useInternalReservationLinks?: boolean }) {
   const visible = courseData.filter((course) => course.enabled).slice(0, limit);
   return (
     <div className="course-grid">
@@ -29,7 +29,7 @@ export function CourseGrid({ locale, dictionary, limit, courseData = courses, ph
             </dl>
             <div className="course-card-footer">
               <div className="course-price">{course.previousPrice ? <del>{course.previousPrice}</del> : null}<strong>{course.price}</strong><small>{dictionary.common.taxIncluded}</small></div>
-              <ExternalLink className="text-link" href={course.tabelogUrl} showIcon aria-label={`${dictionary.courses.viewReserve}: ${locale === "ja" ? course.nameJa : course.nameEn}`}>
+              <ExternalLink className="text-link" href={useInternalReservationLinks ? `/${locale}/reservation?course=${encodeURIComponent(course.id)}` : course.tabelogUrl} showIcon aria-label={`${dictionary.courses.viewReserve}: ${locale === "ja" ? course.nameJa : course.nameEn}`}>
                 {dictionary.courses.viewReserve}
               </ExternalLink>
             </div>

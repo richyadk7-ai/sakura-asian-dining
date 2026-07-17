@@ -85,3 +85,12 @@ export const courses: Course[] = [
     enabled: true,
   },
 ];
+
+export function getCourseById(value: unknown, courseData: Course[] = courses) {
+  if (typeof value !== "string") return undefined;
+  return courseData.find((course) => course.id === value && course.enabled);
+}
+
+export function isCourseId(value: unknown): value is string {
+  return Boolean(getCourseById(value));
+}

@@ -8,6 +8,7 @@ afterEach(cleanup);
 const base: OwnerReservation = {
   id: "123e4567-e89b-42d3-a456-426614174000",
   reservation_reference: "SKR-20260720-A1B2C3",
+  course_id: "welcome-party-course",
   customer_name: "Aiko Tanaka",
   customer_email: "aiko@example.com",
   customer_phone: "+81 90-1234-5678",
@@ -56,5 +57,10 @@ describe("protected owner reservation dashboard", () => {
     fireEvent.change(screen.getByLabelText("Filter by status"), { target: { value: "confirmed" } });
     expect(screen.getByRole("heading", { name: "Ken Sato" })).toBeVisible();
     expect(screen.queryByRole("heading", { name: "Aiko Tanaka" })).not.toBeInTheDocument();
+  });
+
+  it("shows the selected course in reservation details", () => {
+    render(<OwnerReservationsDashboard reservations={[base]} today="2026-07-20" />);
+    expect(screen.getByText("Welcome & Farewell Party: 8 Dishes, Unlimited Naan & Rice, 120-Minute Drink Plan")).toBeInTheDocument();
   });
 });

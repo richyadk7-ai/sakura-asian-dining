@@ -33,6 +33,7 @@ export async function POST(request: NextRequest) {
   const row = Array.isArray(data) ? data[0] : data;
   const confirmation = reservationConfirmationSchema.safeParse({
     reservationReference: row?.reservation_reference,
+    courseId: row?.course_id ?? null,
     customerName: row?.customer_name,
     reservationDate: row?.reservation_date,
     reservationTime: typeof row?.reservation_time === "string" ? row.reservation_time.slice(0, 5) : row?.reservation_time,

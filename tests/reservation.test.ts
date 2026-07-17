@@ -9,6 +9,7 @@ function futureDate(days = 1) {
 }
 
 const validRequest = () => ({
+  courseId: "welcome-party-course",
   customerName: "Aiko Tanaka",
   customerEmail: "aiko@example.com",
   customerPhone: "+81 90-1234-5678",
@@ -42,6 +43,7 @@ describe("reservation request validation", () => {
     ["invalid phone", { customerPhone: "123" }],
     ["invalid time", { reservationTime: "16:15" }],
     ["too many guests", { guestCount: 41 }],
+    ["unknown course", { courseId: "not-a-real-course" }],
     ["missing agreement", { agreement: false }],
   ])("rejects %s", (_label, change) => expect(reservationRequestSchema.safeParse({ ...validRequest(), ...change }).success).toBe(false));
 });

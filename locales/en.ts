@@ -124,6 +124,8 @@ export const en = {
   reservation: {
     title: "Request a table at Sakura",
     intro: "Send your preferred date, time and party details directly to Sakura. Restaurant staff will review every request before confirming it.",
+    course: "Course",
+    noCourse: "No course selected",
     fullName: "Full name",
     email: "Email address",
     phone: "Phone number",
@@ -158,6 +160,7 @@ export const en = {
     invalidEmail: "Enter a valid email address.",
     invalidPhone: "Enter a valid phone number with 7 to 15 digits.",
     invalidGuests: "Guest count must be between 1 and 40.",
+    invalidCourse: "The selected course is not available.",
     agreementRequired: "Agreement is required before submitting.",
     requiredFields: "Complete all required fields.",
     noTimes: "No request times remain today. Choose a future date.",

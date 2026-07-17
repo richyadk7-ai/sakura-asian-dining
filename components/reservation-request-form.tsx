@@ -4,11 +4,12 @@ import { CalendarDays, CheckCircle2, Clock3, Mail, Phone, ShieldCheck, UserRound
 import { useRouter } from "next/navigation";
 import { useMemo, useRef, useState, type FormEvent } from "react";
 import { ExternalLink } from "@/components/external-link";
+import { courses } from "@/data/courses";
 import { restaurant } from "@/data/restaurant";
 import { TABELOG_AVAILABILITY_URL } from "@/lib/constants";
 import { getRequestableTimes, getTokyoNow, MAX_RESERVATION_GUESTS, MIN_RESERVATION_GUESTS, parseReservationConfirmation, reservationIssueField, reservationRequestSchema } from "@/lib/reservation-request";
 import type { Dictionary } from "@/locales";
-import type { Locale, ReservationOccasion, RestaurantInfo, SeatingPreference } from "@/types";
+import type { Course, Locale, ReservationOccasion, RestaurantInfo, SeatingPreference } from "@/types";
 
 function issueMessage(field: string, dictionary: Dictionary) {
   if (field === "customerEmail") return dictionary.reservation.invalidEmail;
@@ -16,11 +17,12 @@ function issueMessage(field: string, dictionary: Dictionary) {
   if (field === "reservationDate") return dictionary.reservation.invalidDate;
   if (field === "reservationTime") return dictionary.reservation.invalidTime;
   if (field === "guestCount") return dictionary.reservation.invalidGuests;
+  if (field === "courseId") return dictionary.reservation.invalidCourse;
   if (field === "agreement") return dictionary.reservation.agreementRequired;
   return dictionary.reservation.requiredFields;
 }
 
-export function ReservationRequestForm({ locale, dictionary, restaurantInfo = restaurant }: { locale: Locale; dictionary: Dictionary; restaurantInfo?: RestaurantInfo }) {
+export function ReservationRequestForm({ locale, dictionary, restaurantInfo = restaurant, courseData = courses, initialCourseId = null }: { locale: Locale; dictionary: Dictionary; restaurantInfo?: RestaurantInfo; courseData?: Course[]; initialCourseId?: string | null }) {
   const router = useRouter();
   const minimumDate = useMemo(() => getTokyoNow().date, []);
   const tomorrow = useMemo(() => {
@@ -31,6 +33,7 @@ export function ReservationRequestForm({ locale, dictionary, restaurantInfo = re
   const [date, setDate] = useState(tomorrow);
   const [time, setTime] = useState("19:00");
   const [guests, setGuests] = useState(2);
+  const [courseId, setCourseId] = useState(initialCourseId ?? "");
   const [seatingPreference, setSeatingPreference] = useState<SeatingPreference>("no_preference");
   const [occasion, setOccasion] = useState<ReservationOccasion>("none");
   const [preferredLanguage, setPreferredLanguage] = useState<Locale>(locale);
@@ -47,6 +50,7 @@ export function ReservationRequestForm({ locale, dictionary, restaurantInfo = re
     const form = new FormData(event.currentTarget);
     if (!submissionToken.current) submissionToken.current = crypto.randomUUID();
     const candidate = {
+      courseId: courseId || null,
       customerName: String(form.get("customerName") ?? ""),
       customerEmail: String(form.get("customerEmail") ?? ""),
       customerPhone: String(form.get("customerPhone") ?? ""),
@@ -101,6 +105,7 @@ export function ReservationRequestForm({ locale, dictionary, restaurantInfo = re
         <p className="reservation-notice">{dictionary.reservation.notice}</p>
       </div>
       <form onSubmit={submit} className="reservation-form reservation-request-form" noValidate>
+        <label><span>{dictionary.reservation.course}</span><select aria-label={dictionary.reservation.course} value={courseId} onChange={(event) => setCourseId(event.target.value)}><option value="">{dictionary.reservation.noCourse}</option>{courseData.filter((course) => course.enabled).map((course) => <option key={course.id} value={course.id}>{locale === "ja" ? course.nameJa : course.nameEn} — {course.price}</option>)}</select></label>
         <label><span><UserRound />{dictionary.reservation.fullName}</span><input name="customerName" type="text" autoComplete="name" minLength={2} maxLength={120} required /></label>
         <label><span><Mail />{dictionary.reservation.email}</span><input name="customerEmail" type="email" autoComplete="email" maxLength={254} required /></label>
         <label><span><Phone />{dictionary.reservation.phone}</span><input name="customerPhone" type="tel" autoComplete="tel" inputMode="tel" minLength={7} maxLength={24} required /></label>

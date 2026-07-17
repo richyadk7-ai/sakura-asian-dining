@@ -3,6 +3,7 @@
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useSyncExternalStore } from "react";
+import { getCourseById } from "@/data/courses";
 import { parseReservationConfirmation } from "@/lib/reservation-request";
 import type { Dictionary } from "@/locales";
 import type { Locale, ReservationConfirmation as Confirmation } from "@/types";
@@ -16,6 +17,7 @@ export function ReservationConfirmation({ locale, dictionary, reference }: { loc
     try { return parseReservationConfirmation(JSON.parse(stored)); } catch { return null; }
   }, [stored]);
   const loaded = stored !== "__server__";
+  const selectedCourse = getCourseById(confirmation?.courseId);
 
   return (
     <div className="reservation-confirmation-card">
@@ -25,7 +27,7 @@ export function ReservationConfirmation({ locale, dictionary, reference }: { loc
       <p>{dictionary.reservation.confirmationIntro}</p>
       <dl>
         <div><dt>{dictionary.reservation.reference}</dt><dd>{reference}</dd></div>
-        {confirmation ? <><div><dt>{dictionary.reservation.customer}</dt><dd>{confirmation.customerName}</dd></div><div><dt>{dictionary.reservation.date}</dt><dd>{confirmation.reservationDate}</dd></div><div><dt>{dictionary.reservation.time}</dt><dd>{confirmation.reservationTime}</dd></div><div><dt>{dictionary.reservation.guests}</dt><dd>{confirmation.guestCount}</dd></div></> : null}
+        {confirmation ? <><div><dt>{dictionary.reservation.course}</dt><dd>{selectedCourse ? (locale === "ja" ? selectedCourse.nameJa : selectedCourse.nameEn) : dictionary.reservation.noCourse}</dd></div><div><dt>{dictionary.reservation.customer}</dt><dd>{confirmation.customerName}</dd></div><div><dt>{dictionary.reservation.date}</dt><dd>{confirmation.reservationDate}</dd></div><div><dt>{dictionary.reservation.time}</dt><dd>{confirmation.reservationTime}</dd></div><div><dt>{dictionary.reservation.guests}</dt><dd>{confirmation.guestCount}</dd></div></> : null}
         <div><dt>{dictionary.reservation.status}</dt><dd><span className="reservation-pending-status">{dictionary.reservation.pending}</span></dd></div>
       </dl>
       <p className="reservation-notice">{dictionary.reservation.pendingMessage}</p>

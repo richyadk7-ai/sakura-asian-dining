@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isCourseId } from "@/data/courses";
 import type { ReservationConfirmation, ReservationRequest } from "@/types";
 
 export const MIN_RESERVATION_GUESTS = 1;
@@ -39,6 +40,7 @@ export function getRequestableTimes(date: string) {
 }
 
 export const reservationRequestSchema = z.object({
+  courseId: z.string().refine(isCourseId).nullable(),
   customerName: z.string().trim().min(2).max(120),
   customerEmail: z.string().trim().email().max(254),
   customerPhone: z.string().trim().refine((value) => phonePattern.test(value) && value.replace(/\D/g, "").length >= 7 && value.replace(/\D/g, "").length <= 15),
@@ -60,6 +62,7 @@ export const reservationRequestSchema = z.object({
 
 export const reservationConfirmationSchema = z.object({
   reservationReference: z.string().regex(/^SKR-\d{8}-[A-Z0-9]{6}$/),
+  courseId: z.string().refine(isCourseId).nullable().optional().transform((value) => value ?? null),
   customerName: z.string().min(1),
   reservationDate: z.string().refine(isCalendarDate),
   reservationTime: z.string().regex(/^\d{2}:\d{2}$/),
@@ -78,6 +81,7 @@ export function parseReservationConfirmation(value: unknown): ReservationConfirm
 
 export function reservationRpcParams(input: ReservationRequest) {
   return {
+    p_course_id: input.courseId,
     p_submission_token: input.submissionToken,
     p_customer_name: input.customerName,
     p_customer_email: input.customerEmail,

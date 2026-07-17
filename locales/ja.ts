@@ -124,6 +124,8 @@ export const ja = {
   reservation: {
     title: "さくらへの予約リクエスト",
     intro: "ご希望の日時と人数、お客様情報をさくらへ直接お送りください。店舗スタッフが内容を確認した後に予約を確定します。",
+    course: "コース",
+    noCourse: "コース指定なし",
     fullName: "お名前",
     email: "メールアドレス",
     phone: "電話番号",
@@ -158,6 +160,7 @@ export const ja = {
     invalidEmail: "有効なメールアドレスを入力してください。",
     invalidPhone: "7～15桁の有効な電話番号を入力してください。",
     invalidGuests: "人数は1～40名で選択してください。",
+    invalidCourse: "選択されたコースは現在ご利用いただけません。",
     agreementRequired: "送信前に同意が必要です。",
     requiredFields: "必須項目をすべて入力してください。",
     noTimes: "本日受付可能な時間は終了しました。別の日を選択してください。",

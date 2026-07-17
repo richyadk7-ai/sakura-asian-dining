@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-const courseUrls = ["116540417", "181564020", "116438114", "147601243", "147610623"];
+const courseIds = ["welcome-party-course", "sakura-150-minute-course", "tandoori-bbq-course", "sakura-special-drink-course", "grilled-chicken-drink-course"];
 
 test("localized navigation, complete menu and official owner gallery", async ({ page }) => {
   await page.goto("/en");
@@ -18,13 +18,19 @@ test("localized navigation, complete menu and official owner gallery", async ({ 
   await expect(page.getByRole("button", { name: "内観", exact: true })).toBeVisible();
 });
 
-test("all five course anchors retain their matching page", async ({ page }) => {
+test("all five course booking links retain locale and selected course", async ({ page }) => {
   await page.goto("/en/courses");
   await expect(page.locator(".course-image")).toHaveCount(5);
   await expect(page.locator(".course-image-pending")).toHaveCount(0);
   const links = page.getByRole("link", { name: /View course & reserve/ });
   await expect(links).toHaveCount(5);
-  for (let index = 0; index < courseUrls.length; index++) await expect(links.nth(index)).toHaveAttribute("href", new RegExp(`/party/${courseUrls[index]}$`));
+  for (let index = 0; index < courseIds.length; index++) await expect(links.nth(index)).toHaveAttribute("href", `/en/reservation?course=${courseIds[index]}`);
+  await page.goto("/ja/courses");
+  const japaneseLinks = page.getByRole("link", { name: /コース詳細・予約/ });
+  await expect(japaneseLinks).toHaveCount(5);
+  for (let index = 0; index < courseIds.length; index++) await expect(japaneseLinks.nth(index)).toHaveAttribute("href", `/ja/reservation?course=${courseIds[index]}`);
+  await page.goto("/en/reservation?course=not-a-real-course");
+  await expect(page.locator("form.reservation-request-form").getByLabel("Course", { exact: true })).toHaveValue("");
 });
 
 test("existing reservation calls to action open the internal request page", async ({ page }) => {
@@ -43,10 +49,11 @@ test("customer reservation request validates and shows a private pending confirm
     await route.fulfill({
       status: 201,
       contentType: "application/json",
-      body: JSON.stringify({ reservation: { reservationReference: reference, customerName: request.customerName, reservationDate: request.reservationDate, reservationTime: request.reservationTime, guestCount: request.guestCount, status: "pending" }, notificationProviderConfigured: false }),
+      body: JSON.stringify({ reservation: { reservationReference: reference, courseId: request.courseId, customerName: request.customerName, reservationDate: request.reservationDate, reservationTime: request.reservationTime, guestCount: request.guestCount, status: "pending" }, notificationProviderConfigured: false }),
     });
   });
-  await page.goto("/en/reservation");
+  await page.goto("/en/reservation?course=welcome-party-course");
+  await expect(page.locator("form.reservation-request-form").getByLabel("Course", { exact: true })).toHaveValue("welcome-party-course");
   await page.getByLabel("Full name").fill("Aiko Tanaka");
   await page.getByLabel("Email address").fill("aiko@example.com");
   await page.getByLabel("Phone number").fill("+81 90-1234-5678");
@@ -57,6 +64,7 @@ test("customer reservation request validates and shows a private pending confirm
   await expect(page).toHaveURL(new RegExp(`/en/reservation/confirmation\\?reference=${reference}$`));
   await expect(page.getByText(reference)).toBeVisible();
   await expect(page.getByText("Aiko Tanaka")).toBeVisible();
+  await expect(page.getByText("Welcome & Farewell Party: 8 Dishes, Unlimited Naan & Rice, 120-Minute Drink Plan")).toBeVisible();
   await expect(page.getByText("Pending", { exact: true }).last()).toBeVisible();
   await expect(page.getByText(/not confirmed until Sakura staff review and approve/)).toBeVisible();
 });

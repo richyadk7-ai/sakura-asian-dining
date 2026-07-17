@@ -96,6 +96,7 @@ export type SeatingPreference = "no_preference" | "table" | "booth";
 export type ReservationOccasion = "none" | "birthday" | "anniversary" | "business" | "celebration" | "other";
 
 export type ReservationRequest = {
+  courseId: string | null;
   customerName: string;
   customerEmail: string;
   customerPhone: string;
@@ -113,6 +114,7 @@ export type ReservationRequest = {
 
 export type ReservationConfirmation = {
   reservationReference: string;
+  courseId: string | null;
   customerName: string;
   reservationDate: string;
   reservationTime: string;
@@ -123,6 +125,7 @@ export type ReservationConfirmation = {
 export type OwnerReservation = {
   id: string;
   reservation_reference: string;
+  course_id: string | null;
   customer_name: string;
   customer_email: string;
   customer_phone: string;

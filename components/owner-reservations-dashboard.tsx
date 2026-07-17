@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { logout } from "@/app/admin/actions";
 import { updateReservationDetails, updateReservationStatus } from "@/app/admin/reservations/actions";
+import { getCourseById } from "@/data/courses";
 import { MAX_RESERVATION_GUESTS, MIN_RESERVATION_GUESTS, RESERVATION_TIME_SLOTS } from "@/lib/reservation-request";
 import type { OwnerReservation, ReservationStatus } from "@/types";
 
@@ -20,7 +21,8 @@ export function OwnerReservationsDashboard({ reservations, today }: { reservatio
   const filtered = useMemo(() => {
     const query = search.trim().toLocaleLowerCase();
     return reservations.filter((reservation) => {
-      const searchable = `${reservation.reservation_reference} ${reservation.customer_name} ${reservation.customer_email} ${reservation.customer_phone}`.toLocaleLowerCase();
+      const course = getCourseById(reservation.course_id);
+      const searchable = `${reservation.reservation_reference} ${reservation.customer_name} ${reservation.customer_email} ${reservation.customer_phone} ${reservation.course_id ?? ""} ${course?.nameEn ?? ""} ${course?.nameJa ?? ""}`.toLocaleLowerCase();
       return (!query || searchable.includes(query))
         && (status === "all" || reservation.status === status)
         && (!date || reservation.reservation_date === date)
@@ -46,6 +48,7 @@ export function OwnerReservationsDashboard({ reservations, today }: { reservatio
 
 function OwnerReservationCard({ reservation, today }: { reservation: OwnerReservation; today: string }) {
   const time = reservation.reservation_time.slice(0, 5);
+  const course = getCourseById(reservation.course_id);
   return (
     <article className={`owner-reservation-card status-${reservation.status}`}>
       <div className="owner-reservation-heading"><div><span className={`reservation-status-badge status-${reservation.status}`}>{statusLabels[reservation.status]}</span><p>{reservation.reservation_reference}</p><h2>{reservation.customer_name}</h2></div><div className="owner-reservation-when"><strong>{reservation.reservation_date === today ? "Today" : reservation.reservation_date}</strong><span>{time} · {reservation.guest_count} guests</span></div></div>
@@ -53,7 +56,7 @@ function OwnerReservationCard({ reservation, today }: { reservation: OwnerReserv
       <details>
         <summary>Open reservation details</summary>
         <div className="owner-reservation-details">
-          <dl><div><dt><CalendarCheck2 />Date</dt><dd>{reservation.reservation_date}</dd></div><div><dt><Clock3 />Time</dt><dd>{time}</dd></div><div><dt><Users />Guests</dt><dd>{reservation.guest_count}</dd></div><div><dt>Seating</dt><dd>{reservation.seating_preference.replace("_", " ")}</dd></div><div><dt>Occasion</dt><dd>{reservation.occasion}</dd></div><div><dt>Preferred language</dt><dd>{reservation.preferred_language.toUpperCase()}</dd></div><div><dt>Allergies / dietary</dt><dd>{reservation.allergies || "None provided"}</dd></div><div><dt>Special requests</dt><dd>{reservation.special_requests || "None provided"}</dd></div></dl>
+          <dl><div><dt>Course</dt><dd>{course?.nameEn ?? "No course selected"}</dd></div><div><dt><CalendarCheck2 />Date</dt><dd>{reservation.reservation_date}</dd></div><div><dt><Clock3 />Time</dt><dd>{time}</dd></div><div><dt><Users />Guests</dt><dd>{reservation.guest_count}</dd></div><div><dt>Seating</dt><dd>{reservation.seating_preference.replace("_", " ")}</dd></div><div><dt>Occasion</dt><dd>{reservation.occasion}</dd></div><div><dt>Preferred language</dt><dd>{reservation.preferred_language.toUpperCase()}</dd></div><div><dt>Allergies / dietary</dt><dd>{reservation.allergies || "None provided"}</dd></div><div><dt>Special requests</dt><dd>{reservation.special_requests || "None provided"}</dd></div></dl>
           <form className="owner-reservation-edit" action={updateReservationDetails}><input type="hidden" name="id" value={reservation.id} /><label>Date<input type="date" name="reservationDate" min={today} defaultValue={reservation.reservation_date} required /></label><label>Time<select name="reservationTime" defaultValue={time}>{RESERVATION_TIME_SLOTS.map((slot) => <option key={slot}>{slot}</option>)}</select></label><label>Guests<select name="guestCount" defaultValue={reservation.guest_count}>{Array.from({ length: MAX_RESERVATION_GUESTS - MIN_RESERVATION_GUESTS + 1 }, (_, index) => index + MIN_RESERVATION_GUESTS).map((count) => <option key={count}>{count}</option>)}</select></label><label className="owner-notes"><StickyNote />Private owner notes<textarea name="ownerNotes" maxLength={4000} defaultValue={reservation.owner_notes ?? ""} /></label><button className="button button-outline">Save details</button></form>
           <div className="owner-status-actions">{actionStatuses.filter((nextStatus) => nextStatus !== reservation.status).map((nextStatus) => <form action={updateReservationStatus} key={nextStatus}><input type="hidden" name="id" value={reservation.id} /><input type="hidden" name="status" value={nextStatus} /><button className={nextStatus === "confirmed" ? "button button-gold" : "button button-outline"}>{statusLabels[nextStatus]}</button></form>)}</div>
           <p className="owner-reservation-audit">Created {new Date(reservation.created_at).toLocaleString()} · Updated {new Date(reservation.updated_at).toLocaleString()}</p>

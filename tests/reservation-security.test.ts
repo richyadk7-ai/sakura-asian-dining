@@ -3,6 +3,7 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const migration = readFileSync(resolve(process.cwd(), "supabase/migrations/002_reservations.sql"), "utf8");
+const courseMigration = readFileSync(resolve(process.cwd(), "supabase/migrations/003_reservation_courses.sql"), "utf8");
 
 describe("reservation database boundary", () => {
   it("stores new requests as pending behind an idempotent server function", () => {
@@ -27,5 +28,13 @@ describe("reservation database boundary", () => {
     expect(migration).toContain("customer_confirmed");
     expect(migration).toContain("customer_rejected");
     expect(migration).toContain("customer_cancelled");
+  });
+
+  it("stores only nullable, allowlisted course identifiers", () => {
+    expect(courseMigration).toContain("add column if not exists course_id text");
+    expect(courseMigration).toContain("reservations_course_id_check");
+    expect(courseMigration).toContain("p_course_id text");
+    expect(courseMigration).toMatch(/insert into public\.reservations[\s\S]*course_id[\s\S]*p_course_id/);
+    expect(courseMigration).toContain("then raise exception 'invalid course'");
   });
 });
