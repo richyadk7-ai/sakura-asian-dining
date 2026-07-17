@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 const migration = readFileSync(resolve(process.cwd(), "supabase/migrations/002_reservations.sql"), "utf8");
 const courseMigration = readFileSync(resolve(process.cwd(), "supabase/migrations/003_reservation_courses.sql"), "utf8");
 const realtimeMigration = readFileSync(resolve(process.cwd(), "supabase/migrations/004_realtime_reservation_alerts.sql"), "utf8");
+const pushMigration = readFileSync(resolve(process.cwd(), "supabase/migrations/005_owner_web_push.sql"), "utf8");
 
 describe("reservation database boundary", () => {
   it("stores new requests as pending behind an idempotent server function", () => {
@@ -43,5 +44,16 @@ describe("reservation database boundary", () => {
     expect(realtimeMigration).toContain("pg_publication_tables");
     expect(realtimeMigration).toContain("alter publication supabase_realtime add table public.reservations");
     expect(realtimeMigration).not.toMatch(/create\s+policy/i);
+  });
+
+  it("stores push subscriptions behind owner RLS and a server-only dispatch secret", () => {
+    expect(pushMigration).toContain("alter table public.owner_push_subscriptions enable row level security");
+    expect(pushMigration).toMatch(/for insert with check \(public\.is_admin\(\) and user_id = auth\.uid\(\)\)/);
+    expect(pushMigration).toContain("revoke all on public.owner_push_subscriptions from anon");
+    expect(pushMigration).not.toMatch(/grant\s+(select|insert|update|delete)[^;]*owner_push_subscriptions\s+to\s+anon/i);
+    expect(pushMigration).toContain("private.owner_push_dispatch_config");
+    expect(pushMigration).toContain("extensions.digest(p_dispatch_secret, 'sha256')");
+    expect(pushMigration).toContain("revoke all on schema private from public, anon, authenticated");
+    expect(pushMigration).toContain("security definer");
   });
 });

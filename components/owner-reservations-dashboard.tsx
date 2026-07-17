@@ -13,7 +13,7 @@ import type { OwnerReservation, ReservationStatus } from "@/types";
 const statusLabels: Record<ReservationStatus, string> = { pending: "Pending", confirmed: "Confirmed", rejected: "Rejected", cancelled: "Cancelled", completed: "Completed", no_show: "No-show" };
 const actionStatuses: ReservationStatus[] = ["confirmed", "rejected", "cancelled", "completed", "no_show"];
 
-export function OwnerReservationsDashboard({ reservations, today, liveAlerts = false }: { reservations: OwnerReservation[]; today: string; liveAlerts?: boolean }) {
+export function OwnerReservationsDashboard({ reservations, today, liveAlerts = false, pushPublicKey = "" }: { reservations: OwnerReservation[]; today: string; liveAlerts?: boolean; pushPublicKey?: string }) {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<"all" | ReservationStatus>("all");
   const [view, setView] = useState<"all" | "today" | "upcoming">("all");
@@ -33,7 +33,7 @@ export function OwnerReservationsDashboard({ reservations, today, liveAlerts = f
 
   return (
     <div className="admin-dashboard reservations-dashboard">
-      <header className="admin-header"><div><p className="eyebrow">Protected owner area</p><h1>Reservations</h1><p className="admin-reservation-summary">{pendingCount} pending · {reservations.length} total</p></div><div className="admin-header-actions">{liveAlerts ? <ReservationLiveAlerts /> : null}<Link className="button button-outline" href="/admin">Content studio</Link><form action={logout}><button className="button button-outline"><LogOut />Sign out</button></form></div></header>
+      <header className="admin-header"><div><p className="eyebrow">Protected owner area</p><h1>Reservations</h1><p className="admin-reservation-summary">{pendingCount} pending · {reservations.length} total</p></div><div className="admin-header-actions">{liveAlerts ? <ReservationLiveAlerts pushPublicKey={pushPublicKey} /> : null}<Link className="button button-outline" href="/admin">Content studio</Link><form action={logout}><button className="button button-outline"><LogOut />Sign out</button></form></div></header>
       <section className="reservation-admin-tools" aria-label="Reservation filters">
         <label className="reservation-admin-search"><Search /><span className="sr-only">Search reservations</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Name, phone, email or reference" /></label>
         <select aria-label="Filter by status" value={status} onChange={(event) => setStatus(event.target.value as typeof status)}><option value="all">All statuses</option>{Object.entries(statusLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select>

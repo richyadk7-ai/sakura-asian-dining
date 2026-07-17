@@ -116,7 +116,7 @@ Setup:
 
 1. Create a Supabase project and copy `.env.example` to `.env.local`.
 2. Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
-3. Apply every SQL file in `supabase/migrations` in numeric order through the Supabase SQL editor or CLI. Migration `004_realtime_reservation_alerts.sql` enables the protected live reservation feed.
+3. Apply every SQL file in `supabase/migrations` in numeric order through the Supabase SQL editor or CLI. Migration `004_realtime_reservation_alerts.sql` enables the protected live reservation feed, and `005_owner_web_push.sql` adds the owner-only device subscriptions for lock-screen alerts.
 4. With the default Supabase mailer, set the Auth Site URL to `https://YOUR-DOMAIN/admin/set-password`. The password page safely completes the default invitation session before showing the owner form.
 5. Add `https://YOUR-DOMAIN/admin/auth/confirm` plus `http://localhost:3000/admin/auth/confirm` to the allowed redirect URLs. If custom SMTP is configured later, its Invite user template can link to `{{ .SiteURL }}/admin/auth/confirm?token_hash={{ .TokenHash }}&type=invite` after changing `.SiteURL` back to the site origin.
 6. Send the owner an invitation through Supabase Auth.
@@ -135,11 +135,29 @@ Dashboard workflow:
 1. Sign in at `/admin`.
 2. Open `/admin/reservations` from the protected owner header to search, filter and manage customer requests.
 3. Confirm, reject or cancel requests; edit date, time or guest count; add private notes; and mark completed or no-show reservations.
-4. Keep the reservations page open and press **Enable reservation sound** once per browser session. New requests then refresh the queue, display a popup and play a local Sakura chime. Native browser notifications are requested only after that owner action.
-5. Use the content studio to edit the bilingual JSON document, save a draft and publish explicitly.
-6. Upload authorized originals into inventory slots and publish each accepted photograph explicitly.
+4. Keep the reservations page open and press **Enable loud chime** once per browser session. New requests then refresh the queue, display a popup and play the louder local Sakura chime. The same button becomes **Test loud chime**, so staff can check the iPad speaker volume before service.
+5. For lock-screen alerts on iPadOS 16.4 or newer, open the deployed site in Safari, use **Share → Add to Home Screen**, launch Sakura from that new Home Screen icon, sign in, open Reservations and press **Enable lock-screen alerts → Allow**. Lock-screen notification sound and volume are controlled by iPad Settings, its volume buttons, Focus mode and notification settings.
+6. Use the content studio to edit the bilingual JSON document, save a draft and publish explicitly.
+7. Upload authorized originals into inventory slots and publish each accepted photograph explicitly.
 
-Live owner alerts use the existing authenticated Supabase connection and Row Level Security. The chime is generated locally by the browser, so it requires no email account, sound file or paid calling service. It works while `/admin/reservations` is open; native operating-system notifications depend on the owner granting browser permission.
+Live owner alerts use the existing authenticated Supabase connection and Row Level Security. The foreground chime is generated locally by the browser, so it requires no email account, sound file or paid calling service. Web Push can alert an installed Home Screen web app while the iPad is locked or the dashboard is in the background. Apple controls the lock-screen notification sound; a website cannot force the custom foreground chime there. The iPad must remain powered on and online—no service can deliver to a fully powered-off device, although the push service may deliver after it reconnects.
+
+Web Push setup requires VAPID keys and a shared server-only dispatch secret:
+
+```bash
+npx web-push generate-vapid-keys
+openssl rand -hex 32
+```
+
+Put the generated public/private VAPID values in `NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY` and `WEB_PUSH_PRIVATE_KEY`, set `WEB_PUSH_SUBJECT` to a monitored `mailto:` address, and put the random value in `PUSH_DISPATCH_SECRET`. Hash that same random value in Supabase once through the SQL editor:
+
+```sql
+insert into private.owner_push_dispatch_config(singleton, secret_hash)
+values (true, encode(extensions.digest('THE_SAME_RANDOM_SERVER_SECRET', 'sha256'), 'hex'))
+on conflict(singleton) do update set secret_hash = excluded.secret_hash, updated_at = now();
+```
+
+Never expose `WEB_PUSH_PRIVATE_KEY` or `PUSH_DISPATCH_SECRET` through a `NEXT_PUBLIC_` variable. Push payloads deliberately include only the reservation reference, date, time and party size; customer contact details remain in the protected dashboard.
 
 Reservation email events are still inserted into `reservation_notification_outbox` for owner-new-request, customer-received, confirmed, rejected and cancelled events. `lib/notifications/reservation-notifications.ts` provides the email delivery interface, but the included implementation is deliberately unconfigured and reports `sent: false`. No customer email is claimed as sent until a real provider and outbox worker are added.
 

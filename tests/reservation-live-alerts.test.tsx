@@ -1,4 +1,4 @@
-import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ReservationLiveAlerts } from "@/components/reservation-live-alerts";
 
@@ -59,5 +59,28 @@ describe("live owner reservation alerts", () => {
     act(() => realtime.handler?.({ new: { id: "broken" } }));
     expect(screen.queryByText("New reservation request")).not.toBeInTheDocument();
     expect(realtime.refresh).not.toHaveBeenCalled();
+  });
+
+  it("keeps a testable loud chime control after sound is enabled", async () => {
+    const setValueAtTime = vi.fn();
+    const exponentialRampToValueAtTime = vi.fn();
+    const connect = vi.fn();
+    class AudioContextMock {
+      currentTime = 0;
+      state = "running";
+      destination = {};
+      close = vi.fn();
+      resume = vi.fn();
+      createDynamicsCompressor = () => ({ threshold: { setValueAtTime }, knee: { setValueAtTime }, ratio: { setValueAtTime }, attack: { setValueAtTime }, release: { setValueAtTime }, connect });
+      createGain = () => ({ gain: { setValueAtTime, exponentialRampToValueAtTime }, connect });
+      createOscillator = () => ({ type: "sine", frequency: { setValueAtTime }, connect, start: vi.fn(), stop: vi.fn() });
+    }
+    Object.defineProperty(window, "AudioContext", { configurable: true, value: AudioContextMock });
+    render(<ReservationLiveAlerts />);
+    fireEvent.click(screen.getByRole("button", { name: "Enable loud chime" }));
+    await waitFor(() => expect(screen.getByRole("button", { name: "Test loud chime" })).toBeVisible());
+    expect(exponentialRampToValueAtTime).toHaveBeenCalledWith(0.9, 0.025);
+    fireEvent.click(screen.getByRole("button", { name: "Test loud chime" }));
+    expect(exponentialRampToValueAtTime).toHaveBeenCalledTimes(44);
   });
 });

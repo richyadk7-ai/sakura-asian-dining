@@ -22,7 +22,9 @@ export const metadata: Metadata = {
   title: { default: "Sakura Asian Dining & Bar | Takadanobaba", template: "%s | Sakura Asian Dining & Bar" },
   description: "Indian, Nepalese and Asian dining bar in Takadanobaba, Tokyo. Curries, tandoori, lunch, drinks and group dining.",
   applicationName: "Sakura Asian Dining & Bar",
-  icons: { icon: "/icon.svg" },
+  manifest: "/manifest.webmanifest",
+  appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Sakura Reservations" },
+  icons: { icon: "/icon.svg", apple: "/icon.svg" },
   openGraph: { type: "website", siteName: "Sakura Asian Dining & Bar", images: ["/opengraph-image"] },
   twitter: { card: "summary_large_image", images: ["/opengraph-image"] },
 };

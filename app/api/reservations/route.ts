@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
 import { reservationNotificationService } from "@/lib/notifications/reservation-notifications";
+import { sendOwnerReservationPush } from "@/lib/notifications/owner-web-push";
 import { reservationConfirmationSchema, reservationIssueField, reservationRequestSchema, reservationRpcParams } from "@/lib/reservation-request";
 import { isSupabaseConfigured, supabaseEnvironment } from "@/lib/supabase/config";
 
@@ -49,6 +50,7 @@ export async function POST(request: NextRequest) {
     await Promise.all([
       reservationNotificationService.deliver({ event: "owner_new_request", reservation: confirmation.data }),
       reservationNotificationService.deliver({ event: "customer_request_received", reservation: confirmation.data, customerEmail: parsed.data.customerEmail, preferredLanguage: parsed.data.preferredLanguage }),
+      sendOwnerReservationPush(confirmation.data),
     ]);
   }
 
