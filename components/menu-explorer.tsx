@@ -1,19 +1,21 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Check, Flame, Images, Search, Sparkles, Sprout, X } from "lucide-react";
+import { Check, Flame, Search, Sparkles, Sprout, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { CourseGrid } from "@/components/course-grid";
-import { allMenuItems, menuPhotoEntries } from "@/data/menu";
+import { allMenuItems } from "@/data/menu";
 import { courses } from "@/data/courses";
 import { authorizedPhotos } from "@/data/photos";
 import type { Dictionary } from "@/locales";
 import type { Course, Locale, MenuItem, MenuSection, RestaurantPhoto } from "@/types";
 
-const sections: MenuSection[] = ["food", "courses", "drinks", "lunch", "photos"];
+type VisibleMenuSection = Exclude<MenuSection, "photos">;
+
+const sections: VisibleMenuSection[] = ["food", "courses", "drinks", "lunch"];
 
 export function MenuExplorer({ locale, dictionary, items = allMenuItems, courseData = courses, photos = authorizedPhotos }: { locale: Locale; dictionary: Dictionary; items?: MenuItem[]; courseData?: Course[]; photos?: RestaurantPhoto[] }) {
-  const [section, setSection] = useState<MenuSection>("food");
+  const [section, setSection] = useState<VisibleMenuSection>("food");
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
   const [vegetarian, setVegetarian] = useState(false);
@@ -21,12 +23,11 @@ export function MenuExplorer({ locale, dictionary, items = allMenuItems, courseD
   const [recommended, setRecommended] = useState(false);
   const reduce = useReducedMotion();
 
-  const labels: Record<MenuSection, string> = {
+  const labels: Record<VisibleMenuSection, string> = {
     food: dictionary.menu.food,
     courses: dictionary.menu.courses,
     drinks: dictionary.menu.drinks,
     lunch: dictionary.menu.lunch,
-    photos: dictionary.menu.photos,
   };
 
   const sectionItems = useMemo(() => items.filter((item) => item.section === section), [items, section]);
@@ -49,7 +50,7 @@ export function MenuExplorer({ locale, dictionary, items = allMenuItems, courseD
     setRecommended(false);
   };
 
-  const changeSection = (next: MenuSection) => {
+  const changeSection = (next: VisibleMenuSection) => {
     setSection(next);
     reset();
   };
@@ -65,15 +66,6 @@ export function MenuExplorer({ locale, dictionary, items = allMenuItems, courseD
       </div>
 
       {section === "courses" ? <div className="menu-section-content"><CourseGrid locale={locale} dictionary={dictionary} courseData={courseData} photos={photos} /></div> : null}
-
-      {section === "photos" ? (
-        <div className="gallery-pending menu-photo-pending">
-          <Images aria-hidden="true" />
-          <p className="eyebrow">{menuPhotoEntries.length} {dictionary.menu.itemCount}</p>
-          <h2>{dictionary.menu.photoPendingTitle}</h2>
-          <p>{dictionary.menu.photoPendingBody}</p>
-        </div>
-      ) : null}
 
       {section === "food" || section === "drinks" || section === "lunch" ? (
         <div className="menu-section-content">

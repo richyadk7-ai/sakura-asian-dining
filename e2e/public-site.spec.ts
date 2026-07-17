@@ -8,10 +8,13 @@ test("localized navigation, complete menu and official owner gallery", async ({ 
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Warm spice");
   await page.goto("/en/menu");
   await expect(page.getByText("100 entries", { exact: true })).toBeVisible();
+  await expect(page.getByRole("tab", { name: "Menu Photos" })).toHaveCount(0);
   await page.getByRole("tab", { name: "Drinks" }).click();
   await expect(page.getByText("74 entries", { exact: true })).toBeVisible();
   await page.getByRole("tab", { name: "Lunch" }).click();
   await expect(page.getByText("27 entries", { exact: true })).toBeVisible();
+  await page.goto("/ja/menu");
+  await expect(page.getByRole("tab", { name: "メニュー写真" })).toHaveCount(0);
   await page.goto("/ja/gallery");
   await expect(page.locator(".gallery-item")).toHaveCount(55);
   await expect(page.getByRole("button", { name: "料理", exact: true })).toBeVisible();
