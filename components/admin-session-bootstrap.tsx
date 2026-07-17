@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { createClient } from "@supabase/supabase-js";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import { supabaseEnvironment } from "@/lib/supabase/config";
 
 export function AdminSessionBootstrap() {
   const router = useRouter();
@@ -10,30 +12,43 @@ export function AdminSessionBootstrap() {
 
   useEffect(() => {
     let active = true;
-    let completed = false;
-    const client = createSupabaseBrowserClient();
 
-    const finish = () => {
-      if (!active || completed) return;
-      completed = true;
+    void (async () => {
+      const { url, key } = supabaseEnvironment();
+      const invitationClient = createClient(url, key, {
+        auth: {
+          autoRefreshToken: false,
+          detectSessionInUrl: true,
+          flowType: "implicit",
+          persistSession: false,
+        },
+      });
+      const { data, error } = await invitationClient.auth.getSession();
+      if (!active) return;
+      if (error || !data.session) {
+        setStatus(error
+          ? "The invitation session could not be verified. Open the latest invitation email again."
+          : "No active invitation was found. Open the latest owner invitation email to continue.");
+        return;
+      }
+
+      const cookieClient = createSupabaseBrowserClient();
+      const { error: cookieError } = await cookieClient.auth.setSession({
+        access_token: data.session.access_token,
+        refresh_token: data.session.refresh_token,
+      });
+      if (!active) return;
+      if (cookieError) {
+        setStatus("The invitation was verified, but the secure owner session could not be created. Open the invitation again.");
+        return;
+      }
+
       router.replace("/admin/set-password");
       router.refresh();
-    };
-
-    const { data: listener } = client.auth.onAuthStateChange((_event, session) => {
-      if (session) queueMicrotask(finish);
-    });
-
-    void client.auth.getSession().then(({ data, error }) => {
-      if (!active) return;
-      if (data.session) finish();
-      else if (error) setStatus("The invitation session could not be verified. Open the latest invitation email again.");
-      else setStatus("No active invitation was found. Open the latest owner invitation email to continue.");
-    });
+    })();
 
     return () => {
       active = false;
-      listener.subscription.unsubscribe();
     };
   }, [router]);
 
