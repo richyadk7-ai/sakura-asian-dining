@@ -1,0 +1,22 @@
+{
+  "exact": [
+    {
+      "sha256": "c4fcee45be2abc48ff2872eb4f448aed8e021022ce98f34acd7017eb8608c660",
+      "retained": "food-011",
+      "excluded": [
+        "course-003"
+      ]
+    },
+    {
+      "sha256": "2ef0e8da826aa37cc3f50355424fdf070775a8224f44dd8551d28df1a00b0de2",
+      "retained": "food-013",
+      "excluded": [
+        "course-001",
+        "course-002",
+        "course-004",
+        "course-005"
+      ]
+    }
+  ],
+  "nearIdentical": []
+}

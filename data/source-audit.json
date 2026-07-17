@@ -1,0 +1,1795 @@
+{
+  "expectedCounts": {
+    "food": 100,
+    "courses": 5,
+    "drinks": 74,
+    "lunch": 27,
+    "photos": 17
+  },
+  "records": [
+    {
+      "category": "food",
+      "sourceOrder": 1,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-001",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 2,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-002",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 3,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-003",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 4,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-004",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 5,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-005",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 6,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-006",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 7,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-007",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 8,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-008",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 9,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-009",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 10,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-010",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 11,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-011",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 12,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-012",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 13,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-013",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 14,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-014",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 15,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-015",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 16,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-016",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 17,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-017",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 18,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-018",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 19,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-019",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 20,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-020",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 21,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-021",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 22,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-022",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 23,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-023",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 24,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-024",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 25,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-025",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 26,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-026",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 27,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-027",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 28,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-028",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 29,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-029",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 30,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-030",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 31,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-031",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 32,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-032",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 33,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-033",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 34,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-034",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 35,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-035",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 36,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-036",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 37,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-037",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 38,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-038",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 39,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-039",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 40,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-040",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 41,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-041",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 42,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-042",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 43,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-043",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 44,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-044",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 45,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-045",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 46,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-046",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 47,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-047",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 48,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-048",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 49,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-049",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 50,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-050",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 51,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-051",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 52,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-052",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 53,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-053",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 54,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-054",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 55,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-055",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 56,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-056",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 57,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-057",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 58,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-058",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 59,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-059",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 60,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-060",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 61,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-061",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 62,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-062",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 63,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-063",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 64,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-064",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 65,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-065",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 66,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-066",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 67,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-067",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 68,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-068",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 69,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-069",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 70,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-070",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 71,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-071",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 72,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-072",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 73,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-073",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 74,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-074",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 75,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-075",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 76,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-076",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 77,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-077",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 78,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-078",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 79,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-079",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 80,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-080",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 81,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-081",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 82,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-082",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 83,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-083",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 84,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-084",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 85,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-085",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 86,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-086",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 87,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-087",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 88,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-088",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 89,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-089",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 90,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-090",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 91,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-091",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 92,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-092",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 93,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-093",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 94,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-094",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 95,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-095",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 96,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-096",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 97,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-097",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 98,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-098",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 99,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-099",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "food",
+      "sourceOrder": 100,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/",
+      "localRecordId": "food-100",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 1,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-001",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 2,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-002",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 3,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-003",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 4,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-004",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 5,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-005",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 6,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-006",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 7,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-007",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 8,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-008",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 9,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-009",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 10,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-010",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 11,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-011",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 12,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-012",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 13,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-013",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 14,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-014",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 15,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-015",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 16,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-016",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 17,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-017",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 18,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-018",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 19,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-019",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 20,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-020",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 21,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-021",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 22,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-022",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 23,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-023",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 24,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-024",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 25,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-025",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 26,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-026",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 27,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-027",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 28,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-028",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 29,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-029",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 30,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-030",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 31,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-031",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 32,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-032",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 33,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-033",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 34,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-034",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 35,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-035",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 36,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-036",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 37,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-037",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 38,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-038",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 39,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-039",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 40,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-040",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 41,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-041",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 42,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-042",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 43,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-043",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 44,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-044",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 45,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-045",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 46,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-046",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 47,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-047",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 48,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-048",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 49,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-049",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 50,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-050",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 51,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-051",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 52,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-052",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 53,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-053",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 54,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-054",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 55,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-055",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 56,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-056",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 57,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-057",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 58,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-058",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 59,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-059",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 60,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-060",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 61,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-061",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 62,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-062",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 63,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-063",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 64,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-064",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 65,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-065",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 66,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-066",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 67,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-067",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 68,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-068",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 69,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-069",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 70,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-070",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 71,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-071",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 72,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-072",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 73,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-073",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "drinks",
+      "sourceOrder": 74,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/drink/",
+      "localRecordId": "drinks-074",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 1,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-001",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 2,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-002",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 3,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-003",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 4,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-004",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 5,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-005",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 6,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-006",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 7,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-007",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 8,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-008",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 9,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-009",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 10,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-010",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 11,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-011",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 12,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-012",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 13,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-013",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 14,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-014",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 15,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-015",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 16,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-016",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 17,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-017",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 18,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-018",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 19,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-019",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 20,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-020",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 21,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-021",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 22,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-022",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 23,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-023",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 24,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-024",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 25,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-025",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 26,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-026",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "lunch",
+      "sourceOrder": 27,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/lunch/",
+      "localRecordId": "lunch-027",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "courses",
+      "sourceOrder": 1,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/party/116540417",
+      "localRecordId": "welcome-party-course",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "courses",
+      "sourceOrder": 2,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/party/181564020",
+      "localRecordId": "sakura-150-minute-course",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "courses",
+      "sourceOrder": 3,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/party/116438114",
+      "localRecordId": "tandoori-bbq-course",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "courses",
+      "sourceOrder": 4,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/party/147601243",
+      "localRecordId": "sakura-special-drink-course",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "courses",
+      "sourceOrder": 5,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/party/147610623",
+      "localRecordId": "grilled-chicken-drink-course",
+      "translationStatus": "complete",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 1,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-001",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 2,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-002",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 3,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-003",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 4,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-004",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 5,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-005",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 6,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-006",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 7,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-007",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 8,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-008",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 9,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-009",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 10,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-010",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 11,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-011",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 12,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-012",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 13,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-013",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 14,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-014",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 15,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-015",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 16,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-016",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    },
+    {
+      "category": "menu-photos",
+      "sourceOrder": 17,
+      "sourceUrl": "https://tabelog.com/tokyo/A1305/A130503/13218334/dtlmenu/photo/",
+      "localRecordId": "menu-photo-017",
+      "translationStatus": "not-applicable-until-authorized-image-import",
+      "verificationDate": "2026-07-17"
+    }
+  ]
+}
