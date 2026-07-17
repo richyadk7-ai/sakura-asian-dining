@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 
 const migration = readFileSync(resolve(process.cwd(), "supabase/migrations/002_reservations.sql"), "utf8");
 const courseMigration = readFileSync(resolve(process.cwd(), "supabase/migrations/003_reservation_courses.sql"), "utf8");
+const realtimeMigration = readFileSync(resolve(process.cwd(), "supabase/migrations/004_realtime_reservation_alerts.sql"), "utf8");
 
 describe("reservation database boundary", () => {
   it("stores new requests as pending behind an idempotent server function", () => {
@@ -36,5 +37,11 @@ describe("reservation database boundary", () => {
     expect(courseMigration).toContain("p_course_id text");
     expect(courseMigration).toMatch(/insert into public\.reservations[\s\S]*course_id[\s\S]*p_course_id/);
     expect(courseMigration).toContain("then raise exception 'invalid course'");
+  });
+
+  it("publishes reservation inserts to authenticated owners without weakening RLS", () => {
+    expect(realtimeMigration).toContain("pg_publication_tables");
+    expect(realtimeMigration).toContain("alter publication supabase_realtime add table public.reservations");
+    expect(realtimeMigration).not.toMatch(/create\s+policy/i);
   });
 });

@@ -116,7 +116,7 @@ Setup:
 
 1. Create a Supabase project and copy `.env.example` to `.env.local`.
 2. Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
-3. Apply `supabase/migrations/001_initial.sql`, then `supabase/migrations/002_reservations.sql`, in that order through the Supabase SQL editor or CLI.
+3. Apply every SQL file in `supabase/migrations` in numeric order through the Supabase SQL editor or CLI. Migration `004_realtime_reservation_alerts.sql` enables the protected live reservation feed.
 4. With the default Supabase mailer, set the Auth Site URL to `https://YOUR-DOMAIN/admin/set-password`. The password page safely completes the default invitation session before showing the owner form.
 5. Add `https://YOUR-DOMAIN/admin/auth/confirm` plus `http://localhost:3000/admin/auth/confirm` to the allowed redirect URLs. If custom SMTP is configured later, its Invite user template can link to `{{ .SiteURL }}/admin/auth/confirm?token_hash={{ .TokenHash }}&type=invite` after changing `.SiteURL` back to the site origin.
 6. Send the owner an invitation through Supabase Auth.
@@ -135,10 +135,13 @@ Dashboard workflow:
 1. Sign in at `/admin`.
 2. Open `/admin/reservations` from the protected owner header to search, filter and manage customer requests.
 3. Confirm, reject or cancel requests; edit date, time or guest count; add private notes; and mark completed or no-show reservations.
-4. Use the content studio to edit the bilingual JSON document, save a draft and publish explicitly.
-5. Upload authorized originals into inventory slots and publish each accepted photograph explicitly.
+4. Keep the reservations page open and press **Enable reservation sound** once per browser session. New requests then refresh the queue, display a popup and play a local Sakura chime. Native browser notifications are requested only after that owner action.
+5. Use the content studio to edit the bilingual JSON document, save a draft and publish explicitly.
+6. Upload authorized originals into inventory slots and publish each accepted photograph explicitly.
 
-Reservation notification events are inserted into `reservation_notification_outbox` for owner-new-request, customer-received, confirmed, rejected and cancelled events. `lib/notifications/reservation-notifications.ts` provides the delivery interface, but the included implementation is deliberately unconfigured and reports `sent: false`. No email is claimed as sent until a real provider and outbox worker are added.
+Live owner alerts use the existing authenticated Supabase connection and Row Level Security. The chime is generated locally by the browser, so it requires no email account, sound file or paid calling service. It works while `/admin/reservations` is open; native operating-system notifications depend on the owner granting browser permission.
+
+Reservation email events are still inserted into `reservation_notification_outbox` for owner-new-request, customer-received, confirmed, rejected and cancelled events. `lib/notifications/reservation-notifications.ts` provides the email delivery interface, but the included implementation is deliberately unconfigured and reports `sent: false`. No customer email is claimed as sent until a real provider and outbox worker are added.
 
 ## Project structure
 

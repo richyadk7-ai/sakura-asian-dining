@@ -7,12 +7,13 @@ import { logout } from "@/app/admin/actions";
 import { updateReservationDetails, updateReservationStatus } from "@/app/admin/reservations/actions";
 import { getCourseById } from "@/data/courses";
 import { MAX_RESERVATION_GUESTS, MIN_RESERVATION_GUESTS, RESERVATION_TIME_SLOTS } from "@/lib/reservation-request";
+import { ReservationLiveAlerts } from "@/components/reservation-live-alerts";
 import type { OwnerReservation, ReservationStatus } from "@/types";
 
 const statusLabels: Record<ReservationStatus, string> = { pending: "Pending", confirmed: "Confirmed", rejected: "Rejected", cancelled: "Cancelled", completed: "Completed", no_show: "No-show" };
 const actionStatuses: ReservationStatus[] = ["confirmed", "rejected", "cancelled", "completed", "no_show"];
 
-export function OwnerReservationsDashboard({ reservations, today }: { reservations: OwnerReservation[]; today: string }) {
+export function OwnerReservationsDashboard({ reservations, today, liveAlerts = false }: { reservations: OwnerReservation[]; today: string; liveAlerts?: boolean }) {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<"all" | ReservationStatus>("all");
   const [view, setView] = useState<"all" | "today" | "upcoming">("all");
@@ -32,7 +33,7 @@ export function OwnerReservationsDashboard({ reservations, today }: { reservatio
 
   return (
     <div className="admin-dashboard reservations-dashboard">
-      <header className="admin-header"><div><p className="eyebrow">Protected owner area</p><h1>Reservations</h1><p className="admin-reservation-summary">{pendingCount} pending · {reservations.length} total</p></div><div className="admin-header-actions"><Link className="button button-outline" href="/admin">Content studio</Link><form action={logout}><button className="button button-outline"><LogOut />Sign out</button></form></div></header>
+      <header className="admin-header"><div><p className="eyebrow">Protected owner area</p><h1>Reservations</h1><p className="admin-reservation-summary">{pendingCount} pending · {reservations.length} total</p></div><div className="admin-header-actions">{liveAlerts ? <ReservationLiveAlerts /> : null}<Link className="button button-outline" href="/admin">Content studio</Link><form action={logout}><button className="button button-outline"><LogOut />Sign out</button></form></div></header>
       <section className="reservation-admin-tools" aria-label="Reservation filters">
         <label className="reservation-admin-search"><Search /><span className="sr-only">Search reservations</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Name, phone, email or reference" /></label>
         <select aria-label="Filter by status" value={status} onChange={(event) => setStatus(event.target.value as typeof status)}><option value="all">All statuses</option>{Object.entries(statusLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select>
@@ -50,7 +51,7 @@ function OwnerReservationCard({ reservation, today }: { reservation: OwnerReserv
   const time = reservation.reservation_time.slice(0, 5);
   const course = getCourseById(reservation.course_id);
   return (
-    <article className={`owner-reservation-card status-${reservation.status}`}>
+    <article className={`owner-reservation-card status-${reservation.status}`} id={`reservation-${reservation.id}`}>
       <div className="owner-reservation-heading"><div><span className={`reservation-status-badge status-${reservation.status}`}>{statusLabels[reservation.status]}</span><p>{reservation.reservation_reference}</p><h2>{reservation.customer_name}</h2></div><div className="owner-reservation-when"><strong>{reservation.reservation_date === today ? "Today" : reservation.reservation_date}</strong><span>{time} · {reservation.guest_count} guests</span></div></div>
       <div className="owner-reservation-contact"><a href={`tel:${reservation.customer_phone}`}><Phone />{reservation.customer_phone}</a><a href={`mailto:${reservation.customer_email}`}><Mail />{reservation.customer_email}</a></div>
       <details>

@@ -23,7 +23,7 @@ export default async function OwnerReservationsPage({ searchParams }: { searchPa
   const { data, error } = await client.from("reservations").select("id,reservation_reference,course_id,customer_name,customer_email,customer_phone,reservation_date,reservation_time,guest_count,seating_preference,occasion,allergies,special_requests,preferred_language,status,owner_notes,created_at,updated_at,confirmed_at,cancelled_at").order("reservation_date", { ascending: true }).order("reservation_time", { ascending: true });
   if (error) return <AdminFrame><div className="admin-auth-card"><CalendarCheck2 /><p className="eyebrow">Reservation database</p><h1>Reservations are not ready</h1><p>{error.message}</p><p>Apply all files in <code>supabase/migrations</code>, then reload this page.</p><Link className="button button-outline" href="/admin">Content studio</Link></div></AdminFrame>;
 
-  return <AdminFrame><OwnerReservationsDashboard reservations={(data ?? []) as OwnerReservation[]} today={getTokyoNow().date} /></AdminFrame>;
+  return <AdminFrame><OwnerReservationsDashboard reservations={(data ?? []) as OwnerReservation[]} today={getTokyoNow().date} liveAlerts /></AdminFrame>;
 }
 
 function AdminFrame({ children }: { children: React.ReactNode }) {
