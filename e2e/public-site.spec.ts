@@ -45,6 +45,19 @@ test("existing reservation calls to action open the internal request page", asyn
   await expect(page.locator(".header-reserve")).toHaveAttribute("href", "/ja/reservation");
 });
 
+test("sakura motion scales for iPhone and respects reduced-motion preferences", async ({ page }) => {
+  await page.goto("/en");
+  const petals = page.locator("[data-sakura-petals] .sakura-petal");
+  await expect(petals).toHaveCount(24);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  const mobilePetalCount = await petals.evaluateAll((items) => items.filter((item) => getComputedStyle(item).display !== "none").length);
+  expect(mobilePetalCount).toBe(13);
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(page.locator("[data-sakura-petals]")).toHaveCSS("display", "none");
+});
+
 test("customer reservation request validates and shows a private pending confirmation", async ({ page }) => {
   const reference = "SKR-20260720-A1B2C3";
   await page.route("**/api/reservations", async (route) => {
