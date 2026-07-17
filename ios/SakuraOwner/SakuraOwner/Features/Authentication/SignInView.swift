@@ -3,6 +3,7 @@ import SwiftUI
 struct SignInView: View {
     @Environment(AppState.self) private var appState
     @Environment(SakuraTheme.self) private var theme
+    @Environment(SakuraLanguageStore.self) private var language
     @State private var email = ""
     @State private var password = ""
     @FocusState private var focusedField: Field?
@@ -12,113 +13,76 @@ struct SignInView: View {
     var body: some View {
         GeometryReader { proxy in
             ZStack {
-                SakuraAtmosphere(petalCount: 30)
+                SakuraAtmosphere(petalCount: 10, showsMonogram: false)
 
                 ScrollView {
-                    ViewThatFits(in: .horizontal) {
-                        HStack(spacing: 72) {
-                            brandStory
-                                .frame(maxWidth: 530, alignment: .leading)
-                            signInPanel
-                        }
-
-                        VStack(alignment: .leading, spacing: 46) {
-                            brandStory
-                            signInPanel
-                                .frame(maxWidth: 560)
-                        }
+                    VStack(spacing: 0) {
+                        signInPanel
                     }
-                    .frame(maxWidth: 1120, minHeight: max(proxy.size.height - 80, 680))
-                    .padding(.horizontal, 48)
-                    .padding(.vertical, 40)
+                    .frame(maxWidth: .infinity, minHeight: max(proxy.size.height, 620))
+                    .padding(.horizontal, 28)
+                    .padding(.vertical, 36)
                 }
                 .scrollBounceBehavior(.basedOnSize)
             }
         }
     }
 
-    private var brandStory: some View {
-        VStack(alignment: .leading, spacing: 30) {
-            HStack(spacing: 20) {
-                SakuraMark(size: 108)
-                VStack(alignment: .leading, spacing: 7) {
-                    Text("SAKURA")
-                        .font(.system(size: 22, weight: .black, design: .serif))
-                        .tracking(5)
-                    Text("ASIAN DINING & BAR")
-                        .font(.caption.weight(.bold))
-                        .tracking(2.3)
-                        .foregroundStyle(theme.gold)
-                }
-            }
-
-            VStack(alignment: .leading, spacing: 15) {
-                SakuraLiveIndicator()
-                Text("Every guest.\nEvery detail.\nOne beautiful flow.")
-                    .font(.system(size: 58, weight: .medium, design: .serif))
-                    .tracking(-1.8)
-                    .minimumScaleFactor(0.76)
-                    .lineSpacing(-3)
-                Text("Sakura’s private reservation command center—designed for fast decisions during a busy service.")
-                    .font(.title3)
-                    .foregroundStyle(theme.secondaryText)
-                    .frame(maxWidth: 500, alignment: .leading)
-                    .lineSpacing(4)
-            }
-
-            SakuraGlassGroup(spacing: 12) {
-                HStack(spacing: 12) {
-                    SignInFeature(icon: "bell.and.waves.left.and.right.fill", title: "Instant alerts")
-                    SignInFeature(icon: "checkmark.seal.fill", title: "Live decisions")
-                    SignInFeature(icon: "lock.shield.fill", title: "Owner only")
-                }
-            }
-        }
-    }
-
     private var signInPanel: some View {
         VStack(alignment: .leading, spacing: 26) {
-            HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("OWNER ACCESS")
-                        .font(.caption2.weight(.black))
-                        .tracking(2.5)
-                        .foregroundStyle(theme.gold)
-                    Text("Step into service.")
-                        .font(.system(size: 37, weight: .semibold, design: .serif))
-                    Text("Sign in with your protected Sakura owner account.")
-                        .font(.subheadline)
+            HStack(spacing: 16) {
+                SakuraMark(size: 64)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("SAKURA")
+                        .font(.headline.weight(.black))
+                        .tracking(2.2)
+                    Text(language.text("Owner reservations", "सञ्चालक आरक्षण"))
+                        .font(.caption)
                         .foregroundStyle(theme.secondaryText)
                 }
-                Spacer()
-                Image(systemName: "key.viewfinder")
-                    .font(.system(size: 28, weight: .light))
-                    .foregroundStyle(theme.paleGold)
-                    .frame(width: 56, height: 56)
-                    .sakuraGlass(cornerRadius: 18, tint: theme.burgundy.opacity(0.35))
+                Spacer(minLength: 12)
+                SakuraLanguagePicker()
+            }
+
+            Divider().overlay(Color.white.opacity(0.1))
+
+            VStack(alignment: .leading, spacing: 8) {
+                Text(language.text("Owner sign in", "सञ्चालक साइन इन"))
+                    .font(.largeTitle.weight(.semibold))
+                    .fixedSize(horizontal: false, vertical: true)
+                Text(language.text(
+                    "Use your secure Sakura account.",
+                    "आफ्नो सुरक्षित साकुरा खाता प्रयोग गर्नुहोस्।"
+                ))
+                .font(.subheadline)
+                .foregroundStyle(theme.secondaryText)
             }
 
             SakuraGlassGroup(spacing: 12) {
                 VStack(spacing: 14) {
-                    LabelledField(title: "Email", systemImage: "envelope.fill", text: $email)
-                        .textInputAutocapitalization(.never)
-                        .keyboardType(.emailAddress)
-                        .textContentType(.username)
-                        .focused($focusedField, equals: .email)
-                        .submitLabel(.next)
-                        .onSubmit { focusedField = .password }
+                    LabelledField(
+                        title: language.text("Email", "इमेल"),
+                        systemImage: "envelope.fill",
+                        text: $email
+                    )
+                    .textInputAutocapitalization(.never)
+                    .keyboardType(.emailAddress)
+                    .textContentType(.username)
+                    .focused($focusedField, equals: .email)
+                    .submitLabel(.next)
+                    .onSubmit { focusedField = .password }
 
-                    SecureField("Password", text: $password)
+                    SecureField(language.text("Password", "पासवर्ड"), text: $password)
                         .textContentType(.password)
-                        .padding(18)
-                        .padding(.leading, 34)
+                        .padding(17)
+                        .padding(.leading, 32)
                         .overlay(alignment: .leading) {
                             Image(systemName: "lock.fill")
                                 .foregroundStyle(theme.gold)
-                                .padding(.leading, 18)
+                                .padding(.leading, 17)
                                 .allowsHitTesting(false)
                         }
-                        .sakuraGlass(cornerRadius: 17, tint: theme.wine.opacity(0.16), interactive: true)
+                        .sakuraGlass(cornerRadius: 16, tint: theme.wine.opacity(0.12), interactive: true)
                         .focused($focusedField, equals: .password)
                         .submitLabel(.go)
                         .onSubmit(signIn)
@@ -129,77 +93,52 @@ struct SignInView: View {
                 Label(error, systemImage: "exclamationmark.triangle.fill")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(Color(red: 1, green: 0.67, blue: 0.71))
-                    .padding(14)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(13)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.red.opacity(0.11), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    .background(Color.red.opacity(0.1), in: RoundedRectangle(cornerRadius: 13, style: .continuous))
                     .accessibilityIdentifier("signInError")
             }
 
             Button(action: signIn) {
-                HStack(spacing: 12) {
+                HStack(spacing: 10) {
                     if appState.isLoading {
                         ProgressView().tint(theme.ink)
-                    } else {
-                        Image(systemName: "sparkles")
                     }
-                    Text(appState.isLoading ? "Opening dashboard…" : "Open reservation command center")
+                    Text(appState.isLoading
+                        ? language.text("Signing in…", "साइन इन हुँदैछ…")
+                        : language.text("Sign in", "साइन इन"))
                     Spacer()
-                    Image(systemName: "arrow.up.right")
+                    Image(systemName: "arrow.right")
                 }
                 .font(.headline)
                 .foregroundStyle(theme.ink)
-                .padding(18)
+                .padding(17)
                 .background(
                     LinearGradient(colors: [theme.paleGold, theme.gold], startPoint: .topLeading, endPoint: .bottomTrailing),
-                    in: RoundedRectangle(cornerRadius: 17, style: .continuous)
+                    in: RoundedRectangle(cornerRadius: 16, style: .continuous)
                 )
-                .overlay {
-                    RoundedRectangle(cornerRadius: 17, style: .continuous)
-                        .stroke(Color.white.opacity(0.46), lineWidth: 1)
-                }
-                .shadow(color: theme.gold.opacity(0.25), radius: 20, y: 10)
             }
             .buttonStyle(SakuraPressButtonStyle())
             .disabled(appState.isLoading || email.isEmpty || password.isEmpty)
             .opacity(email.isEmpty || password.isEmpty ? 0.52 : 1)
             .accessibilityIdentifier("signInButton")
 
-            HStack(spacing: 10) {
-                Image(systemName: "checkmark.shield.fill")
-                    .foregroundStyle(theme.gold)
-                Text("Encrypted session · owner allowlist · row-level security")
-            }
+            Label(
+                language.text("Secure owner access", "सुरक्षित सञ्चालक पहुँच"),
+                systemImage: "checkmark.shield.fill"
+            )
             .font(.caption)
             .foregroundStyle(theme.secondaryText)
         }
-        .padding(34)
-        .frame(width: 470)
+        .padding(30)
+        .frame(maxWidth: 520)
         .sakuraPanel()
     }
 
     private func signIn() {
         focusedField = nil
         Task { await appState.signIn(email: email, password: password) }
-    }
-}
-
-private struct SignInFeature: View {
-    @Environment(SakuraTheme.self) private var theme
-    let icon: String
-    let title: String
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 9) {
-            Image(systemName: icon)
-                .font(.title3)
-                .foregroundStyle(theme.paleGold)
-            Text(title)
-                .font(.caption.weight(.bold))
-                .foregroundStyle(.white.opacity(0.86))
-        }
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .sakuraGlass(cornerRadius: 17, tint: theme.burgundy.opacity(0.18))
     }
 }
 
@@ -211,15 +150,15 @@ private struct LabelledField: View {
 
     var body: some View {
         TextField(title, text: $text)
-            .padding(18)
-            .padding(.leading, 34)
+            .padding(17)
+            .padding(.leading, 32)
             .overlay(alignment: .leading) {
                 Image(systemName: systemImage)
                     .foregroundStyle(theme.gold)
-                    .padding(.leading, 18)
+                    .padding(.leading, 17)
                     .allowsHitTesting(false)
             }
-            .sakuraGlass(cornerRadius: 17, tint: theme.wine.opacity(0.16), interactive: true)
+            .sakuraGlass(cornerRadius: 16, tint: theme.wine.opacity(0.12), interactive: true)
     }
 }
 
@@ -228,6 +167,7 @@ private struct LabelledField: View {
     SignInView()
         .environment(AppState())
         .environment(SakuraTheme())
+        .environment(SakuraLanguageStore())
         .preferredColorScheme(.dark)
 }
 #endif

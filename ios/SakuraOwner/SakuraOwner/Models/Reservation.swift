@@ -5,14 +5,16 @@ enum ReservationStatus: String, Codable, CaseIterable, Identifiable, Sendable {
     case noShow = "no_show"
 
     var id: String { rawValue }
-    var title: String {
+    var title: String { title(in: .english) }
+
+    func title(in language: SakuraLanguage) -> String {
         switch self {
-        case .pending: "Pending"
-        case .confirmed: "Confirmed"
-        case .rejected: "Rejected"
-        case .cancelled: "Cancelled"
-        case .completed: "Completed"
-        case .noShow: "No-show"
+        case .pending: language == .english ? "Pending" : "प्रतीक्षारत"
+        case .confirmed: language == .english ? "Confirmed" : "पुष्टि"
+        case .rejected: language == .english ? "Rejected" : "अस्वीकृत"
+        case .cancelled: language == .english ? "Cancelled" : "रद्द"
+        case .completed: language == .english ? "Completed" : "पूरा"
+        case .noShow: language == .english ? "No-show" : "अनुपस्थित"
         }
     }
 }
@@ -64,15 +66,17 @@ struct Reservation: Codable, Identifiable, Hashable, Sendable {
             .localizedLowercase
     }
 
-    var courseName: String {
+    var courseName: String { courseName(in: .english) }
+
+    func courseName(in language: SakuraLanguage) -> String {
         switch courseID {
-        case "welcome-party-course": "Welcome Party Course"
-        case "sakura-150-minute-course": "Sakura 150-Minute Course"
-        case "tandoori-bbq-course": "Tandoori BBQ Course"
-        case "sakura-special-drink-course": "Sakura Special Drink Course"
-        case "grilled-chicken-drink-course": "Grilled Chicken Drink Course"
-        case .none: "No course selected"
-        default: courseID ?? "No course selected"
+        case "welcome-party-course": language == .english ? "Welcome Party Course" : "स्वागत पार्टी कोर्स"
+        case "sakura-150-minute-course": language == .english ? "Sakura 150-Minute Course" : "साकुरा १५०-मिनेट कोर्स"
+        case "tandoori-bbq-course": language == .english ? "Tandoori BBQ Course" : "तन्दुरी BBQ कोर्स"
+        case "sakura-special-drink-course": language == .english ? "Sakura Special Drink Course" : "साकुरा विशेष पेय कोर्स"
+        case "grilled-chicken-drink-course": language == .english ? "Grilled Chicken Drink Course" : "ग्रिल्ड चिकेन पेय कोर्स"
+        case .none: language == .english ? "No course selected" : "कोर्स चयन गरिएको छैन"
+        default: courseID ?? (language == .english ? "No course selected" : "कोर्स चयन गरिएको छैन")
         }
     }
 }
@@ -81,7 +85,17 @@ enum ReservationFilter: String, CaseIterable, Identifiable {
     case all, pending, today, upcoming, confirmed
 
     var id: String { rawValue }
-    var title: String { rawValue.capitalized }
+    var title: String { title(in: .english) }
+
+    func title(in language: SakuraLanguage) -> String {
+        switch self {
+        case .all: language == .english ? "All" : "सबै"
+        case .pending: language == .english ? "Pending" : "प्रतीक्षारत"
+        case .today: language == .english ? "Today" : "आज"
+        case .upcoming: language == .english ? "Upcoming" : "आगामी"
+        case .confirmed: language == .english ? "Confirmed" : "पुष्टि"
+        }
+    }
     var icon: String {
         switch self {
         case .all: "tray.full"

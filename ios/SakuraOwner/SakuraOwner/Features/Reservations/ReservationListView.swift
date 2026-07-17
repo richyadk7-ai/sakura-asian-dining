@@ -3,32 +3,32 @@ import SwiftUI
 struct ReservationListView: View {
     @Environment(AppState.self) private var appState
     @Environment(SakuraTheme.self) private var theme
+    @Environment(SakuraLanguageStore.self) private var language
 
     var body: some View {
         @Bindable var state = appState
         VStack(spacing: 0) {
             QueueHeader(
-                title: appState.filter.title,
+                title: appState.filter.title(in: language.current),
                 total: appState.filteredReservations.count,
                 pending: appState.filteredReservations.filter { $0.status == .pending }.count
             )
 
             Group {
                 if appState.isLoading && appState.reservations.isEmpty {
-                    VStack(spacing: 18) {
+                    VStack(spacing: 14) {
                         ProgressView().tint(theme.gold).controlSize(.large)
-                        Text("Opening today’s reservation flow…")
-                            .font(.system(.headline, design: .serif))
+                        Text(language.text("Loading reservations…", "आरक्षण लोड हुँदैछ…"))
+                            .font(.subheadline)
                             .foregroundStyle(theme.secondaryText)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else if appState.filteredReservations.isEmpty {
                     ContentUnavailableView(
-                        "The queue is clear",
-                        systemImage: "sparkles",
-                        description: Text("Change the filter or search to find another reservation.")
+                        language.text("No reservations", "आरक्षण छैन"),
+                        systemImage: "calendar.badge.checkmark",
+                        description: Text(language.text("Try another filter or search.", "अर्को फिल्टर वा खोज प्रयोग गर्नुहोस्।"))
                     )
-                    .symbolEffect(.pulse, options: .repeating.speed(0.35))
                 } else {
                     List(selection: $state.selectedReservationID) {
                         ForEach(appState.filteredReservations) { reservation in
@@ -37,36 +37,33 @@ struct ReservationListView: View {
                                 isSelected: appState.selectedReservationID == reservation.id
                             )
                             .tag(reservation.id)
-                            .listRowInsets(.init(top: 7, leading: 13, bottom: 7, trailing: 13))
+                            .listRowInsets(.init(top: 6, leading: 12, bottom: 6, trailing: 12))
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
                         }
                     }
                     .listStyle(.plain)
                     .scrollContentBackground(.hidden)
+                    .environment(\.defaultMinListRowHeight, 1)
                     .refreshable { await appState.refreshReservations() }
                 }
             }
         }
         .background(
             LinearGradient(
-                colors: [theme.deepBurgundy.opacity(0.95), theme.ink.opacity(0.97)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
+                colors: [theme.deepBurgundy.opacity(0.96), theme.ink],
+                startPoint: .top,
+                endPoint: .bottom
             )
         )
-        .navigationTitle(appState.filter.title)
+        .navigationTitle(appState.filter.title(in: language.current))
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 if let lastUpdated = appState.lastUpdated {
-                    HStack(spacing: 7) {
-                        Circle().fill(theme.gold).frame(width: 5, height: 5)
-                        Text(lastUpdated, style: .time)
-                            .monospacedDigit()
-                    }
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(theme.secondaryText)
-                    .accessibilityLabel("Last updated \(lastUpdated.formatted(date: .omitted, time: .shortened))")
+                    Text(lastUpdated, style: .time)
+                        .font(.caption.monospacedDigit())
+                        .foregroundStyle(theme.secondaryText)
+                        .accessibilityLabel(language.text("Last updated", "अन्तिम अपडेट"))
                 }
             }
         }
@@ -75,145 +72,128 @@ struct ReservationListView: View {
 
 private struct QueueHeader: View {
     @Environment(SakuraTheme.self) private var theme
+    @Environment(SakuraLanguageStore.self) private var language
     let title: String
     let total: Int
     let pending: Int
 
     var body: some View {
-        HStack(alignment: .bottom, spacing: 18) {
-            VStack(alignment: .leading, spacing: 5) {
-                Text("RESERVATION FLOW")
-                    .font(.system(size: 9, weight: .black))
-                    .tracking(2.2)
-                    .foregroundStyle(theme.gold)
-                Text(title)
-                    .font(.system(size: 31, weight: .semibold, design: .serif))
-            }
-            Spacer()
-            VStack(alignment: .trailing, spacing: 4) {
-                Text("\(total)")
-                    .font(.system(size: 29, weight: .medium, design: .serif))
-                    .foregroundStyle(theme.paleGold)
-                    .contentTransition(.numericText())
-                Text(total == 1 ? "REQUEST" : "REQUESTS")
-                    .font(.system(size: 8, weight: .black))
-                    .tracking(1.5)
-                    .foregroundStyle(theme.secondaryText)
-            }
+        HStack(spacing: 12) {
+            Text(title)
+                .font(.title2.weight(.semibold))
+                .lineLimit(1)
+            Spacer(minLength: 8)
+            CountPill(value: total, label: language.text("total", "जम्मा"), color: theme.secondaryText)
             if pending > 0 {
-                VStack(alignment: .trailing, spacing: 4) {
-                    Text("\(pending)")
-                        .font(.system(size: 29, weight: .medium, design: .serif))
-                        .foregroundStyle(theme.petalLight)
-                        .contentTransition(.numericText())
-                    Text("NEEDS ACTION")
-                        .font(.system(size: 8, weight: .black))
-                        .tracking(1.3)
-                        .foregroundStyle(theme.gold)
-                }
+                CountPill(value: pending, label: language.text("waiting", "बाँकी"), color: theme.gold)
             }
         }
-        .padding(.horizontal, 20)
-        .padding(.top, 17)
-        .padding(.bottom, 15)
-        .background(theme.ink.opacity(0.42))
-        .overlay(alignment: .bottom) {
-            LinearGradient(colors: [.clear, theme.gold.opacity(0.45), .clear], startPoint: .leading, endPoint: .trailing)
-                .frame(height: 1)
+        .padding(.horizontal, 18)
+        .padding(.vertical, 14)
+        .background(theme.ink.opacity(0.48))
+        .overlay(alignment: .bottom) { Rectangle().fill(theme.gold.opacity(0.18)).frame(height: 1) }
+    }
+}
+
+private struct CountPill: View {
+    let value: Int
+    let label: String
+    let color: Color
+
+    var body: some View {
+        HStack(spacing: 5) {
+            Text("\(value)").font(.caption.monospacedDigit().weight(.bold))
+            Text(label).font(.caption2).lineLimit(1)
         }
+        .foregroundStyle(color)
+        .padding(.horizontal, 9)
+        .padding(.vertical, 6)
+        .background(Color.white.opacity(0.05), in: Capsule())
     }
 }
 
 private struct ReservationRow: View {
     @Environment(SakuraTheme.self) private var theme
+    @Environment(SakuraLanguageStore.self) private var language
     let reservation: Reservation
     let isSelected: Bool
 
     var body: some View {
-        HStack(spacing: 15) {
+        HStack(alignment: .top, spacing: 13) {
             dateTile
 
-            VStack(alignment: .leading, spacing: 8) {
-                HStack(alignment: .firstTextBaseline) {
+            VStack(alignment: .leading, spacing: 7) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Text(reservation.customerName)
-                        .font(.system(.headline, design: .serif, weight: .semibold))
+                        .font(.headline)
                         .lineLimit(1)
-                    Spacer(minLength: 8)
-                    StatusBadge(status: reservation.status)
-                }
-
-                HStack(spacing: 7) {
-                    Image(systemName: "clock.fill")
-                        .foregroundStyle(theme.gold)
-                    Text(reservation.displayTime)
-                        .font(.body.monospacedDigit().weight(.bold))
-                    Text("·")
-                        .foregroundStyle(theme.secondaryText)
-                    Image(systemName: "person.2.fill")
-                        .foregroundStyle(theme.gold)
-                    Text("\(reservation.guestCount)")
-                        .font(.subheadline.weight(.semibold))
-                }
-
-                HStack(spacing: 7) {
-                    Image(systemName: "fork.knife")
-                    Text(reservation.courseName)
-                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
                     Spacer(minLength: 4)
-                    Text(reservation.reservationReference)
-                        .font(.system(size: 9, weight: .semibold, design: .monospaced))
+                    Text(reservation.displayTime)
+                        .font(.headline.monospacedDigit())
+                        .foregroundStyle(theme.paleGold)
                 }
-                .font(.caption)
-                .foregroundStyle(theme.secondaryText)
+
+                Text(reservation.courseName(in: language.current))
+                    .font(.subheadline)
+                    .foregroundStyle(theme.secondaryText)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: 8) {
+                        guestAndReference
+                        Spacer(minLength: 0)
+                        StatusBadge(status: reservation.status)
+                    }
+                    VStack(alignment: .leading, spacing: 6) {
+                        guestAndReference
+                        StatusBadge(status: reservation.status)
+                    }
+                }
             }
         }
-        .padding(14)
+        .padding(13)
         .background(
-            LinearGradient(
-                colors: isSelected
-                    ? [theme.burgundy.opacity(0.72), theme.wine.opacity(0.82)]
-                    : [Color.white.opacity(0.07), Color.white.opacity(0.025)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            ),
-            in: RoundedRectangle(cornerRadius: 21, style: .continuous)
+            isSelected ? theme.burgundy.opacity(0.5) : Color.white.opacity(0.045),
+            in: RoundedRectangle(cornerRadius: 17, style: .continuous)
         )
         .overlay {
-            RoundedRectangle(cornerRadius: 21, style: .continuous)
-                .stroke(
-                    LinearGradient(
-                        colors: isSelected
-                            ? [theme.paleGold.opacity(0.72), theme.gold.opacity(0.12)]
-                            : [Color.white.opacity(0.11), Color.white.opacity(0.02)],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    ),
-                    lineWidth: isSelected ? 1.25 : 1
-                )
+            RoundedRectangle(cornerRadius: 17, style: .continuous)
+                .stroke(isSelected ? theme.gold.opacity(0.56) : Color.white.opacity(0.07))
         }
-        .shadow(color: isSelected ? theme.burgundy.opacity(0.34) : .clear, radius: 18, y: 8)
-        .contentShape(RoundedRectangle(cornerRadius: 21, style: .continuous))
-        .animation(.snappy(duration: 0.32), value: isSelected)
+        .contentShape(RoundedRectangle(cornerRadius: 17, style: .continuous))
+        .animation(.snappy(duration: 0.25), value: isSelected)
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(reservation.customerName), \(reservation.status.title), \(reservation.reservationDate) at \(reservation.displayTime), \(reservation.guestCount) guests")
+        .accessibilityLabel(
+            "\(reservation.customerName), \(reservation.status.title(in: language.current)), \(reservation.displayTime), \(reservation.guestCount) \(language.text("guests", "पाहुना"))"
+        )
+    }
+
+    private var guestAndReference: some View {
+        HStack(spacing: 8) {
+            Label("\(reservation.guestCount)", systemImage: "person.2.fill")
+                .font(.caption)
+                .foregroundStyle(theme.secondaryText)
+            Text(reservation.reservationReference)
+                .font(.caption2.monospaced())
+                .foregroundStyle(theme.secondaryText)
+                .lineLimit(1)
+        }
     }
 
     private var dateTile: some View {
-        VStack(spacing: 2) {
+        VStack(spacing: 1) {
             Text(monthLabel)
-                .font(.system(size: 9, weight: .black))
-                .tracking(1.3)
+                .font(.caption2.weight(.bold))
                 .foregroundStyle(isSelected ? theme.ink.opacity(0.7) : theme.gold)
+                .lineLimit(1)
             Text(dayLabel)
-                .font(.system(size: 28, weight: .semibold, design: .serif))
+                .font(.title2.weight(.semibold))
                 .foregroundStyle(isSelected ? theme.ink : theme.paleGold)
         }
-        .frame(width: 55, height: 66)
-        .background(isSelected ? theme.paleGold : theme.burgundy.opacity(0.38), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(theme.gold.opacity(isSelected ? 0 : 0.24))
-        }
+        .frame(width: 50, height: 58)
+        .background(isSelected ? theme.paleGold : theme.burgundy.opacity(0.3), in: RoundedRectangle(cornerRadius: 13, style: .continuous))
     }
 
     private var parsedDate: Date? {
@@ -226,47 +206,47 @@ private struct ReservationRow: View {
     }
 
     private var monthLabel: String {
-        guard let parsedDate else { return "DATE" }
-        return parsedDate.formatted(.dateTime.month(.abbreviated)).uppercased()
+        guard let parsedDate else { return "—" }
+        let formatter = DateFormatter()
+        formatter.locale = language.current.locale
+        formatter.timeZone = TimeZone(identifier: "Asia/Tokyo")
+        formatter.dateFormat = "MMM"
+        return formatter.string(from: parsedDate)
     }
 
     private var dayLabel: String {
         guard let parsedDate else { return "—" }
-        return parsedDate.formatted(.dateTime.day())
+        let formatter = DateFormatter()
+        formatter.locale = language.current.locale
+        formatter.timeZone = TimeZone(identifier: "Asia/Tokyo")
+        formatter.dateFormat = "d"
+        return formatter.string(from: parsedDate)
     }
 }
 
 struct StatusBadge: View {
     @Environment(SakuraTheme.self) private var theme
+    @Environment(SakuraLanguageStore.self) private var language
     let status: ReservationStatus
 
     var body: some View {
-        HStack(spacing: 5) {
-            Circle()
-                .fill(dotColor)
-                .frame(width: 5, height: 5)
-            Text(status.title.uppercased())
-                .font(.system(size: 9, weight: .black))
-                .tracking(0.9)
-        }
-        .foregroundStyle(status == .pending ? theme.ink : .white)
-        .padding(.horizontal, 9)
-        .padding(.vertical, 6)
-        .background(badgeColor, in: Capsule())
-        .overlay { Capsule().stroke(Color.white.opacity(status == .pending ? 0.3 : 0.14)) }
-    }
-
-    private var dotColor: Color {
-        status == .pending ? theme.burgundy : .white.opacity(0.9)
+        Text(status.title(in: language.current))
+            .font(.caption2.weight(.bold))
+            .foregroundStyle(status == .pending ? theme.ink : .white)
+            .lineLimit(1)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 5)
+            .background(badgeColor, in: Capsule())
+            .fixedSize(horizontal: true, vertical: false)
     }
 
     private var badgeColor: Color {
         switch status {
         case .pending: theme.gold
-        case .confirmed: .green.opacity(0.7)
-        case .rejected, .cancelled: .red.opacity(0.7)
-        case .completed: .blue.opacity(0.62)
-        case .noShow: .gray.opacity(0.52)
+        case .confirmed: .green.opacity(0.68)
+        case .rejected, .cancelled: .red.opacity(0.68)
+        case .completed: .blue.opacity(0.6)
+        case .noShow: .gray.opacity(0.5)
         }
     }
 }

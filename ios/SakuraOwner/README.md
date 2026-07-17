@@ -1,6 +1,6 @@
 # Sakura Owner for iPad
 
-A native SwiftUI owner application for Sakura Asian Dining & Bar. It signs in through the existing Supabase owner allowlist, reads reservations under Row Level Security, polls every five seconds while active, plays a synthesized two-stage native alert, and allows owners to confirm, reject or update reservation status.
+A native bilingual SwiftUI owner application for Sakura Asian Dining & Bar. It supports persistent English/Nepali switching, signs in through the existing Supabase owner allowlist, reads reservations under Row Level Security, polls every five seconds while active, plays a synthesized two-stage native alert, and allows owners to confirm, reject or update reservation status.
 
 ## Generate and build
 
@@ -16,4 +16,4 @@ Open `SakuraOwner.xcodeproj` in Xcode and run it on an iPad simulator or a provi
 
 ## Notifications
 
-Foreground alerts are fully native and work without a paid notification vendor. The app also contains the APNs entitlement and device-token registration hook. Lock-screen notifications on a physical iPad require an Apple Developer team, a Push Notifications capability/provisioning profile, and server-side APNs credentials. Those credentials must never be committed to this repository.
+Foreground alerts are fully native and work without a paid notification vendor while the app is active. The checked-in free-build configuration intentionally omits the APNs entitlement so a Personal Team can sign the app. Lock-screen notifications require a paid Apple Developer team, a Push Notifications capability/provisioning profile, server-side APNs credentials, and a separate push-enabled build configuration. Those credentials must never be committed to this repository.

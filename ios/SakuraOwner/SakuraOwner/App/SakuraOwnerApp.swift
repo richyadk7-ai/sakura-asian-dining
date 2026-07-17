@@ -5,12 +5,14 @@ struct SakuraOwnerApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var appState = AppState()
     @State private var theme = SakuraTheme()
+    @State private var language = SakuraLanguageStore()
 
     var body: some Scene {
         WindowGroup {
             RootView()
                 .environment(appState)
                 .environment(theme)
+                .environment(language)
                 .preferredColorScheme(.dark)
                 .task { await appState.restoreSession() }
         }
@@ -37,6 +39,7 @@ private struct RootView: View {
 
 private struct LaunchView: View {
     @Environment(SakuraTheme.self) private var theme
+    @Environment(SakuraLanguageStore.self) private var language
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var isGlowing = false
 
@@ -53,11 +56,11 @@ private struct LaunchView: View {
                     SakuraMark(size: 92)
                 }
                 VStack(spacing: 10) {
-                    Text("SAKURA OWNER")
+                    Text("SAKURA")
                         .font(.caption.weight(.black))
                         .tracking(3.6)
                         .foregroundStyle(theme.gold)
-                    Text("Preparing the reservation command center")
+                    Text(language.text("Preparing reservations…", "आरक्षण तयार हुँदैछ…"))
                         .font(.system(.title3, design: .serif, weight: .medium))
                     ProgressView()
                         .tint(theme.paleGold)

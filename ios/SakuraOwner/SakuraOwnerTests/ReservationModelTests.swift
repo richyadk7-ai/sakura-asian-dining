@@ -33,6 +33,8 @@ final class ReservationModelTests: XCTestCase {
         XCTAssertEqual(reservation.guestCount, 4)
         XCTAssertEqual(reservation.status, .pending)
         XCTAssertEqual(reservation.courseName, "Welcome Party Course")
+        XCTAssertEqual(reservation.courseName(in: .nepali), "स्वागत पार्टी कोर्स")
+        XCTAssertEqual(reservation.status.title(in: .nepali), "प्रतीक्षारत")
     }
 
     func testSessionRefreshThreshold() {
@@ -41,5 +43,11 @@ final class ReservationModelTests: XCTestCase {
         let expiring = AuthSession(accessToken: "token", refreshToken: "refresh", expiresAt: Date().addingTimeInterval(30), userID: userID, email: "owner@example.com")
         XCTAssertFalse(active.needsRefresh)
         XCTAssertTrue(expiring.needsRefresh)
+    }
+
+    func testReservationFiltersHaveEnglishAndNepaliLabels() {
+        XCTAssertEqual(ReservationFilter.today.title(in: .english), "Today")
+        XCTAssertEqual(ReservationFilter.today.title(in: .nepali), "आज")
+        XCTAssertEqual(ReservationFilter.confirmed.title(in: .nepali), "पुष्टि")
     }
 }

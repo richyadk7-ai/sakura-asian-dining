@@ -24,6 +24,52 @@ final class SakuraTheme {
     }
 }
 
+enum SakuraLanguage: String, CaseIterable, Identifiable, Sendable {
+    case english = "en"
+    case nepali = "ne"
+
+    var id: String { rawValue }
+    var shortLabel: String { self == .english ? "EN" : "ने" }
+    var displayName: String { self == .english ? "English" : "नेपाली" }
+    var locale: Locale { Locale(identifier: self == .english ? "en_US" : "ne_NP") }
+}
+
+@MainActor
+@Observable
+final class SakuraLanguageStore {
+    private static let defaultsKey = "sakura.owner.language"
+
+    var current: SakuraLanguage {
+        didSet { UserDefaults.standard.set(current.rawValue, forKey: Self.defaultsKey) }
+    }
+
+    init() {
+        let saved = UserDefaults.standard.string(forKey: Self.defaultsKey)
+        current = SakuraLanguage(rawValue: saved ?? "") ?? .english
+    }
+
+    func text(_ english: String, _ nepali: String) -> String {
+        current == .english ? english : nepali
+    }
+}
+
+struct SakuraLanguagePicker: View {
+    @Environment(SakuraLanguageStore.self) private var language
+
+    var body: some View {
+        @Bindable var language = language
+        Picker("Language", selection: $language.current) {
+            ForEach(SakuraLanguage.allCases) { item in
+                Text(item.shortLabel).tag(item)
+            }
+        }
+        .pickerStyle(.segmented)
+        .frame(width: 116)
+        .accessibilityLabel(language.text("Language", "भाषा"))
+        .accessibilityValue(language.current.displayName)
+    }
+}
+
 struct SakuraAtmosphere: View {
     @Environment(SakuraTheme.self) private var theme
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -145,6 +191,7 @@ struct SakuraMark: View {
 
 struct SakuraLiveIndicator: View {
     @Environment(SakuraTheme.self) private var theme
+    @Environment(SakuraLanguageStore.self) private var language
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var isPulsing = false
 
@@ -160,9 +207,9 @@ struct SakuraLiveIndicator: View {
                     .fill(theme.paleGold)
                     .frame(width: 7, height: 7)
             }
-            Text("LIVE")
+            Text(language.text("LIVE", "लाइभ"))
                 .font(.caption2.weight(.black))
-                .tracking(1.8)
+                .tracking(language.current == .english ? 1.4 : 0)
         }
         .foregroundStyle(theme.paleGold)
         .onAppear {
@@ -171,7 +218,7 @@ struct SakuraLiveIndicator: View {
                 isPulsing = true
             }
         }
-        .accessibilityLabel("Live reservation monitoring active")
+        .accessibilityLabel(language.text("Live reservation monitoring active", "प्रत्यक्ष आरक्षण निगरानी सक्रिय छ"))
     }
 }
 
