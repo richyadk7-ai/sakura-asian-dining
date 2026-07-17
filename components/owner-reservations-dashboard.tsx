@@ -19,6 +19,7 @@ export function OwnerReservationsDashboard({ reservations, today, liveAlerts = f
   const [view, setView] = useState<"all" | "today" | "upcoming">("all");
   const [date, setDate] = useState("");
   const pendingCount = reservations.filter((reservation) => reservation.status === "pending").length;
+  const latestCreatedAt = reservations.reduce((latest, reservation) => reservation.created_at > latest ? reservation.created_at : latest, "");
   const filtered = useMemo(() => {
     const query = search.trim().toLocaleLowerCase();
     return reservations.filter((reservation) => {
@@ -33,7 +34,7 @@ export function OwnerReservationsDashboard({ reservations, today, liveAlerts = f
 
   return (
     <div className="admin-dashboard reservations-dashboard">
-      <header className="admin-header"><div><p className="eyebrow">Protected owner area</p><h1>Reservations</h1><p className="admin-reservation-summary">{pendingCount} pending · {reservations.length} total</p></div><div className="admin-header-actions">{liveAlerts ? <ReservationLiveAlerts pushPublicKey={pushPublicKey} /> : null}<Link className="button button-outline" href="/admin">Content studio</Link><form action={logout}><button className="button button-outline"><LogOut />Sign out</button></form></div></header>
+      <header className="admin-header"><div><p className="eyebrow">Protected owner area</p><h1>Reservations</h1><p className="admin-reservation-summary">{pendingCount} pending · {reservations.length} total</p></div><div className="admin-header-actions">{liveAlerts ? <ReservationLiveAlerts pushPublicKey={pushPublicKey} initialLatestCreatedAt={latestCreatedAt} /> : null}<Link className="button button-outline" href="/admin">Content studio</Link><form action={logout}><button className="button button-outline"><LogOut />Sign out</button></form></div></header>
       <section className="reservation-admin-tools" aria-label="Reservation filters">
         <label className="reservation-admin-search"><Search /><span className="sr-only">Search reservations</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Name, phone, email or reference" /></label>
         <select aria-label="Filter by status" value={status} onChange={(event) => setStatus(event.target.value as typeof status)}><option value="all">All statuses</option>{Object.entries(statusLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select>

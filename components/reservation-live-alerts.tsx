@@ -12,9 +12,14 @@ type NewReservationAlert = {
   reservationDate: string;
   reservationTime: string;
   guestCount: number;
+  createdAt: string;
 };
 
-type AudioWindow = Window & typeof globalThis & { webkitAudioContext?: typeof AudioContext };
+type SakuraAudioEngine = { context: AudioContext; enabled: boolean };
+type AudioWindow = Window & typeof globalThis & {
+  webkitAudioContext?: typeof AudioContext;
+  __sakuraReservationAudio?: SakuraAudioEngine;
+};
 type NavigatorWithStandalone = Navigator & { standalone?: boolean };
 
 type PushState = "checking" | "off" | "on" | "denied" | "unavailable" | "error";
@@ -76,14 +81,24 @@ function parseAlert(payload: Record<string, unknown>): NewReservationAlert | nul
   const reservationDate = typeof payload.reservation_date === "string" ? payload.reservation_date : "";
   const reservationTime = typeof payload.reservation_time === "string" ? payload.reservation_time.slice(0, 5) : "";
   const guestCount = typeof payload.guest_count === "number" ? payload.guest_count : Number(payload.guest_count);
+  const createdAt = typeof payload.created_at === "string" && !Number.isNaN(Date.parse(payload.created_at)) ? payload.created_at : new Date().toISOString();
   if (!id || !reservationReference || !customerName || !/^\d{4}-\d{2}-\d{2}$/.test(reservationDate) || !/^\d{2}:\d{2}$/.test(reservationTime) || !Number.isInteger(guestCount)) return null;
-  return { id, reservationReference, customerName, reservationDate, reservationTime, guestCount };
+  return { id, reservationReference, customerName, reservationDate, reservationTime, guestCount, createdAt };
 }
 
-export function ReservationLiveAlerts({ pushPublicKey = "" }: { pushPublicKey?: string }) {
+async function playEnabledSakuraChime() {
+  const engine = (window as AudioWindow).__sakuraReservationAudio;
+  if (!engine?.enabled) return false;
+  if (engine.context.state === "suspended") await engine.context.resume();
+  if (engine.context.state !== "running") return false;
+  playSakuraChime(engine.context);
+  return true;
+}
+
+export function ReservationLiveAlerts({ pushPublicKey = "", initialLatestCreatedAt = "" }: { pushPublicKey?: string; initialLatestCreatedAt?: string }) {
   const router = useRouter();
-  const audioContext = useRef<AudioContext | null>(null);
-  const soundEnabled = useRef(false);
+  const latestCreatedAt = useRef(initialLatestCreatedAt);
+  const seenReservationIds = useRef(new Set<string>());
   const [alert, setAlert] = useState<NewReservationAlert | null>(null);
   const [connection, setConnection] = useState<"connecting" | "live" | "error">("connecting");
   const [sound, setSound] = useState<"off" | "on" | "error">("off");
@@ -104,18 +119,59 @@ export function ReservationLiveAlerts({ pushPublicKey = "" }: { pushPublicKey?: 
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "reservations" }, (event) => {
         const nextAlert = parseAlert(event.new as Record<string, unknown>);
         if (!nextAlert) return;
+        if (seenReservationIds.current.has(nextAlert.id)) return;
+        seenReservationIds.current.add(nextAlert.id);
+        latestCreatedAt.current = nextAlert.createdAt > latestCreatedAt.current ? nextAlert.createdAt : latestCreatedAt.current;
         setAlert(nextAlert);
-        if (soundEnabled.current && audioContext.current) playSakuraChime(audioContext.current);
+        void playEnabledSakuraChime();
         router.refresh();
       })
       .subscribe((status) => setConnection(status === "SUBSCRIBED" ? "live" : status === "CHANNEL_ERROR" || status === "TIMED_OUT" ? "error" : "connecting"));
 
     return () => {
       void client?.removeChannel(channel);
-      void audioContext.current?.close();
-      audioContext.current = null;
     };
   }, [router]);
+
+  useEffect(() => {
+    let cancelled = false;
+    let running = false;
+    const client = createSupabaseBrowserClient();
+    const poll = async () => {
+      if (cancelled || running || document.visibilityState !== "visible") return;
+      running = true;
+      try {
+        let query = client.from("reservations").select("id,reservation_reference,customer_name,reservation_date,reservation_time,guest_count,created_at").order("created_at", { ascending: true }).limit(20);
+        if (latestCreatedAt.current) query = query.gt("created_at", latestCreatedAt.current);
+        const { data, error } = await query;
+        if (error || cancelled || !data?.length) return;
+        let newest: NewReservationAlert | null = null;
+        for (const row of data) {
+          const nextAlert = parseAlert(row as Record<string, unknown>);
+          if (!nextAlert || seenReservationIds.current.has(nextAlert.id)) continue;
+          seenReservationIds.current.add(nextAlert.id);
+          latestCreatedAt.current = nextAlert.createdAt > latestCreatedAt.current ? nextAlert.createdAt : latestCreatedAt.current;
+          newest = nextAlert;
+          void playEnabledSakuraChime();
+        }
+        if (newest) {
+          setAlert(newest);
+          router.refresh();
+        }
+      } catch {
+        // Realtime remains primary; the next interval retries this safety poll.
+      } finally {
+        running = false;
+      }
+    };
+    const interval = window.setInterval(() => void poll(), 5000);
+    void poll();
+    return () => { cancelled = true; window.clearInterval(interval); };
+  }, [router]);
+
+  useEffect(() => {
+    if ((window as AudioWindow).__sakuraReservationAudio?.enabled) queueMicrotask(() => setSound("on"));
+  }, []);
 
   useEffect(() => {
     if (!pushPublicKey || !("serviceWorker" in navigator) || !("PushManager" in window) || typeof Notification === "undefined") {
@@ -138,10 +194,11 @@ export function ReservationLiveAlerts({ pushPublicKey = "" }: { pushPublicKey?: 
       return;
     }
     try {
-      audioContext.current ??= new AudioContextClass();
-      if (audioContext.current.state === "suspended") await audioContext.current.resume();
-      playSakuraChime(audioContext.current);
-      soundEnabled.current = true;
+      const audioWindow = window as AudioWindow;
+      audioWindow.__sakuraReservationAudio ??= { context: new AudioContextClass(), enabled: false };
+      if (audioWindow.__sakuraReservationAudio.context.state === "suspended") await audioWindow.__sakuraReservationAudio.context.resume();
+      audioWindow.__sakuraReservationAudio.enabled = true;
+      playSakuraChime(audioWindow.__sakuraReservationAudio.context);
       setSound("on");
     } catch {
       setSound("error");
