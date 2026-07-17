@@ -37,18 +37,41 @@ private struct RootView: View {
 
 private struct LaunchView: View {
     @Environment(SakuraTheme.self) private var theme
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var isGlowing = false
 
     var body: some View {
         ZStack {
-            theme.appBackground.ignoresSafeArea()
-            VStack(spacing: 20) {
-                SakuraMark(size: 92)
-                ProgressView().tint(theme.gold)
-                Text("Preparing the owner dashboard")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(theme.secondaryText)
+            SakuraAtmosphere(petalCount: 20)
+            VStack(spacing: 26) {
+                ZStack {
+                    Circle()
+                        .stroke(theme.gold.opacity(0.22), lineWidth: 1)
+                        .frame(width: 142, height: 142)
+                        .scaleEffect(isGlowing ? 1.16 : 0.88)
+                        .opacity(isGlowing ? 0.04 : 0.7)
+                    SakuraMark(size: 92)
+                }
+                VStack(spacing: 10) {
+                    Text("SAKURA OWNER")
+                        .font(.caption.weight(.black))
+                        .tracking(3.6)
+                        .foregroundStyle(theme.gold)
+                    Text("Preparing the reservation command center")
+                        .font(.system(.title3, design: .serif, weight: .medium))
+                    ProgressView()
+                        .tint(theme.paleGold)
+                }
             }
+            .padding(36)
+            .sakuraGlass(cornerRadius: 28, tint: theme.wine.opacity(0.18))
         }
         .accessibilityElement(children: .combine)
+        .onAppear {
+            guard !reduceMotion else { return }
+            withAnimation(.easeOut(duration: 1.5).repeatForever(autoreverses: false)) {
+                isGlowing = true
+            }
+        }
     }
 }
