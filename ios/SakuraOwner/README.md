@@ -1,6 +1,6 @@
 # Sakura Owner for iPad
 
-A native bilingual SwiftUI owner application for Sakura Asian Dining & Bar. It supports persistent English/Nepali switching, signs in through the existing Supabase owner allowlist, reads reservations under Row Level Security, polls every five seconds while active, plays a synthesized two-stage native alert, and allows owners to confirm, reject or update reservation status.
+A native bilingual SwiftUI owner application for Sakura Asian Dining & Bar. It supports persistent English/Nepali switching, signs in through the existing Supabase owner allowlist, reads reservations under Row Level Security, polls every five seconds while active, plays a synthesized two-stage native alert, and allows owners to confirm, reject or update reservation status. Customer-facing status decisions pass through Sakura's protected production API so approval, rejection and cancellation emails are sent consistently with the web dashboard.
 
 ## Generate and build
 
@@ -13,6 +13,8 @@ DEVELOPER_DIR=/Applications/Xcode-old.app/Contents/Developer \
 ```
 
 Open `SakuraOwner.xcodeproj` in Xcode and run it on an iPad simulator or a provisioned iPad. Sign in with the same Supabase owner email/password used by `/admin/reservations`.
+
+The app targets iPadOS 17 and later, including iPadOS 26. The checked-in Personal Team build can run on a connected iPad from Xcode. Public App Store or TestFlight distribution requires membership in the Apple Developer Program and completion of Apple's App Store Connect review and privacy information.
 
 ## Notifications
 

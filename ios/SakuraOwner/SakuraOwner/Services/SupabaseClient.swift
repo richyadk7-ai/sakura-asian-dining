@@ -3,6 +3,7 @@ import Foundation
 enum SupabaseConfiguration {
     static let projectURL = URL(string: "https://hqvmcuzddwvtvzsobtur.supabase.co")!
     static let publishableKey = "sb_publishable_IokU2OqTcp9w8l5UXGRh0A__e__Q5UY"
+    static let ownerStatusURL = URL(string: "https://sakura-asian-dining-live.vercel.app/api/admin/reservations/status")!
 }
 
 enum SupabaseError: LocalizedError {
@@ -68,14 +69,13 @@ actor SupabaseClient {
 
     func updateStatus(id: UUID, status: ReservationStatus) async throws {
         let token = try await validAccessToken()
-        var components = URLComponents(url: SupabaseConfiguration.projectURL.appending(path: "rest/v1/reservations"), resolvingAgainstBaseURL: false)!
-        components.queryItems = [URLQueryItem(name: "id", value: "eq.\(id.uuidString.lowercased())")]
-        var request = baseRequest(url: components.url!)
-        request.httpMethod = "PATCH"
+        var request = URLRequest(url: SupabaseConfiguration.ownerStatusURL)
+        request.timeoutInterval = 30
+        request.httpMethod = "POST"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("return=minimal", forHTTPHeaderField: "Prefer")
-        request.httpBody = try JSONEncoder().encode(["status": status.rawValue])
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpBody = try JSONEncoder().encode(["id": id.uuidString.lowercased(), "status": status.rawValue])
         try await sendWithoutBody(request)
     }
 

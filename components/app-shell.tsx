@@ -200,7 +200,7 @@ export function AppShell({ children, locale, dictionary, restaurantInfo = restau
           <div><h3>{dictionary.access.hours}</h3><p>{dictionary.common.lunch} {restaurantInfo.lunchHours}</p><p>{dictionary.common.dinner} {restaurantInfo.dinnerHours}</p></div>
           <div><h3>{dictionary.nav.menu}</h3>{nav.slice(1).map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</div>
         </div>
-        <div className="footer-bottom"><span>© {new Date().getFullYear()} {restaurantInfo.nameEn}</span><span>{dictionary.footer.verify}</span><Link href="/admin">{dictionary.footer.admin}</Link></div>
+        <div className="footer-bottom"><span>© {new Date().getFullYear()} {restaurantInfo.nameEn}</span><span>{dictionary.footer.verify}</span><div className="footer-legal"><Link href={localizePath(locale, "privacy")}>{dictionary.footer.privacy}</Link><Link href="/admin">{dictionary.footer.admin}</Link></div></div>
       </footer>
     </>
   );

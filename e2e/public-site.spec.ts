@@ -109,7 +109,7 @@ test("customer reservation request validates and shows a private pending confirm
   await page.getByLabel("Guests").selectOption("4");
   await page.getByRole("checkbox").check();
   await page.getByRole("button", { name: "Submit reservation request" }).click();
-  await expect(page).toHaveURL(new RegExp(`/en/reservation/confirmation\\?reference=${reference}$`));
+  await expect(page).toHaveURL(new RegExp(`/en/reservation/confirmation\\?reference=${reference}&token=[0-9a-f-]{36}$`));
   await expect(page.getByText(reference)).toBeVisible();
   await expect(page.getByText("Aiko Tanaka")).toBeVisible();
   await expect(page.getByText("Welcome & Farewell Party: 8 Dishes, Unlimited Naan & Rice, 120-Minute Drink Plan")).toBeVisible();

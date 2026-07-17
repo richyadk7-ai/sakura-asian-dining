@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { Cormorant_Garamond, Noto_Sans_JP } from "next/font/google";
+import { SiteObservability } from "@/components/site-observability";
 import "./globals.css";
 
 const display = Cormorant_Garamond({
@@ -34,7 +35,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const locale = requestHeaders.get("x-sakura-locale") === "ja" ? "ja" : "en";
   return (
     <html lang={locale} className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
-      <body>{children}</body>
+      <body>{children}<SiteObservability /></body>
     </html>
   );
 }

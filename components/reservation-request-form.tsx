@@ -2,10 +2,12 @@
 
 import { CalendarDays, CheckCircle2, Clock3, Mail, Phone, ShieldCheck, UserRound, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useMemo, useRef, useState, type FormEvent } from "react";
 import { courses } from "@/data/courses";
 import { restaurant } from "@/data/restaurant";
 import { getRequestableTimes, getTokyoNow, MAX_RESERVATION_GUESTS, MIN_RESERVATION_GUESTS, parseReservationConfirmation, reservationIssueField, reservationRequestSchema } from "@/lib/reservation-request";
+import { localizePath } from "@/lib/locale";
 import type { Dictionary } from "@/locales";
 import type { Course, Locale, ReservationOccasion, RestaurantInfo, SeatingPreference } from "@/types";
 
@@ -124,7 +126,7 @@ export function ReservationRequestForm({ locale, dictionary, restaurantInfo = re
         <label><span>{dictionary.reservation.specialRequests}</span><textarea name="specialRequests" maxLength={4000} placeholder={dictionary.reservation.specialRequestsPlaceholder} /></label>
         <label><span>{dictionary.reservation.preferredLanguage}</span><select value={preferredLanguage} onChange={(event) => setPreferredLanguage(event.target.value as Locale)}><option value="en">{dictionary.reservation.english}</option><option value="ja">{dictionary.reservation.japanese}</option></select></label>
         <label className="reservation-agreement"><input type="checkbox" checked={agreement} onChange={(event) => setAgreement(event.target.checked)} required /><span><CheckCircle2 />{dictionary.reservation.agreement}</span></label>
-        <details className="reservation-privacy"><summary>{dictionary.reservation.privacyTitle}</summary><p>{dictionary.reservation.privacySummary}</p></details>
+        <details className="reservation-privacy"><summary>{dictionary.reservation.privacyTitle}</summary><p>{dictionary.reservation.privacySummary}</p><Link href={localizePath(locale, "privacy")}>{dictionary.reservation.privacyPolicyLink}</Link></details>
         {error ? <p className="form-error" role="alert" aria-live="assertive">{error}</p> : null}
         <button className="button button-gold" type="submit" disabled={submitting || !requestableTimes.length}>{submitting ? dictionary.reservation.submitting : dictionary.reservation.submit}</button>
       </form>
