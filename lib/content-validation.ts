@@ -14,10 +14,23 @@ const menuSchema = z.array(z.object({
   spicy: z.boolean().optional(), vegetarian: z.boolean().optional(), recommended: z.boolean().optional(), enabled: z.boolean(), kind: z.enum(["item", "notice"]).optional(),
 }));
 
+const courseDrinkGroupSchema = z.object({
+  nameEn: z.string().min(1), nameJa: z.string().min(1), itemsEn: z.array(z.string().min(1)).min(1), itemsJa: z.array(z.string().min(1)).min(1),
+});
+
+const courseDetailsSchema = z.object({
+  menuItems: z.array(z.object({ nameEn: z.string().min(1), nameJa: z.string().min(1), descriptionEn: z.string().optional(), descriptionJa: z.string().optional() })),
+  drinkGroups: z.array(courseDrinkGroupSchema).min(1),
+  premiumDrinkUpgrade: z.object({
+    price: z.string().min(1), descriptionEn: z.string().min(1), descriptionJa: z.string().min(1), groups: z.array(courseDrinkGroupSchema).min(1),
+  }).optional(),
+  notesEn: z.array(z.string().min(1)).min(1), notesJa: z.array(z.string().min(1)).min(1),
+});
+
 const coursesSchema = z.array(z.object({
   id: z.string().min(1), sourceOrder: z.number().int().positive(), nameEn: z.string().min(1), nameJa: z.string().min(1), summaryEn: z.string().min(1), summaryJa: z.string().min(1),
   price: z.string().min(1), previousPrice: z.string().optional(), durationMinutes: z.number().int().positive(), itemCount: z.number().int().positive().optional(),
-  allYouCanEat: z.boolean(), allYouCanDrink: z.boolean(), imageId: z.string().optional(), enabled: z.boolean(),
+  allYouCanEat: z.boolean(), allYouCanDrink: z.boolean(), imageId: z.string().optional(), details: courseDetailsSchema.optional(), enabled: z.boolean(),
 }));
 
 const dictionarySchema = z.record(z.string(), z.unknown()).refine((value) => Object.keys(value).length > 0, "Dictionary cannot be empty");

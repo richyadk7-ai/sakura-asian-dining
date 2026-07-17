@@ -78,6 +78,11 @@ export const ja = {
     allEat: "食べ放題",
     allDrink: "飲み放題",
     viewReserve: "コース詳細・予約",
+    viewDetails: "コース内容をすべて見る",
+    courseContents: "コース料理",
+    drinkPlan: "飲み放題メニュー",
+    premiumUpgrade: "プレミアム飲み放題",
+    conditions: "利用条件・時間",
     imagePending: "許諾済みコース写真を準備中",
   },
   gallery: {

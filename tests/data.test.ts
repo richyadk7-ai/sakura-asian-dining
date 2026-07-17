@@ -40,4 +40,10 @@ describe("audited reference datasets", () => {
     const photoIds = new Set(photoManifest.map((photo) => photo.id));
     expect(courses.every((course) => course.imageId && photoIds.has(course.imageId))).toBe(true);
   });
+
+  it("includes bilingual menu, drink and condition details for every course", () => {
+    expect(courses.every((course) => course.details && course.details.drinkGroups.length > 0 && course.details.notesEn.length > 0 && course.details.notesJa.length > 0)).toBe(true);
+    expect(courses.flatMap((course) => course.details?.menuItems ?? []).every((item) => item.nameEn && item.nameJa)).toBe(true);
+    expect(courses.flatMap((course) => course.details?.drinkGroups ?? []).every((group) => group.itemsEn.length === group.itemsJa.length)).toBe(true);
+  });
 });

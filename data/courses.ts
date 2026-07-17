@@ -1,4 +1,5 @@
 import type { Course } from "@/types";
+import { courseDetailsById } from "@/data/course-details";
 
 export const courses: Course[] = [
   {
@@ -15,6 +16,7 @@ export const courses: Course[] = [
     allYouCanEat: true,
     allYouCanDrink: true,
     imageId: "food-013",
+    details: courseDetailsById["welcome-party-course"],
     enabled: true,
   },
   {
@@ -30,6 +32,7 @@ export const courses: Course[] = [
     allYouCanEat: true,
     allYouCanDrink: true,
     imageId: "food-013",
+    details: courseDetailsById["sakura-150-minute-course"],
     enabled: true,
   },
   {
@@ -46,6 +49,7 @@ export const courses: Course[] = [
     allYouCanEat: true,
     allYouCanDrink: true,
     imageId: "food-011",
+    details: courseDetailsById["tandoori-bbq-course"],
     enabled: true,
   },
   {
@@ -61,6 +65,7 @@ export const courses: Course[] = [
     allYouCanEat: false,
     allYouCanDrink: true,
     imageId: "food-013",
+    details: courseDetailsById["sakura-special-drink-course"],
     enabled: true,
   },
   {
@@ -77,6 +82,7 @@ export const courses: Course[] = [
     allYouCanEat: false,
     allYouCanDrink: true,
     imageId: "food-013",
+    details: courseDetailsById["grilled-chicken-drink-course"],
     enabled: true,
   },
 ];

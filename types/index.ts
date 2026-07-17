@@ -36,7 +36,35 @@ export type Course = {
   allYouCanEat: boolean;
   allYouCanDrink: boolean;
   imageId?: string;
+  details?: CourseDetails;
   enabled: boolean;
+};
+
+export type CourseDetailItem = {
+  nameEn: string;
+  nameJa: string;
+  descriptionEn?: string;
+  descriptionJa?: string;
+};
+
+export type CourseDrinkGroup = {
+  nameEn: string;
+  nameJa: string;
+  itemsEn: string[];
+  itemsJa: string[];
+};
+
+export type CourseDetails = {
+  menuItems: CourseDetailItem[];
+  drinkGroups: CourseDrinkGroup[];
+  premiumDrinkUpgrade?: {
+    price: string;
+    descriptionEn: string;
+    descriptionJa: string;
+    groups: CourseDrinkGroup[];
+  };
+  notesEn: string[];
+  notesJa: string[];
 };
 
 export type RestaurantPhotoCategory =

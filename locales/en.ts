@@ -78,6 +78,11 @@ export const en = {
     allEat: "All-you-can-eat",
     allDrink: "All-you-can-drink",
     viewReserve: "View course & reserve",
+    viewDetails: "See everything included",
+    courseContents: "Course contents",
+    drinkPlan: "Included drink plan",
+    premiumUpgrade: "Premium drink upgrade",
+    conditions: "Conditions & timing",
     imagePending: "Authorized course photograph pending",
   },
   gallery: {
