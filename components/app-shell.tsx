@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Clock3, MapPin, Menu, X } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { LoadingScreen } from "@/components/loading-screen";
 import { CinematicEffects } from "@/components/cinematic-effects";
@@ -16,9 +16,13 @@ import type { Locale, RestaurantInfo } from "@/types";
 export function AppShell({ children, locale, dictionary, restaurantInfo = restaurant }: { children: React.ReactNode; locale: Locale; dictionary: Dictionary; restaurantInfo?: RestaurantInfo }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [navigating, setNavigating] = useState(false);
   const path = usePathname();
+  const router = useRouter();
   const reduce = useReducedMotion();
   const dialogRef = useRef<HTMLDivElement>(null);
+  const navigationStartedAt = useRef<number | null>(null);
+  const navigationSafetyTimer = useRef<number | null>(null);
   const switchLocale = alternateLocale(locale);
 
   const nav = useMemo(() => [
@@ -29,6 +33,50 @@ export function AppShell({ children, locale, dictionary, restaurantInfo = restau
     [dictionary.nav.about, localizePath(locale, "about")],
     [dictionary.nav.access, localizePath(locale, "access")],
   ] as const, [dictionary, locale]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      [...nav.map(([, href]) => href), localizePath(locale, "reservation")].forEach((href) => router.prefetch(href));
+    }, 400);
+    return () => window.clearTimeout(timer);
+  }, [locale, nav, router]);
+
+  useEffect(() => {
+    const onInternalLinkClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const target = event.target instanceof Element ? event.target : null;
+      const link = target?.closest<HTMLAnchorElement>("a[href]");
+      if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
+
+      const destination = new URL(link.href, window.location.href);
+      const current = new URL(window.location.href);
+      if (destination.origin !== current.origin) return;
+      if (destination.pathname === current.pathname && destination.search === current.search) return;
+
+      navigationStartedAt.current = performance.now();
+      setNavigating(true);
+      if (navigationSafetyTimer.current) window.clearTimeout(navigationSafetyTimer.current);
+      navigationSafetyTimer.current = window.setTimeout(() => setNavigating(false), 6000);
+    };
+
+    document.addEventListener("click", onInternalLinkClick, true);
+    return () => {
+      document.removeEventListener("click", onInternalLinkClick, true);
+      if (navigationSafetyTimer.current) window.clearTimeout(navigationSafetyTimer.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    const elapsed = navigationStartedAt.current ? performance.now() - navigationStartedAt.current : 0;
+    const minimumDisplay = reduce ? 0 : 320;
+    const timer = window.setTimeout(() => {
+      setNavigating(false);
+      navigationStartedAt.current = null;
+      if (navigationSafetyTimer.current) window.clearTimeout(navigationSafetyTimer.current);
+      navigationSafetyTimer.current = null;
+    }, Math.max(0, minimumDisplay - elapsed));
+    return () => window.clearTimeout(timer);
+  }, [path, reduce]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 28);
@@ -74,6 +122,24 @@ export function AppShell({ children, locale, dictionary, restaurantInfo = restau
   return (
     <>
       <LoadingScreen dictionary={dictionary} />
+      <AnimatePresence>
+        {navigating ? (
+          <motion.div
+            className="route-transition"
+            role="status"
+            aria-live="polite"
+            aria-label={dictionary.common.loading}
+            initial={reduce ? { opacity: 0 } : { opacity: 1, clipPath: "inset(100% 0 0 0)" }}
+            animate={reduce ? { opacity: 1 } : { opacity: 1, clipPath: "inset(0% 0 0 0)" }}
+            exit={reduce ? { opacity: 0 } : { opacity: 1, clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: reduce ? 0.01 : 0.34, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.span className="route-transition-mark" aria-hidden="true" animate={reduce ? undefined : { opacity: [0.72, 1, 0.72], scale: [0.88, 1.04, 0.88] }} transition={{ duration: 1.1, repeat: Infinity }}>桜</motion.span>
+            <span className="route-transition-label" aria-hidden="true">{dictionary.common.loading}</span>
+            <span className="route-transition-line" aria-hidden="true" />
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
       <CinematicEffects />
       <SakuraPetals />
       <a href="#main-content" className="skip-link">Skip to content</a>
