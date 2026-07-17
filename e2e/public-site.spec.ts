@@ -74,6 +74,22 @@ test("sakura motion scales for iPhone and respects reduced-motion preferences", 
   await expect(page.locator(".film-grain")).toHaveCSS("display", "none");
 });
 
+test("reservation and admin cinematic shells stay responsive", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/en/reservation?course=welcome-party-course");
+  await expect(page.locator(".reservation-panel-ornament")).toHaveCount(1);
+  await expect(page.locator("form.reservation-request-form").getByLabel("Course", { exact: true })).toHaveValue("welcome-party-course");
+  let widths = await page.evaluate(() => ({ viewport: window.innerWidth, document: document.documentElement.scrollWidth }));
+  expect(widths.document).toBeLessThanOrEqual(widths.viewport);
+
+  await page.goto("/admin");
+  await expect(page.locator(".admin-auth-card")).toHaveCount(1);
+  await expect(page.locator(".admin-atmosphere")).toHaveCount(1);
+  await expect(page.locator("[data-sakura-petals]")).toHaveCount(1);
+  widths = await page.evaluate(() => ({ viewport: window.innerWidth, document: document.documentElement.scrollWidth }));
+  expect(widths.document).toBeLessThanOrEqual(widths.viewport);
+});
+
 test("customer reservation request validates and shows a private pending confirmation", async ({ page }) => {
   const reference = "SKR-20260720-A1B2C3";
   await page.route("**/api/reservations", async (route) => {

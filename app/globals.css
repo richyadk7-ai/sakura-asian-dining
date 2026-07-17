@@ -526,6 +526,123 @@ svg { flex: 0 0 auto; }
 .site-footer::before { position: absolute; z-index: -1; right: -12vw; bottom: -27vw; width: 58vw; aspect-ratio: 1; content: ""; border: 1px solid rgba(215,173,91,.09); border-radius: 50%; box-shadow: 0 0 0 5vw rgba(215,173,91,.012), 0 0 0 10vw rgba(215,173,91,.008); }
 .footer-monogram { text-shadow: 0 0 40px rgba(215,173,91,.3); }
 
+/* Reservation atelier */
+.reservation-stage { isolation: isolate; overflow: hidden; background: radial-gradient(circle at 12% 18%, rgba(215,173,91,.26), transparent 24%), radial-gradient(circle at 88% 82%, rgba(143,30,51,.13), transparent 27%), linear-gradient(145deg, #f8f1e7, #ead9c4); }
+.reservation-stage::before { position: absolute; z-index: -1; top: -22vw; left: -18vw; width: 58vw; aspect-ratio: 1; content: ""; border: 1px solid rgba(116,28,42,.1); border-radius: 50%; box-shadow: 0 0 0 5vw rgba(116,28,42,.02), 0 0 0 10vw rgba(215,173,91,.018); }
+.reservation-stage::after { position: absolute; z-index: -1; right: -3vw; bottom: -15vw; color: transparent; content: "予約"; opacity: .07; font: 600 min(34vw, 520px)/1 var(--serif); letter-spacing: -.12em; -webkit-text-stroke: 1px var(--burgundy); }
+.reservation-panel { grid-template-columns: minmax(260px,.78fr) minmax(0,1.22fr); gap: clamp(30px,5vw,76px); isolation: isolate; min-height: 820px; border: 1px solid rgba(240,217,160,.36); background: radial-gradient(circle at 7% 2%, rgba(202,67,94,.3), transparent 24%), radial-gradient(circle at 93% 90%, rgba(215,173,91,.12), transparent 28%), linear-gradient(135deg, #17080c 0, #4e0c19 54%, #25080f 100%); box-shadow: 0 55px 140px rgba(45,10,18,.35), 0 0 0 1px rgba(255,255,255,.025), inset 0 0 120px rgba(0,0,0,.18); }
+.reservation-panel::before { z-index: -1; right: -16%; bottom: -42%; width: 68%; box-shadow: 0 0 0 42px rgba(215,173,91,.018), 0 0 0 84px rgba(215,173,91,.012); }
+.reservation-panel::after { position: absolute; z-index: -1; inset: 0; content: ""; opacity: .13; background-image: linear-gradient(rgba(240,217,160,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(240,217,160,.11) 1px, transparent 1px); background-size: 42px 42px; mask-image: linear-gradient(135deg, black, transparent 46%, black); }
+.reservation-panel > .reservation-intro, .reservation-panel > .reservation-form, .reservation-panel > .reservation-fallbacks { position: relative; z-index: 2; }
+.reservation-panel-ornament { position: absolute; z-index: -1; inset: 0; overflow: hidden; pointer-events: none; }
+.reservation-panel-ornament span { position: absolute; display: block; border: 1px solid rgba(215,173,91,.16); border-radius: 50%; animation: reservation-orbit 24s linear infinite; }
+.reservation-panel-ornament span::after { position: absolute; top: 18%; left: 2%; width: 5px; height: 5px; content: ""; border-radius: 50%; background: var(--gold); box-shadow: 0 0 22px var(--gold); }
+.reservation-panel-ornament span:nth-child(1) { top: -22%; left: -18%; width: 54%; aspect-ratio: 1; }
+.reservation-panel-ornament span:nth-child(2) { top: 7%; left: 20%; width: 22%; aspect-ratio: 1; border-style: dashed; animation-direction: reverse; animation-duration: 31s; }
+.reservation-panel-ornament span:nth-child(3) { right: -7%; bottom: -13%; width: 42%; aspect-ratio: 1; animation-duration: 38s; }
+.reservation-intro { align-self: start; padding-top: 14px; }
+.reservation-intro::before { width: 66px; height: 66px; margin-bottom: clamp(50px,8vw,100px); display: grid; place-items: center; content: "桜"; color: var(--gold); border: 1px solid rgba(215,173,91,.5); background: rgba(10,5,6,.22); box-shadow: inset 0 0 28px rgba(215,173,91,.08), 0 20px 50px rgba(0,0,0,.2); font: 500 1.8rem var(--serif); transform: rotate(45deg); }
+.reservation-intro::after { position: absolute; top: 74px; left: 84px; color: rgba(240,217,160,.1); content: "SAKURA"; font: 600 clamp(3.5rem,7vw,7rem)/1 var(--serif); letter-spacing: .06em; writing-mode: vertical-rl; pointer-events: none; }
+.reservation-intro h2 { max-width: 440px; font-size: clamp(2.8rem,5vw,5.2rem); text-shadow: 0 18px 55px rgba(0,0,0,.38); }
+.reservation-intro > p:not(.eyebrow,.reservation-notice) { max-width: 430px; font-size: .9rem; }
+.reservation-notice { padding: 18px 18px 18px 22px; border: 1px solid rgba(215,173,91,.17); border-left: 3px solid var(--gold); background: rgba(8,4,5,.18); box-shadow: inset 0 0 30px rgba(0,0,0,.08); backdrop-filter: blur(8px); }
+.reservation-form { padding: clamp(22px,3vw,38px); gap: 18px; border: 1px solid rgba(240,217,160,.18); background: linear-gradient(145deg, rgba(9,5,6,.34), rgba(255,255,255,.035)); box-shadow: 0 35px 80px rgba(0,0,0,.24), inset 0 1px rgba(255,255,255,.05); backdrop-filter: blur(18px); }
+.reservation-form label { position: relative; transition: transform .3s var(--ease-cinematic); }
+.reservation-form label:focus-within { transform: translateY(-2px); }
+.reservation-form label > span { color: #f3dca4; letter-spacing: .1em; }
+.reservation-form input, .reservation-form select, .reservation-request-form textarea { border-color: rgba(215,173,91,.28); background: linear-gradient(145deg, #fffdf8, #f1e7d7); box-shadow: inset 0 1px rgba(255,255,255,.9), 0 8px 22px rgba(0,0,0,.1); }
+.reservation-form input:hover, .reservation-form select:hover, .reservation-request-form textarea:hover { border-color: rgba(215,173,91,.75); }
+.reservation-form input:focus, .reservation-form select:focus, .reservation-request-form textarea:focus { box-shadow: 0 0 0 3px rgba(215,173,91,.2), 0 16px 36px rgba(0,0,0,.2), 0 0 32px rgba(215,173,91,.08); }
+.reservation-agreement { padding: 14px; border: 1px solid rgba(215,173,91,.15); background: rgba(0,0,0,.12); }
+.reservation-privacy { padding: 3px 0; border-bottom: 1px solid rgba(215,173,91,.16); }
+.reservation-form > .button { min-height: 58px; margin-top: 10px; box-shadow: 0 20px 48px rgba(215,173,91,.18); }
+.reservation-fallbacks { padding-top: 24px; border-top: 1px solid rgba(215,173,91,.18); }
+.reservation-courses::after { position: absolute; z-index: -1; right: -.04em; bottom: -.12em; color: transparent; content: "GROUP"; opacity: .11; font: 600 min(20vw,300px)/.8 var(--serif); letter-spacing: -.05em; -webkit-text-stroke: 1px rgba(215,173,91,.3); }
+@keyframes reservation-orbit { to { transform: rotate(1turn); } }
+
+.reservation-confirmation-stage { isolation: isolate; overflow: hidden; background: radial-gradient(circle at 50% 42%, rgba(137,29,48,.55), transparent 30%), radial-gradient(circle at 12% 85%, rgba(215,173,91,.13), transparent 25%), #0b0708; }
+.reservation-confirmation-stage::before, .reservation-confirmation-stage::after { position: absolute; z-index: -1; top: 50%; left: 50%; content: ""; border: 1px solid rgba(215,173,91,.13); border-radius: 50%; transform: translate(-50%,-50%); }
+.reservation-confirmation-stage::before { width: min(82vw,1100px); aspect-ratio: 1; box-shadow: 0 0 0 52px rgba(215,173,91,.012), 0 0 0 104px rgba(215,173,91,.008); }
+.reservation-confirmation-stage::after { width: min(52vw,700px); aspect-ratio: 1; border-style: dashed; animation: reservation-orbit 32s linear infinite; }
+.reservation-confirmation-card { isolation: isolate; border-color: rgba(215,173,91,.5); background: radial-gradient(circle at 90% 10%, rgba(215,173,91,.2), transparent 26%), linear-gradient(145deg, #fffaf2, #eadcc8); box-shadow: 0 55px 140px rgba(0,0,0,.46), inset 0 0 0 10px rgba(255,255,255,.38); }
+.reservation-confirmation-card::before { position: absolute; z-index: -1; inset: 18px; content: ""; border: 1px solid rgba(116,28,42,.11); pointer-events: none; }
+.reservation-confirmation-card::after { top: -112px; right: -112px; width: 300px; height: 300px; box-shadow: 0 0 0 34px rgba(215,173,91,.035), 0 0 0 70px rgba(116,28,42,.02); }
+.reservation-confirmation-card > svg { width: 72px; height: 72px; padding: 15px; border: 1px solid rgba(116,28,42,.22); border-radius: 50%; background: rgba(255,255,255,.48); box-shadow: 0 0 0 10px rgba(116,28,42,.035), 0 18px 42px rgba(60,11,21,.14); animation: confirmation-halo 3.2s ease-in-out infinite; }
+.reservation-confirmation-card dl { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; border-top: 0; }
+.reservation-confirmation-card dl > div { min-height: 92px; padding: 17px; display: block; border: 1px solid rgba(94,50,42,.12); background: rgba(255,255,255,.34); }
+.reservation-confirmation-card dd { margin-top: 8px; }
+.reservation-confirmation-card .reservation-notice { background: rgba(255,255,255,.38); }
+.reservation-pending-status { display: inline-flex; box-shadow: 0 7px 20px rgba(183,123,16,.12); }
+@keyframes confirmation-halo { 0%,100% { box-shadow: 0 0 0 10px rgba(116,28,42,.035), 0 18px 42px rgba(60,11,21,.14); } 50% { box-shadow: 0 0 0 17px rgba(215,173,91,.06), 0 22px 52px rgba(60,11,21,.2); } }
+
+/* Sakura owner control room */
+.admin-page { position: relative; isolation: isolate; overflow-x: hidden; background: radial-gradient(circle at 82% 10%, rgba(148,31,52,.4), transparent 25%), radial-gradient(circle at 10% 82%, rgba(215,173,91,.09), transparent 24%), linear-gradient(135deg, #070505, #21080d 58%, #100607); }
+.admin-page::before { position: fixed; z-index: -2; inset: 0; content: ""; opacity: .11; background-image: linear-gradient(rgba(215,173,91,.22) 1px, transparent 1px), linear-gradient(90deg, rgba(215,173,91,.18) 1px, transparent 1px); background-size: 54px 54px; mask-image: radial-gradient(circle at 50% 45%, black, transparent 78%); }
+.admin-page::after { position: fixed; z-index: -1; right: -.08em; bottom: -.18em; color: transparent; content: "桜"; opacity: .13; font: 600 min(54vw,820px)/1 var(--serif); -webkit-text-stroke: 1px rgba(215,173,91,.32); pointer-events: none; }
+.admin-atmosphere { position: fixed; z-index: 30; inset: 0; overflow: hidden; pointer-events: none; }
+.admin-atmosphere span { position: absolute; display: block; border: 1px solid rgba(215,173,91,.1); border-radius: 50%; animation: admin-orbit 34s linear infinite; }
+.admin-atmosphere span::after { position: absolute; width: 4px; height: 4px; content: ""; border-radius: 50%; background: var(--gold); box-shadow: 0 0 20px var(--gold); }
+.admin-atmosphere span:nth-child(1) { top: -40vw; right: -28vw; width: 78vw; aspect-ratio: 1; }
+.admin-atmosphere span:nth-child(1)::after { bottom: 14%; left: 9%; }
+.admin-atmosphere span:nth-child(2) { bottom: -24vw; left: -18vw; width: 56vw; aspect-ratio: 1; border-style: dashed; animation-direction: reverse; animation-duration: 42s; }
+.admin-atmosphere span:nth-child(2)::after { top: 11%; right: 18%; }
+.admin-atmosphere span:nth-child(3) { top: 42%; right: 7%; width: 16vw; aspect-ratio: 1; animation-duration: 21s; }
+@keyframes admin-orbit { to { transform: rotate(1turn); } }
+
+.admin-auth-card { position: relative; isolation: isolate; width: min(660px,100%); min-height: 650px; overflow: hidden; border-color: rgba(240,217,160,.42); background: radial-gradient(circle at 92% 5%, rgba(170,42,66,.5), transparent 28%), linear-gradient(145deg, rgba(67,12,23,.94), rgba(20,7,10,.97)); box-shadow: 0 65px 160px rgba(0,0,0,.48), inset 0 0 0 1px rgba(255,255,255,.035), inset 0 0 100px rgba(0,0,0,.2); backdrop-filter: blur(18px); }
+.admin-auth-card::before { position: absolute; z-index: -1; top: -190px; right: -190px; width: 430px; aspect-ratio: 1; content: ""; border: 1px solid rgba(215,173,91,.2); border-radius: 50%; box-shadow: 0 0 0 36px rgba(215,173,91,.025), 0 0 0 74px rgba(215,173,91,.015); animation: admin-orbit 26s linear infinite; }
+.admin-auth-card::after { position: absolute; right: 42px; bottom: 38px; left: 42px; height: 1px; content: ""; background: linear-gradient(90deg, transparent, var(--gold), rgba(233,141,164,.8), transparent); background-size: 200% 100%; box-shadow: 0 0 20px rgba(215,173,91,.26); animation: auth-beam 6s linear infinite; }
+.admin-auth-card > svg { width: 58px; height: 58px; padding: 12px; border: 1px solid rgba(215,173,91,.28); background: rgba(7,4,5,.18); filter: drop-shadow(0 0 20px rgba(215,173,91,.22)); }
+.admin-auth-card h1 { max-width: 540px; font-size: clamp(3rem,6vw,5.1rem); text-shadow: 0 18px 55px rgba(0,0,0,.42); }
+.admin-auth-card label { gap: 8px; letter-spacing: .09em; text-transform: uppercase; }
+.admin-auth-card input { height: 58px; color: white; border: 1px solid rgba(215,173,91,.2); background: rgba(8,4,5,.52); box-shadow: inset 0 0 24px rgba(0,0,0,.2); transition: border-color .3s, box-shadow .3s, transform .3s; }
+.admin-auth-card input:focus { border-color: var(--gold); outline: 0; box-shadow: 0 0 0 3px rgba(215,173,91,.14), 0 0 34px rgba(215,173,91,.08); transform: translateY(-1px); }
+.admin-auth-card .button { min-height: 56px; }
+.admin-auth-card .text-link { color: var(--gold-pale); }
+@keyframes auth-beam { to { background-position: -200% 0; } }
+
+.admin-dashboard { position: relative; z-index: 2; }
+.admin-header { position: relative; overflow: hidden; padding: clamp(24px,4vw,48px); border: 1px solid rgba(215,173,91,.22); background: linear-gradient(135deg, rgba(92,17,31,.72), rgba(9,5,6,.7)); box-shadow: 0 34px 90px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.035); backdrop-filter: blur(18px); }
+.admin-header::after { position: absolute; right: -40px; bottom: -120px; color: transparent; content: "桜"; opacity: .16; font: 600 260px/1 var(--serif); -webkit-text-stroke: 1px rgba(215,173,91,.45); pointer-events: none; }
+.admin-header h1 { position: relative; z-index: 1; text-shadow: 0 18px 50px rgba(0,0,0,.38); }
+.admin-header-actions { position: relative; z-index: 2; }
+.admin-header-actions .button { background: rgba(7,4,5,.2); backdrop-filter: blur(8px); }
+.admin-tabs { position: sticky; z-index: 60; top: 12px; margin: 20px 0; padding: 6px; gap: 5px; border: 1px solid rgba(215,173,91,.18); background: rgba(13,7,8,.86); box-shadow: 0 20px 55px rgba(0,0,0,.28); backdrop-filter: blur(20px); }
+.admin-tabs button { min-width: 120px; border: 1px solid transparent; border-bottom: 0; transition: color .3s, background .3s, border-color .3s, box-shadow .3s, transform .3s var(--ease-cinematic); }
+.admin-tabs button.active { color: #160a06; border-color: var(--gold); background: linear-gradient(135deg, var(--gold-pale), var(--gold)); box-shadow: 0 12px 34px rgba(215,173,91,.18); }
+.admin-panel { position: relative; overflow: hidden; border: 1px solid rgba(215,173,91,.18); background: radial-gradient(circle at 95% 0, rgba(215,173,91,.18), transparent 24%), linear-gradient(145deg, #fffaf2, #eadcc8); box-shadow: 0 42px 110px rgba(0,0,0,.3), inset 0 0 0 8px rgba(255,255,255,.26); }
+.admin-panel::after { position: absolute; top: -95px; right: -95px; width: 230px; height: 230px; content: ""; border: 1px solid rgba(116,28,42,.12); border-radius: 50%; box-shadow: 0 0 0 30px rgba(116,28,42,.018); pointer-events: none; }
+.admin-panel-title { position: relative; z-index: 1; padding-bottom: 20px; border-bottom: 1px solid rgba(94,50,42,.12); }
+.admin-panel h2 { font-size: clamp(2.2rem,4vw,3.8rem); text-transform: capitalize; }
+.admin-panel-title > span { padding: 8px 11px; border: 1px solid currentColor; background: rgba(255,255,255,.35); }
+.admin-panel textarea { position: relative; z-index: 1; padding: clamp(18px,3vw,30px); color: #f4e5cf; border-color: rgba(215,173,91,.2); background: radial-gradient(circle at 100% 0, rgba(116,28,42,.28), transparent 30%), #0d0909; box-shadow: inset 0 0 60px rgba(0,0,0,.28), 0 24px 55px rgba(45,10,18,.18); caret-color: var(--gold); }
+.admin-panel textarea:focus { border-color: var(--gold); outline: 0; box-shadow: inset 0 0 60px rgba(0,0,0,.28), 0 0 0 3px rgba(215,173,91,.13), 0 24px 55px rgba(45,10,18,.18); }
+.admin-actions { position: relative; z-index: 1; }
+.photo-upload-form { position: relative; z-index: 1; max-width: none; padding: clamp(20px,3vw,34px); border: 1px solid rgba(94,50,42,.12); background: rgba(255,255,255,.34); }
+.photo-upload-form input, .photo-upload-form select { transition: border-color .3s, box-shadow .3s; }
+.photo-upload-form input:focus, .photo-upload-form select:focus { border-color: var(--gold); outline: 0; box-shadow: 0 0 0 3px rgba(215,173,91,.13); }
+.uploaded-photos article { padding: 10px 14px; background: rgba(255,255,255,.25); transition: background .3s, transform .3s var(--ease-cinematic); }
+
+.reservation-admin-tools { position: sticky; z-index: 55; top: 12px; border: 1px solid rgba(215,173,91,.24); background: rgba(245,234,218,.94); box-shadow: 0 24px 60px rgba(0,0,0,.3); backdrop-filter: blur(20px); }
+.reservation-admin-tools input, .reservation-admin-tools select { transition: border-color .3s, box-shadow .3s, transform .3s; }
+.reservation-admin-tools input:focus, .reservation-admin-tools select:focus { border-color: var(--gold); outline: 0; box-shadow: 0 0 0 3px rgba(215,173,91,.14); transform: translateY(-1px); }
+.reservation-view-tabs button { transition: color .3s, background .3s, box-shadow .3s; }
+.reservation-view-tabs button.active { background: linear-gradient(135deg, #4c0d18, #8d2638); box-shadow: inset 0 0 24px rgba(255,255,255,.04); }
+.owner-reservation-list { gap: 18px; }
+.owner-reservation-card { position: relative; overflow: hidden; border: 1px solid rgba(215,173,91,.15); border-left-width: 5px; background: radial-gradient(circle at 95% 0, rgba(215,173,91,.16), transparent 22%), linear-gradient(145deg, #fffaf2, #eadcc8); box-shadow: 0 28px 75px rgba(0,0,0,.24); transition: transform .45s var(--ease-cinematic), box-shadow .45s; }
+.owner-reservation-card::after { position: absolute; right: -80px; bottom: -120px; width: 260px; aspect-ratio: 1; content: ""; border: 1px solid rgba(116,28,42,.09); border-radius: 50%; box-shadow: 0 0 0 26px rgba(116,28,42,.015); pointer-events: none; }
+.owner-reservation-heading, .owner-reservation-contact, .owner-reservation-card details { position: relative; z-index: 1; }
+.owner-reservation-heading h2 { font-size: clamp(2.2rem,4vw,3.4rem); }
+.owner-reservation-when { min-width: 190px; padding: 14px 16px; border: 1px solid rgba(94,50,42,.12); background: rgba(255,255,255,.34); }
+.owner-reservation-contact a { padding: 7px 10px; border: 1px solid rgba(116,28,42,.16); background: rgba(255,255,255,.28); text-decoration: none; }
+.owner-reservation-card summary { padding: 18px 0 4px; transition: color .3s, letter-spacing .3s; }
+.owner-reservation-card details[open] summary { color: #a25f24; letter-spacing: .08em; }
+.owner-reservation-details dl { gap: 9px; border: 0; background: transparent; }
+.owner-reservation-details dl > div { border: 1px solid rgba(94,50,42,.11); background: rgba(255,255,255,.48); box-shadow: 0 9px 24px rgba(60,11,21,.04); }
+.owner-reservation-edit { border-color: rgba(94,50,42,.14); background: rgba(255,255,255,.32); }
+.owner-reservation-edit input, .owner-reservation-edit select, .owner-reservation-edit textarea { transition: border-color .3s, box-shadow .3s; }
+.owner-reservation-edit input:focus, .owner-reservation-edit select:focus, .owner-reservation-edit textarea:focus { border-color: var(--gold); outline: 0; box-shadow: 0 0 0 3px rgba(215,173,91,.12); }
+
 @media (hover: hover) and (pointer: fine) {
   .button-gold:hover { box-shadow: 0 14px 40px rgba(215,173,91,.28), 0 0 25px rgba(215,173,91,.12); }
   .language-link:hover { color: var(--gold-pale); transform: translateY(-1px); }
@@ -543,6 +660,12 @@ svg { flex: 0 0 auto; }
   .menu-item:hover { z-index: 1; border-color: rgba(116,28,42,.24); box-shadow: 0 24px 60px rgba(60,11,21,.12); transform: translateY(-4px); }
   .menu-item:hover::before { transform: scaleY(1); }
   .filter-pills button:hover, .gallery-filters button:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 10px 24px rgba(60,11,21,.08); }
+  .reservation-form label:focus-within > span { color: white; text-shadow: 0 0 18px rgba(215,173,91,.35); }
+  .admin-tabs button:hover { color: white; border-color: rgba(215,173,91,.24); background: rgba(215,173,91,.07); transform: translateY(-1px); }
+  .admin-tabs button.active:hover { color: #160a06; background: linear-gradient(135deg, var(--gold-pale), var(--gold)); }
+  .uploaded-photos article:hover { background: rgba(255,255,255,.55); transform: translateX(4px); }
+  .owner-reservation-card:hover { transform: translateY(-5px); box-shadow: 0 40px 100px rgba(0,0,0,.34), 0 0 48px rgba(116,28,42,.09); }
+  .owner-reservation-contact a:hover { color: #a25f24; border-color: var(--gold); background: white; }
 }
 
 @media (max-width: 1050px) {
@@ -567,14 +690,13 @@ svg { flex: 0 0 auto; }
   .menu-tabs { top: 72px; margin-right: -14px; margin-left: -14px; padding: 4px; }.menu-tabs button { padding-inline: 16px; }.menu-tools { grid-template-columns: 1fr; }.filter-pills { grid-column: auto; }.menu-grid { grid-template-columns: minmax(0, 1fr); gap: 8px; }.menu-item { min-height: 130px; padding: 20px; }.menu-item > div:first-child { min-width: 0; }.menu-item h2, .menu-item-japanese { overflow-wrap: anywhere; }.menu-item-price { max-width: 46vw; white-space: normal; overflow-wrap: anywhere; text-align: right; }.menu-notice .menu-item-price { max-width: none; text-align: left; }
   .gallery-grid { columns: 2 150px; column-gap: 10px; }.gallery-item { margin-bottom: 10px; }.lightbox { padding: 70px 15px; }.lightbox-prev { left: 10px; bottom: 20px; top: auto; }.lightbox-next { right: 10px; bottom: 20px; top: auto; }
   .access-detail-grid { grid-template-columns: 1fr; }.access-actions { padding: 24px; }.map-frame { min-height: 400px; }
-  .reservation-panel { padding: 28px 20px; }.reservation-panel::before { right: -60%; bottom: -35%; width: 130%; }.reservation-fallbacks { grid-column: auto; }.hours-card { min-width: 0; padding: 28px 20px; grid-template-columns: auto auto minmax(0, 1fr); }
+  .reservation-stage { padding-block: 52px; }.reservation-stage::before { top: -35vw; left: -58vw; width: 130vw; }.reservation-stage::after { right: -.06em; bottom: -.05em; font-size: 46vw; }.reservation-panel { min-height: auto; padding: 26px 18px; gap: 30px; }.reservation-panel::before { right: -60%; bottom: -35%; width: 130%; }.reservation-panel::after { background-size: 32px 32px; }.reservation-panel-ornament span:nth-child(1) { top: -10%; left: -85%; width: 145%; }.reservation-panel-ornament span:nth-child(2) { display: none; }.reservation-panel-ornament span:nth-child(3) { right: -75%; bottom: -8%; width: 125%; }.reservation-intro { padding: 6px 4px 0; }.reservation-intro::before { width: 52px; height: 52px; margin: 0 0 45px 8px; font-size: 1.35rem; }.reservation-intro::after { top: 45px; left: 78px; font-size: 4rem; writing-mode: horizontal-tb; }.reservation-intro h2 { font-size: clamp(2.8rem,13vw,4.5rem); }.reservation-form { padding: 18px 14px; gap: 15px; }.reservation-fallbacks { grid-column: auto; }.reservation-confirmation-stage::before { width: 165vw; }.reservation-confirmation-stage::after { width: 116vw; }.reservation-confirmation-card { padding: 38px 24px; box-shadow: 0 38px 90px rgba(0,0,0,.42), inset 0 0 0 6px rgba(255,255,255,.3); }.reservation-confirmation-card::before { inset: 11px; }.reservation-confirmation-card dl { grid-template-columns: 1fr; }.hours-card { min-width: 0; padding: 28px 20px; grid-template-columns: auto auto minmax(0, 1fr); }
   .final-cta::before { width: 155vw; }.final-cta::after { width: 112vw; }
   .footer-grid { grid-template-columns: 1fr; }.footer-bottom { display: grid; }
-  .admin-header { align-items: start; flex-direction: column; }.admin-panel-title { align-items: start; flex-direction: column; }.photo-upload-form { grid-template-columns: 1fr; }.photo-upload-form label:nth-of-type(4), .photo-upload-form .checkbox-line { grid-column: auto; }
+  .admin-page { padding: 16px; }.admin-page::before { background-size: 38px 38px; }.admin-page::after { right: -.18em; bottom: -.06em; font-size: 110vw; }.admin-atmosphere span:nth-child(1) { top: -35vw; right: -90vw; width: 180vw; }.admin-atmosphere span:nth-child(2) { bottom: -45vw; left: -80vw; width: 150vw; }.admin-atmosphere span:nth-child(3) { display: none; }.admin-auth-card { min-height: calc(100svh - 32px); margin: 0 auto; padding: 36px 24px 52px; }.admin-auth-card::after { right: 24px; bottom: 24px; left: 24px; }.admin-auth-card h1 { font-size: clamp(3rem,14vw,4.5rem); }.admin-header { align-items: start; flex-direction: column; padding: 24px 20px; }.admin-header::after { right: -65px; bottom: -80px; font-size: 190px; }.admin-header-actions { width: 100%; }.admin-header-actions .button { flex: 1 1 auto; }.admin-header-actions form { flex: 1 1 auto; }.admin-header-actions form .button { width: 100%; }.admin-tabs { top: 0; margin-inline: -4px; }.admin-tabs button { min-width: 104px; }.admin-panel { margin-inline: -4px; padding: 26px 18px; box-shadow: 0 30px 75px rgba(0,0,0,.3), inset 0 0 0 5px rgba(255,255,255,.2); }.admin-panel-title { align-items: start; flex-direction: column; }.admin-panel textarea { min-height: 64vh; padding: 16px; }.photo-upload-form { grid-template-columns: 1fr; padding: 18px 14px; }.photo-upload-form label:nth-of-type(4), .photo-upload-form .checkbox-line { grid-column: auto; }.uploaded-photos article { align-items: flex-start; flex-direction: column; }.uploaded-photos form { margin-left: 0; }
   .reservation-request-form .reservation-form-row, .reservation-request-form .reservation-form-row-two { grid-template-columns: 1fr; }
   .reservation-confirmation-card dl > div { grid-template-columns: 1fr; gap: 6px; }
-  .reservation-admin-tools { grid-template-columns: 1fr; }.reservation-view-tabs { width: 100%; }
-  .owner-reservation-heading { flex-direction: column; }.owner-reservation-when { text-align: left; }.owner-reservation-details dl, .owner-reservation-edit { grid-template-columns: 1fr; }.owner-reservation-edit .owner-notes { grid-column: auto; }
+  .reservation-admin-tools { top: 0; grid-template-columns: 1fr; margin-inline: -4px; padding: 14px; }.reservation-view-tabs { width: 100%; }.owner-reservation-card { margin-inline: -4px; padding: 24px 18px; }.owner-reservation-heading { flex-direction: column; }.owner-reservation-when { width: 100%; min-width: 0; text-align: left; }.owner-reservation-contact { align-items: stretch; flex-direction: column; }.owner-reservation-contact a { width: 100%; overflow-wrap: anywhere; }.owner-reservation-details dl, .owner-reservation-edit { grid-template-columns: 1fr; }.owner-reservation-edit { padding: 16px 12px; }.owner-reservation-edit .owner-notes { grid-column: auto; }
 }
 
 @media (max-width: 370px) {
@@ -585,6 +707,6 @@ svg { flex: 0 0 auto; }
   html { scroll-behavior: auto; }
   .sakura-petals { display: none; }
   .cinematic-effects .film-grain, .cinematic-effects .pointer-aura { display: none; }
-  .brand-mark, .site-header::before, .hero-spotlight::before, .hero-spotlight::after, .hero-image-frame, .hero-wordmark, .hero-orbit, .story-art::before, .story-art > span::before, .page-hero-chevron, .page-hero-wordmark, .page-hero-orbit, .petal, .category-card::before, .home-access::before, .final-cta::before, .final-cta::after, .reservation-panel::before, .loading-screen::before, .loading-screen::after { animation: none !important; }
+  .brand-mark, .site-header::before, .hero-spotlight::before, .hero-spotlight::after, .hero-image-frame, .hero-wordmark, .hero-orbit, .story-art::before, .story-art > span::before, .page-hero-chevron, .page-hero-wordmark, .page-hero-orbit, .petal, .category-card::before, .home-access::before, .final-cta::before, .final-cta::after, .reservation-panel::before, .reservation-panel-ornament span, .reservation-confirmation-stage::after, .reservation-confirmation-card > svg, .admin-atmosphere span, .admin-auth-card::before, .admin-auth-card::after, .loading-screen::before, .loading-screen::after { animation: none !important; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }

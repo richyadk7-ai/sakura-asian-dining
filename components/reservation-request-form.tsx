@@ -96,6 +96,7 @@ export function ReservationRequestForm({ locale, dictionary, restaurantInfo = re
 
   return (
     <div className="reservation-panel" id="book">
+      <div className="reservation-panel-ornament" aria-hidden="true"><span /><span /><span /></div>
       <div className="reservation-intro">
         <p className="eyebrow"><ShieldCheck aria-hidden="true" /> Sakura reservation request</p>
         <h2>{dictionary.reservation.title}</h2>

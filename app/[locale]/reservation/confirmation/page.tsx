@@ -11,5 +11,5 @@ export default async function ReservationConfirmationPage({ params, searchParams
   const lang = isLocale(locale) ? locale : "en";
   const dictionary = await getPublishedDictionary(lang);
   const reference = typeof query.reference === "string" && /^SKR-\d{8}-[A-Z0-9]{6}$/.test(query.reference) ? query.reference : "—";
-  return <><PageHero eyebrow="Sakura · Reservation" title={dictionary.reservation.confirmationTitle} intro={dictionary.reservation.confirmationIntro} /><section className="section"><div className="container"><ReservationConfirmation locale={lang} dictionary={dictionary} reference={reference} /></div></section></>;
+  return <><PageHero eyebrow="Sakura · Reservation" title={dictionary.reservation.confirmationTitle} intro={dictionary.reservation.confirmationIntro} /><section className="section reservation-confirmation-stage"><div className="container"><ReservationConfirmation locale={lang} dictionary={dictionary} reference={reference} /></div></section></>;
 }
