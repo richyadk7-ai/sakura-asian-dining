@@ -184,6 +184,7 @@ export const en = {
     customer: "Customer",
     status: "Status",
     pending: "Pending",
+    onHold: "On hold · Awaiting staff decision",
     pendingMessage: "This request is not confirmed until Sakura staff review and approve it.",
     confirmed: "Confirmed",
     confirmedTitle: "Your table is confirmed",

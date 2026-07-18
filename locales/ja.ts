@@ -184,6 +184,7 @@ export const ja = {
     customer: "お客様名",
     status: "ステータス",
     pending: "承認待ち",
+    onHold: "確認中・店舗スタッフの判断待ち",
     pendingMessage: "店舗スタッフが内容を確認し承認するまで、予約は確定しません。",
     confirmed: "予約確定",
     confirmedTitle: "ご予約が確定しました",

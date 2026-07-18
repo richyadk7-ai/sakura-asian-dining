@@ -53,7 +53,7 @@ export async function deliverReservationStatusEmail(client: SupabaseClient, rese
     attempt_count: 1,
     last_error: result.sent ? null : (result.reason ?? "Email delivery failed").slice(0, 1000),
     sent_at: result.sent ? new Date().toISOString() : null,
-  }).eq("reservation_id", reservation.id).eq("event_type", event).eq("delivery_status", "queued");
+  }).eq("reservation_id", reservation.id).eq("event_type", event);
 
   if (result.sent) return "sent";
   return reservationNotificationService.configured ? "failed" : "not-configured";

@@ -369,6 +369,11 @@ svg { flex: 0 0 auto; }
 .reservation-privacy a { color: var(--gold-pale); text-decoration: underline; text-underline-offset: 3px; }
 .reservation-confirmation-card { width: min(780px, 100%); margin: auto; padding: clamp(30px, 6vw, 70px); border: 1px solid var(--line); background: #fbf7f0; box-shadow: var(--shadow); }
 .reservation-confirmation-card > svg { width: 48px; height: 48px; color: var(--burgundy); }
+.reservation-decision-banner { margin: calc(clamp(30px,6vw,70px) * -1) calc(clamp(30px,6vw,70px) * -1) 42px; padding: 18px clamp(22px,5vw,46px); display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: 2px 14px; color: white; background: #8b6415; box-shadow: 0 16px 45px rgba(0,0,0,.2); }
+.reservation-decision-banner svg { grid-row: 1 / 3; width: 30px; height: 30px; }
+.reservation-decision-banner span { font-size: .68rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.reservation-decision-banner strong { font: 500 clamp(1.45rem,3vw,2.3rem)/1.05 var(--serif); }
+.reservation-decision-banner.is-confirmed { background: linear-gradient(105deg,#174d35,#2e7d5b); }.reservation-decision-banner.is-rejected { background: linear-gradient(105deg,#651627,#9b3044); }.reservation-decision-banner.is-cancelled,.reservation-decision-banner.is-no_show { background: linear-gradient(105deg,#3f3b3a,#756c67); }.reservation-decision-banner.is-completed { background: linear-gradient(105deg,#31414b,#53616a); }
 .reservation-confirmation-card .eyebrow { margin-top: 25px; color: var(--burgundy); }
 .reservation-confirmation-card h2 { margin: 0 0 16px; font: 500 clamp(2.2rem, 5vw, 4rem)/1 var(--serif); }
 .reservation-confirmation-card > p:not(.eyebrow, .reservation-notice, .form-error) { color: var(--muted); }
@@ -782,6 +787,9 @@ svg { flex: 0 0 auto; }
 .owner-reservation-heading h2 { font-size: clamp(2.2rem,4vw,3.4rem); }
 .owner-reservation-when { min-width: 190px; padding: 14px 16px; border: 1px solid rgba(94,50,42,.12); background: rgba(255,255,255,.34); }
 .owner-reservation-contact a { padding: 7px 10px; border: 1px solid rgba(116,28,42,.16); background: rgba(255,255,255,.28); text-decoration: none; }
+.owner-email-delivery { position: relative; z-index: 1; margin-top: 14px; padding: 12px 14px; display: flex; align-items: center; gap: 11px; border: 1px solid rgba(94,50,42,.15); background: rgba(255,255,255,.38); }
+.owner-email-delivery > svg { width: 20px; color: #8b6415; }.owner-email-delivery > div { display: grid; gap: 2px; }.owner-email-delivery strong { font-size: .72rem; }.owner-email-delivery span { color: var(--muted); font-size: .65rem; overflow-wrap: anywhere; }
+.owner-email-delivery.is-sent { border-color: rgba(38,112,67,.28); background: rgba(38,112,67,.08); }.owner-email-delivery.is-sent > svg { color: #267043; }.owner-email-delivery.is-failed { border-color: rgba(155,38,53,.28); background: rgba(155,38,53,.08); }.owner-email-delivery.is-failed > svg { color: #9b2635; }
 .owner-reservation-card summary { padding: 18px 0 4px; transition: color .3s, letter-spacing .3s; }
 .owner-reservation-card details[open] summary { color: #a25f24; letter-spacing: .08em; }
 .owner-reservation-details dl { gap: 9px; border: 0; background: transparent; }

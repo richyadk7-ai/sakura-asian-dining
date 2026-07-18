@@ -78,6 +78,7 @@ export function ReservationConfirmation({ locale, dictionary, reference, statusT
 
   return (
     <div className={`reservation-confirmation-card is-${status}`} aria-live="polite">
+      <div className={`reservation-decision-banner is-${status}`} role="status"><StatusIcon aria-hidden="true" /><span>{status === "pending" ? dictionary.reservation.onHold : statusCopy.label}</span><strong>{statusCopy.title}</strong></div>
       <div className="reservation-status-theatre">
         {status === "confirmed" ? <div className="reservation-success-burst" aria-hidden="true">{Array.from({ length: 14 }, (_, index) => <span key={index} />)}</div> : null}
         <div className="reservation-status-icon"><StatusIcon aria-hidden="true" /></div>

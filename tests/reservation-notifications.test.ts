@@ -15,6 +15,8 @@ describe("reservation customer emails", () => {
   it("renders a safe English confirmation with a live status link", () => {
     const email = renderReservationEmail({ event: "customer_confirmed", reservation, customerEmail: "aiko@example.com", preferredLanguage: "en", statusToken: "123e4567-e89b-42d3-a456-426614174000" });
     expect(email.subject).toContain("confirmed");
+    expect(email.html).toContain("ACCEPTED · CONFIRMED");
+    expect(email.html).toContain("background:#2e7d5b");
     expect(email.text).toContain("View live reservation status");
     expect(email.text).toContain("token=123e4567-e89b-42d3-a456-426614174000");
     expect(email.html).toContain("&lt;script&gt;Aiko&lt;/script&gt;");
@@ -25,5 +27,11 @@ describe("reservation customer emails", () => {
     const email = renderReservationEmail({ event: "customer_rejected", reservation: { ...reservation, status: "rejected" }, customerEmail: "aiko@example.com", preferredLanguage: "ja" });
     expect(email.subject).toContain("予約リクエストについて");
     expect(email.text).toContain("今回はご予約を確定できませんでした");
+  });
+
+  it("makes the pending state explicit as on hold at the top of the email", () => {
+    const email = renderReservationEmail({ event: "customer_request_received", reservation: { ...reservation, status: "pending" }, customerEmail: "aiko@example.com", preferredLanguage: "en" });
+    expect(email.html).toContain("ON HOLD · AWAITING DECISION");
+    expect(email.text).toContain("Your request is pending");
   });
 });

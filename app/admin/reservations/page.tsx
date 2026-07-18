@@ -24,8 +24,13 @@ export default async function OwnerReservationsPage({ searchParams }: { searchPa
   const { data, error } = await client.from("reservations").select("id,reservation_reference,course_id,customer_name,customer_email,customer_phone,reservation_date,reservation_time,guest_count,seating_preference,occasion,allergies,special_requests,preferred_language,status,owner_notes,created_at,updated_at,confirmed_at,cancelled_at").order("reservation_date", { ascending: true }).order("reservation_time", { ascending: true });
   if (error) return <AdminFrame><div className="admin-auth-card"><CalendarCheck2 /><p className="eyebrow">Reservation database</p><h1>Reservations are not ready</h1><p>{error.message}</p><p>Apply all files in <code>supabase/migrations</code>, then reload this page.</p><Link className="button button-outline" href="/admin">Content studio</Link></div></AdminFrame>;
 
+  const reservationIds = (data ?? []).map((reservation) => reservation.id);
+  const { data: deliveries } = reservationIds.length ? await client.from("reservation_notification_outbox").select("reservation_id,event_type,delivery_status,last_error,sent_at,created_at").in("reservation_id", reservationIds).in("event_type", ["customer_confirmed", "customer_rejected", "customer_cancelled"]).order("created_at", { ascending: false }) : { data: [] };
+  const latestDelivery = new Map<string, NonNullable<typeof deliveries>[number]>();
+  for (const delivery of deliveries ?? []) if (!latestDelivery.has(delivery.reservation_id)) latestDelivery.set(delivery.reservation_id, delivery);
+  const reservations = (data ?? []).map((reservation) => ({ ...reservation, notification_delivery: latestDelivery.get(reservation.id) ?? null })) as OwnerReservation[];
   const emailState = typeof query.email === "string" ? query.email : "";
-  return <AdminFrame><EmailDeliveryFeedback state={emailState} /><OwnerReservationsDashboard reservations={(data ?? []) as OwnerReservation[]} today={getTokyoNow().date} liveAlerts pushPublicKey={process.env.NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY ?? ""} emailConfigured={reservationNotificationService.configured} /></AdminFrame>;
+  return <AdminFrame><EmailDeliveryFeedback state={emailState} /><OwnerReservationsDashboard reservations={reservations} today={getTokyoNow().date} liveAlerts pushPublicKey={process.env.NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY ?? ""} emailConfigured={reservationNotificationService.configured} /></AdminFrame>;
 }
 
 function EmailDeliveryFeedback({ state }: { state: string }) {

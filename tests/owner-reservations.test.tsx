@@ -69,6 +69,11 @@ describe("protected owner reservation dashboard", () => {
     expect(screen.getByText("Customer email active")).toBeVisible();
   });
 
+  it("shows staff proof of the latest customer email delivery", () => {
+    render(<OwnerReservationsDashboard reservations={[{ ...confirmed, notification_delivery: { event_type: "customer_confirmed", delivery_status: "sent", last_error: null, sent_at: "2026-07-17T04:00:00.000Z" } }]} today="2026-07-20" emailConfigured />);
+    expect(screen.getByText("Customer email delivered")).toBeVisible();
+  });
+
   it("provides a two-week operational calendar with guest and pending totals", () => {
     render(<OwnerReservationsDashboard reservations={[base, confirmed]} today="2026-07-20" emailConfigured />);
     fireEvent.click(screen.getByRole("button", { name: "calendar" }));

@@ -169,6 +169,12 @@ export type OwnerReservation = {
   updated_at: string;
   confirmed_at: string | null;
   cancelled_at: string | null;
+  notification_delivery?: {
+    event_type: string;
+    delivery_status: "queued" | "processing" | "sent" | "failed";
+    last_error: string | null;
+    sent_at: string | null;
+  } | null;
 };
 
 export type RestaurantInfo = {
