@@ -68,4 +68,12 @@ describe("protected owner reservation dashboard", () => {
     render(<OwnerReservationsDashboard reservations={[base]} today="2026-07-20" emailConfigured />);
     expect(screen.getByText("Customer email active")).toBeVisible();
   });
+
+  it("provides a two-week operational calendar with guest and pending totals", () => {
+    render(<OwnerReservationsDashboard reservations={[base, confirmed]} today="2026-07-20" emailConfigured />);
+    fireEvent.click(screen.getByRole("button", { name: "calendar" }));
+    expect(screen.getByLabelText("Two-week reservation calendar").querySelectorAll("button")).toHaveLength(14);
+    expect(screen.getAllByText((_, element) => element?.tagName === "SPAN" && element.textContent === "reservation · 2 guests")).toHaveLength(2);
+    expect(screen.getByText((_, element) => element?.tagName === "SMALL" && element.textContent === "1 pending")).toBeVisible();
+  });
 });

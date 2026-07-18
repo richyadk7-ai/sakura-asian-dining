@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarCheck2, Clock3, LogOut, Mail, MailCheck, MailWarning, Phone, Search, Send, StickyNote, Users } from "lucide-react";
+import { CalendarCheck2, Clock3, LogOut, Mail, MailCheck, MailWarning, Phone, Printer, Search, Send, StickyNote, Users } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { logout } from "@/app/admin/actions";
@@ -16,7 +16,7 @@ const actionStatuses: ReservationStatus[] = ["confirmed", "rejected", "cancelled
 export function OwnerReservationsDashboard({ reservations, today, liveAlerts = false, pushPublicKey = "", emailConfigured = false }: { reservations: OwnerReservation[]; today: string; liveAlerts?: boolean; pushPublicKey?: string; emailConfigured?: boolean }) {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<"all" | ReservationStatus>("all");
-  const [view, setView] = useState<"all" | "today" | "upcoming">("all");
+  const [view, setView] = useState<"all" | "today" | "upcoming" | "calendar">("all");
   const [date, setDate] = useState("");
   const pendingCount = reservations.filter((reservation) => reservation.status === "pending").length;
   const latestCreatedAt = reservations.reduce((latest, reservation) => reservation.created_at > latest ? reservation.created_at : latest, "");
@@ -28,9 +28,25 @@ export function OwnerReservationsDashboard({ reservations, today, liveAlerts = f
       return (!query || searchable.includes(query))
         && (status === "all" || reservation.status === status)
         && (!date || reservation.reservation_date === date)
-        && (view === "all" || (view === "today" ? reservation.reservation_date === today : reservation.reservation_date > today));
+        && (view === "all" || view === "calendar" || (view === "today" ? reservation.reservation_date === today : reservation.reservation_date > today));
     });
   }, [date, reservations, search, status, today, view]);
+  const calendarDays = useMemo(() => {
+    return Array.from({ length: 14 }, (_, offset) => {
+      const next = new Date(`${today}T00:00:00Z`);
+      next.setUTCDate(next.getUTCDate() + offset);
+      const value = next.toISOString().slice(0, 10);
+      const dayReservations = reservations.filter((reservation) => reservation.reservation_date === value && reservation.status !== "cancelled" && reservation.status !== "rejected");
+      return { value, reservations: dayReservations, guests: dayReservations.reduce((sum, reservation) => sum + reservation.guest_count, 0), pending: dayReservations.filter((reservation) => reservation.status === "pending").length };
+    });
+  }, [reservations, today]);
+
+  const printToday = () => {
+    setDate("");
+    setStatus("all");
+    setView("today");
+    window.setTimeout(() => window.print(), 80);
+  };
 
   return (
     <div className="admin-dashboard reservations-dashboard">
@@ -39,10 +55,12 @@ export function OwnerReservationsDashboard({ reservations, today, liveAlerts = f
         <label className="reservation-admin-search"><Search /><span className="sr-only">Search reservations</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Name, phone, email or reference" /></label>
         <select aria-label="Filter by status" value={status} onChange={(event) => setStatus(event.target.value as typeof status)}><option value="all">All statuses</option>{Object.entries(statusLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select>
         <input aria-label="Filter by date" type="date" value={date} onChange={(event) => setDate(event.target.value)} />
-        <div className="reservation-view-tabs">{(["all", "today", "upcoming"] as const).map((item) => <button type="button" key={item} className={view === item ? "active" : ""} onClick={() => setView(item)}>{item}</button>)}</div>
+        <div className="reservation-view-tabs">{(["all", "today", "upcoming", "calendar"] as const).map((item) => <button type="button" key={item} className={view === item ? "active" : ""} onClick={() => setView(item)}>{item}</button>)}</div>
+        <button className="button button-outline reservation-print-button" type="button" onClick={printToday}><Printer />Print today</button>
       </section>
+      {view === "calendar" ? <section className="reservation-calendar" aria-label="Two-week reservation calendar">{calendarDays.map((day) => <button type="button" key={day.value} className={day.value === today ? "is-today" : ""} onClick={() => { setDate(day.value); setView("all"); }}><time dateTime={day.value}>{new Intl.DateTimeFormat("en-GB", { weekday: "short", month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${day.value}T00:00:00Z`))}</time><strong>{day.reservations.length}</strong><span>{day.reservations.length === 1 ? "reservation" : "reservations"} · {day.guests} guests</span>{day.pending ? <small>{day.pending} pending</small> : <small>All reviewed</small>}</button>)}</section> : null}
       <section className="owner-reservation-list" aria-live="polite">
-        {filtered.length ? filtered.map((reservation) => <OwnerReservationCard key={reservation.id} reservation={reservation} today={today} />) : <div className="admin-panel"><h2>No matching reservations</h2><p>Adjust the search or filters.</p></div>}
+        {view !== "calendar" ? (filtered.length ? filtered.map((reservation) => <OwnerReservationCard key={reservation.id} reservation={reservation} today={today} />) : <div className="admin-panel"><h2>No matching reservations</h2><p>Adjust the search or filters.</p></div>) : null}
       </section>
     </div>
   );

@@ -106,6 +106,11 @@ export function ReservationRequestForm({ locale, dictionary, restaurantInfo = re
         <h2>{dictionary.reservation.title}</h2>
         <p>{dictionary.reservation.intro}</p>
         <p className="reservation-notice">{dictionary.reservation.notice}</p>
+        <dl className="reservation-trust-facts">
+          <div><dt>{dictionary.reservation.hoursLabel}</dt><dd>{restaurantInfo.lunchHours} · {restaurantInfo.dinnerHours}</dd></div>
+          <div><dt>{dictionary.reservation.seatingCapacityLabel}</dt><dd>{restaurantInfo.seats} {dictionary.reservation.seatsLabel}</dd></div>
+          <div><dt>{dictionary.reservation.responseLabel}</dt><dd>{dictionary.reservation.responseValue}</dd></div>
+        </dl>
       </div>
       <form onSubmit={submit} className="reservation-form reservation-request-form" noValidate>
         <label><span>{dictionary.reservation.course}</span><select aria-label={dictionary.reservation.course} value={courseId} onChange={(event) => setCourseId(event.target.value)}><option value="">{dictionary.reservation.noCourse}</option>{courseData.filter((course) => course.enabled).map((course) => <option key={course.id} value={course.id}>{locale === "ja" ? course.nameJa : course.nameEn} — {course.price}</option>)}</select></label>
