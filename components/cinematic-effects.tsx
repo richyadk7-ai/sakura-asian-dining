@@ -34,6 +34,7 @@ export function CinematicEffects() {
 
   return (
     <div className="cinematic-effects" aria-hidden="true">
+      <div className="ember-veil" />
       <div className="scroll-progress-track">
         <motion.div className="scroll-progress-fill" style={{ scaleX: reduceMotion ? 0 : progress }} />
       </div>
