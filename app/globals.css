@@ -804,6 +804,7 @@ svg { flex: 0 0 auto; }
 .admin-email-health small { color: rgba(255,255,255,.58); font-size: .67rem; line-height: 1.45; }
 .admin-email-health.is-ready { border-color: rgba(93,224,140,.28); background: rgba(26,104,62,.18); }
 .admin-email-health.is-ready > svg { color: #61dc91; filter: drop-shadow(0 0 10px rgba(97,220,145,.36)); }
+.admin-email-test { margin-top: 10px; }.admin-email-test .button { min-height: 42px; color: white; border-color: rgba(215,173,91,.34); }
 .admin-email-feedback { width: min(100%,1180px); margin: 0 auto 18px; padding: 16px 18px; display: flex; align-items: center; gap: 13px; color: white; border: 1px solid rgba(215,173,91,.22); background: rgba(7,4,5,.74); box-shadow: 0 20px 55px rgba(0,0,0,.25); backdrop-filter: blur(14px); }
 .admin-email-feedback > svg { width: 23px; flex: 0 0 23px; color: var(--gold); }
 .admin-email-feedback > div { display: grid; gap: 3px; }

@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { getTokyoNow, MAX_RESERVATION_GUESTS, MIN_RESERVATION_GUESTS, RESERVATION_TIME_SLOTS } from "@/lib/reservation-request";
+import { reservationNotificationService } from "@/lib/notifications/reservation-notifications";
 import { deliverReservationStatusEmail, RESERVATION_EMAIL_COLUMNS, type ReservationEmailRow } from "@/lib/reservations/status-email";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -42,6 +43,21 @@ export async function resendReservationStatusEmail(formData: FormData) {
   if (error) throw new Error(error.message);
   const email = await deliverReservationStatusEmail(client, data as ReservationEmailRow, true);
   redirect(`/admin/reservations?email=${email}`);
+}
+
+export async function sendReservationTestEmail() {
+  await requireReservationAdmin();
+  const recipient = process.env.RESERVATION_OWNER_EMAIL?.trim();
+  if (!recipient || !reservationNotificationService.configured) redirect("/admin/reservations?email=test-not-configured");
+  const now = getTokyoNow();
+  const result = await reservationNotificationService.deliver({
+    event: "customer_confirmed",
+    reservation: { reservationReference: `SKR-${now.date.replaceAll("-", "")}-TEST01`, courseId: null, customerName: "Sakura Owner", reservationDate: now.date, reservationTime: now.time, guestCount: 2, status: "confirmed" },
+    customerEmail: recipient,
+    preferredLanguage: "en",
+    idempotencyKey: `owner-live-test-${crypto.randomUUID()}`,
+  });
+  redirect(`/admin/reservations?email=${result.sent ? "test-sent" : "test-failed"}`);
 }
 
 export async function updateReservationDetails(formData: FormData) {
