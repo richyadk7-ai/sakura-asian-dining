@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Check, Flame, Search, Sparkles, Sprout, X } from "lucide-react";
+import { Check, ChevronDown, Flame, Search, Sparkles, Sprout, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { CourseGrid } from "@/components/course-grid";
 import { allMenuItems } from "@/data/menu";
@@ -118,6 +118,23 @@ export function MenuExplorer({ locale, dictionary, items = allMenuItems, courseD
                       {item.spicy ? <Flame aria-label={dictionary.menu.spicy} /> : null}
                       {item.recommended ? <Sparkles aria-label={dictionary.menu.recommended} /> : null}
                     </div>
+                    {item.kind !== "notice" ? (
+                      <details className="menu-item-details">
+                        <summary>
+                          <span>{dictionary.menu.aboutItem}</span>
+                          <ChevronDown aria-hidden="true" />
+                        </summary>
+                        <div>
+                          <p>{(locale === "ja" ? item.descriptionJa : item.descriptionEn) || (locale === "ja" ? `${item.categoryJa}カテゴリーの「${item.nameJa}」です。` : `${item.nameEn} is listed in Sakura’s ${item.categoryEn} selection.`)}</p>
+                          <dl>
+                            <div><dt>{dictionary.menu.categoryLabel}</dt><dd>{locale === "ja" ? item.categoryJa : item.categoryEn}</dd></div>
+                            <div><dt>{dictionary.menu.menuNameLabel}</dt><dd>{locale === "ja" ? item.nameEn : item.nameJa}</dd></div>
+                            {item.price ? <div><dt>{dictionary.menu.priceLabel}</dt><dd>{item.price}</dd></div> : null}
+                          </dl>
+                          <small>{dictionary.menu.ingredientNotice}</small>
+                        </div>
+                      </details>
+                    ) : null}
                   </motion.article>
                 ))}
               </motion.div>
