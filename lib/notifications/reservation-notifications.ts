@@ -55,7 +55,7 @@ function providerConfig(): ProviderConfig | null {
 
   const gmailUser = process.env.GMAIL_USER?.trim();
   const gmailAppPassword = process.env.GMAIL_APP_PASSWORD?.replace(/\s/g, "");
-  if (gmailUser && gmailAppPassword) {
+  if (gmailUser && gmailAppPassword?.length === 16) {
     return { provider: "gmail", user: gmailUser, appPassword: gmailAppPassword, from: configuredFrom || `Sakura Asian Dining & Bar <${gmailUser}>` };
   }
   return null;
