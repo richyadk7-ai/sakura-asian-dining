@@ -1,14 +1,11 @@
 import { z } from "zod";
 import { isCourseId } from "@/data/courses";
+import { restaurantConfig } from "@/data/restaurant";
 import type { ReservationConfirmation, ReservationRequest, ReservationStatusSnapshot } from "@/types";
 
-export const MIN_RESERVATION_GUESTS = 1;
-export const MAX_RESERVATION_GUESTS = 40;
-export const RESERVATION_TIME_SLOTS = [
-  "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
-  "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30",
-  "21:00", "21:30", "22:00",
-] as const;
+export const MIN_RESERVATION_GUESTS = restaurantConfig.reservations.minimumGuests;
+export const MAX_RESERVATION_GUESTS = restaurantConfig.reservations.maximumOnlineGuests;
+export const RESERVATION_TIME_SLOTS = restaurantConfig.reservations.timeSlots;
 
 const datePattern = /^\d{4}-\d{2}-\d{2}$/;
 const phonePattern = /^\+?[0-9()\-\s]{7,24}$/;
@@ -21,7 +18,7 @@ function isCalendarDate(value: string) {
 
 export function getTokyoNow() {
   const parts = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Asia/Tokyo",
+    timeZone: restaurantConfig.timeZone,
     year: "numeric",
     month: "2-digit",
     day: "2-digit",

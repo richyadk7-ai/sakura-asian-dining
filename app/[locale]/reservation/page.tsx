@@ -1,5 +1,4 @@
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
-import { CourseGrid } from "@/components/course-grid";
 import { PageHero } from "@/components/page-hero";
 import { ReservationRequestForm } from "@/components/reservation-request-form";
 import { courses, getCourseById } from "@/data/courses";
@@ -20,7 +19,31 @@ export async function generateMetadata({ params }: LocalePageProps) {
 export default async function ReservationPage({ params, searchParams }: LocalePageProps & { searchParams: Promise<{ course?: string | string[] }> }) {
   const [{ locale }, query] = await Promise.all([params, searchParams]);
   const lang = isLocale(locale) ? locale : "en";
-  const [d, restaurantInfo, courseData, photos] = await Promise.all([getPublishedDictionary(lang), getPublishedPayload("restaurant", restaurant), getPublishedPayload("courses", courses), getPublishedPhotos(authorizedPhotos)]);
+  const [d, restaurantInfo, courseData, photos] = await Promise.all([
+    getPublishedDictionary(lang),
+    getPublishedPayload("restaurant", restaurant),
+    getPublishedPayload("courses", courses),
+    getPublishedPhotos(authorizedPhotos),
+  ]);
   const selectedCourse = getCourseById(query.course, courseData);
-  return <><BreadcrumbJsonLd locale={lang} path="reservation" label={d.reservation.title} /><PageHero eyebrow="Sakura · Reservation" title={d.reservation.title} intro={d.reservation.intro} /><section className="section reservation-stage"><div className="container"><ReservationRequestForm locale={lang} dictionary={d} restaurantInfo={restaurantInfo} courseData={courseData} initialCourseId={selectedCourse?.id} /></div></section><section className="section reservation-courses"><div className="container"><div className="section-heading"><p className="eyebrow">Sakura · Group dining</p><h2>{d.reservation.groups}</h2><p>{d.reservation.groupsBody}</p></div><CourseGrid locale={lang} dictionary={d} courseData={courseData} photos={photos} /></div></section></>;
+  const heroPhoto = photos.find((photo) => photo.id === "food-030") ?? photos.find((photo) => photo.category === "food");
+
+  return (
+    <>
+      <BreadcrumbJsonLd locale={lang} path="reservation" label={d.reservation.title} />
+      <PageHero
+        locale={lang}
+        variant="reservation"
+        eyebrow={d.reservation.heroEyebrow}
+        title={d.reservation.heroTitle}
+        intro={d.reservation.heroIntro}
+        photo={heroPhoto}
+      />
+      <section className="section reservation-stage">
+        <div className="container">
+          <ReservationRequestForm locale={lang} dictionary={d} restaurantInfo={restaurantInfo} courseData={courseData} initialCourseId={selectedCourse?.id} />
+        </div>
+      </section>
+    </>
+  );
 }

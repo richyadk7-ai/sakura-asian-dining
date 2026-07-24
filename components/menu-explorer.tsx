@@ -2,7 +2,9 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Check, ChevronDown, Flame, Search, Sparkles, Sprout, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import { CourseGrid } from "@/components/course-grid";
 import { allMenuItems } from "@/data/menu";
 import { courses } from "@/data/courses";
@@ -13,14 +15,24 @@ import type { Course, Locale, MenuItem, MenuSection, RestaurantPhoto } from "@/t
 type VisibleMenuSection = Exclude<MenuSection, "photos">;
 
 const sections: VisibleMenuSection[] = ["food", "courses", "drinks", "lunch"];
+const featuredPairings = [
+  ["food-032", "food-030"],
+  ["food-073", "food-029"],
+  ["food-027", "food-034"],
+  ["food-049", "food-022"],
+  ["food-044", "food-031"],
+  ["food-088", "food-028"],
+] as const;
 
 export function MenuExplorer({ locale, dictionary, items = allMenuItems, courseData = courses, photos = authorizedPhotos }: { locale: Locale; dictionary: Dictionary; items?: MenuItem[]; courseData?: Course[]; photos?: RestaurantPhoto[] }) {
-  const [section, setSection] = useState<VisibleMenuSection>("food");
-  const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("all");
-  const [vegetarian, setVegetarian] = useState(false);
-  const [spicy, setSpicy] = useState(false);
-  const [recommended, setRecommended] = useState(false);
+  const searchParams = useSearchParams();
+  const requestedSection = searchParams?.get("section");
+  const [section, setSection] = useState<VisibleMenuSection>(() => requestedSection && sections.includes(requestedSection as VisibleMenuSection) ? requestedSection as VisibleMenuSection : "food");
+  const [query, setQuery] = useState(() => searchParams?.get("q") ?? "");
+  const [category, setCategory] = useState(() => searchParams?.get("category") ?? "all");
+  const [vegetarian, setVegetarian] = useState(() => searchParams?.get("vegetarian") === "1");
+  const [spicy, setSpicy] = useState(() => searchParams?.get("spicy") === "1");
+  const [recommended, setRecommended] = useState(() => searchParams?.get("recommended") === "1");
   const reduce = useReducedMotion();
 
   const labels: Record<VisibleMenuSection, string> = {
@@ -32,15 +44,33 @@ export function MenuExplorer({ locale, dictionary, items = allMenuItems, courseD
 
   const sectionItems = useMemo(() => items.filter((item) => item.section === section), [items, section]);
   const categories = useMemo(() => Array.from(new Set(sectionItems.map((item) => locale === "ja" ? item.categoryJa : item.categoryEn))), [locale, sectionItems]);
+  const activeCategory = category === "all" || categories.includes(category) ? category : "all";
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const setOrDelete = (key: string, value: string, defaultValue = "") => value && value !== defaultValue ? url.searchParams.set(key, value) : url.searchParams.delete(key);
+    setOrDelete("section", section, "food");
+    setOrDelete("q", query.trim());
+    setOrDelete("category", activeCategory, "all");
+    setOrDelete("vegetarian", vegetarian ? "1" : "");
+    setOrDelete("spicy", spicy ? "1" : "");
+    setOrDelete("recommended", recommended ? "1" : "");
+    window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
+  }, [activeCategory, query, recommended, section, spicy, vegetarian]);
 
   const filtered = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase();
     return sectionItems.filter((item) => {
       const itemCategory = locale === "ja" ? item.categoryJa : item.categoryEn;
       const matchesSearch = !normalized || `${item.nameEn} ${item.nameJa} ${item.categoryEn} ${item.categoryJa}`.toLocaleLowerCase().includes(normalized);
-      return item.enabled && matchesSearch && (category === "all" || itemCategory === category) && (!vegetarian || item.vegetarian === true) && (!spicy || item.spicy === true) && (!recommended || item.recommended === true);
+      return item.enabled && matchesSearch && (activeCategory === "all" || itemCategory === activeCategory) && (!vegetarian || item.vegetarian === true) && (!spicy || item.spicy === true) && (!recommended || item.recommended === true);
     });
-  }, [category, locale, query, recommended, sectionItems, spicy, vegetarian]);
+  }, [activeCategory, locale, query, recommended, sectionItems, spicy, vegetarian]);
+  const featured = useMemo(() => featuredPairings.flatMap(([itemId, photoId]) => {
+    const item = items.find((candidate) => candidate.id === itemId && candidate.enabled);
+    const photo = photos.find((candidate) => candidate.id === photoId && candidate.authorized && !candidate.excluded);
+    return item && photo ? [{ item, photo }] : [];
+  }), [items, photos]);
 
   const reset = () => {
     setQuery("");
@@ -57,6 +87,19 @@ export function MenuExplorer({ locale, dictionary, items = allMenuItems, courseD
 
   return (
     <div className="menu-explorer">
+      {featured.length ? (
+        <section className="menu-featured" aria-labelledby="menu-featured-title">
+          <div className="menu-featured-heading"><p className="eyebrow">{locale === "ja" ? "サクラのおすすめ" : "Sakura favourites"}</p><h2 id="menu-featured-title">{locale === "ja" ? "まず味わってほしい一皿" : "A first taste of Sakura"}</h2></div>
+          <div className="menu-featured-grid">
+            {featured.map(({ item, photo }) => (
+              <button key={item.id} type="button" onClick={() => { setSection("food"); setQuery(locale === "ja" ? item.nameJa : item.nameEn); setCategory("all"); document.querySelector(".menu-tabs")?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }); }}>
+                <Image src={photo.src} alt={locale === "ja" ? photo.altJa : photo.altEn} width={photo.width} height={photo.height} sizes="(max-width: 560px) calc(100vw - 28px), (max-width: 900px) 50vw, (max-width: 1366px) 33vw, 25vw" loading="lazy" placeholder={photo.blurDataUrl ? "blur" : "empty"} blurDataURL={photo.blurDataUrl} />
+                <span><small>{locale === "ja" ? item.nameEn : item.nameJa}</small><strong>{locale === "ja" ? item.nameJa : item.nameEn}</strong><b>{item.price}</b></span>
+              </button>
+            ))}
+          </div>
+        </section>
+      ) : null}
       <div className="menu-tabs" role="tablist" aria-label={dictionary.menu.title}>
         {sections.map((item) => (
           <button key={item} role="tab" aria-selected={section === item} className={section === item ? "active" : ""} onClick={() => changeSection(item)}>
@@ -73,17 +116,17 @@ export function MenuExplorer({ locale, dictionary, items = allMenuItems, courseD
             <label className="search-field">
               <Search aria-hidden="true" />
               <span className="sr-only">{dictionary.menu.search}</span>
-              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={dictionary.menu.searchPlaceholder} />
+              <input aria-label={dictionary.menu.search} value={query} onChange={(event) => setQuery(event.target.value)} placeholder={dictionary.menu.searchPlaceholder} />
               {query ? <button type="button" onClick={() => setQuery("")} aria-label={dictionary.menu.clear}><X /></button> : null}
             </label>
             <label className="category-field">
               <span className="sr-only">{dictionary.menu.allCategories}</span>
-              <select value={category} onChange={(event) => setCategory(event.target.value)}>
+              <select value={activeCategory} onChange={(event) => setCategory(event.target.value)}>
                 <option value="all">{dictionary.menu.allCategories}</option>
                 {categories.map((item) => <option key={item} value={item}>{item}</option>)}
               </select>
             </label>
-            <div className="filter-pills" aria-label="Menu filters">
+            <div className="filter-pills" aria-label={locale === "ja" ? "メニュー絞り込み" : "Menu filters"}>
               {section === "food" ? (
                 <>
                   <FilterButton active={vegetarian} onClick={() => setVegetarian(!vegetarian)} icon={<Sprout />} label={dictionary.menu.vegetarian} />
@@ -93,6 +136,8 @@ export function MenuExplorer({ locale, dictionary, items = allMenuItems, courseD
               ) : null}
             </div>
           </div>
+
+          <p className="menu-allergy-notice" role="note"><Check aria-hidden="true" />{dictionary.menu.ingredientNotice}</p>
 
           <div className="menu-results-meta"><span>{filtered.length} {dictionary.menu.itemCount}</span><button type="button" onClick={reset}>{dictionary.menu.clear}</button></div>
           <AnimatePresence mode="popLayout">
@@ -112,26 +157,19 @@ export function MenuExplorer({ locale, dictionary, items = allMenuItems, courseD
                       <h2>{item.nameEn}</h2>
                     </div>
                     <div className="menu-item-price">{item.price}</div>
-                    <div className="menu-item-meta">
-                      <span>{locale === "ja" ? item.categoryJa : item.categoryEn}</span>
+                    <div className="menu-item-meta" aria-label={locale === "ja" ? "料理情報" : "Dish information"}>
                       {item.vegetarian ? <Sprout aria-label={dictionary.menu.vegetarian} /> : null}
                       {item.spicy ? <Flame aria-label={dictionary.menu.spicy} /> : null}
                       {item.recommended ? <Sparkles aria-label={dictionary.menu.recommended} /> : null}
                     </div>
-                    {item.kind !== "notice" ? (
+                    {item.kind !== "notice" && (locale === "ja" ? item.descriptionJa : item.descriptionEn) ? (
                       <details className="menu-item-details">
                         <summary>
-                          <span>{dictionary.menu.aboutItem}</span>
+                          <span>{locale === "ja" ? "詳細" : "Details"}</span>
                           <ChevronDown aria-hidden="true" />
                         </summary>
                         <div>
-                          <p>{(locale === "ja" ? item.descriptionJa : item.descriptionEn) || (locale === "ja" ? `${item.categoryJa}カテゴリーの「${item.nameJa}」です。` : `${item.nameEn} is listed in Sakura’s ${item.categoryEn} selection.`)}</p>
-                          <dl>
-                            <div><dt>{dictionary.menu.categoryLabel}</dt><dd>{locale === "ja" ? item.categoryJa : item.categoryEn}</dd></div>
-                            <div><dt>{dictionary.menu.menuNameLabel}</dt><dd>{locale === "ja" ? item.nameEn : item.nameJa}</dd></div>
-                            {item.price ? <div><dt>{dictionary.menu.priceLabel}</dt><dd>{item.price}</dd></div> : null}
-                          </dl>
-                          <small>{dictionary.menu.ingredientNotice}</small>
+                          <p>{locale === "ja" ? item.descriptionJa : item.descriptionEn}</p>
                         </div>
                       </details>
                     ) : null}

@@ -49,5 +49,7 @@ final class ReservationModelTests: XCTestCase {
         XCTAssertEqual(ReservationFilter.today.title(in: .english), "Today")
         XCTAssertEqual(ReservationFilter.today.title(in: .nepali), "आज")
         XCTAssertEqual(ReservationFilter.confirmed.title(in: .nepali), "पुष्टि")
+        XCTAssertEqual(ReservationFilter.archived.title(in: .english), "Removed")
+        XCTAssertEqual(ReservationFilter.archived.title(in: .nepali), "हटाइएका")
     }
 }

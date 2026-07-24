@@ -18,25 +18,38 @@ final class AppState {
     var newestReservation: Reservation?
     var updatingReservationIDs: Set<UUID> = []
     var soundIsArmed = true
+    private(set) var archivedReservationIDs: Set<UUID>
 
     private let client = SupabaseClient()
     private let alertPlayer = ReservationAlertPlayer()
     private var hasLoadedReservations = false
+    private static let archivedReservationIDsKey = "sakura.owner.archived-reservation-ids"
+
+    init() {
+        let storedIDs = UserDefaults.standard.stringArray(forKey: Self.archivedReservationIDsKey) ?? []
+        archivedReservationIDs = Set(storedIDs.compactMap(UUID.init(uuidString:)))
+    }
 
     var selectedReservation: Reservation? {
-        reservations.first { $0.id == selectedReservationID }
+        filteredReservations.first { $0.id == selectedReservationID }
+    }
+
+    var visibleReservations: [Reservation] {
+        reservations.filter { !archivedReservationIDs.contains($0.id) }
     }
 
     var filteredReservations: [Reservation] {
         let today = Self.tokyoDateString()
         let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines).localizedLowercase
         return reservations.filter { reservation in
+            let isArchived = archivedReservationIDs.contains(reservation.id)
             let filterMatches: Bool = switch filter {
-            case .all: true
-            case .pending: reservation.status == .pending
-            case .today: reservation.reservationDate == today
-            case .upcoming: reservation.reservationDate > today
-            case .confirmed: reservation.status == .confirmed
+            case .all: !isArchived
+            case .pending: !isArchived && reservation.status == .pending
+            case .today: !isArchived && reservation.reservationDate == today
+            case .upcoming: !isArchived && reservation.reservationDate > today
+            case .confirmed: !isArchived && reservation.status == .confirmed
+            case .archived: isArchived
             }
             return filterMatches && (query.isEmpty || reservation.searchableText.contains(query))
         }
@@ -134,13 +147,43 @@ final class AppState {
         updatingReservationIDs.insert(reservation.id)
         defer { updatingReservationIDs.remove(reservation.id) }
         do {
-            try await client.updateStatus(id: reservation.id, status: status)
+            let customerEmail = try await client.updateStatus(id: reservation.id, status: status)
             UINotificationFeedbackGenerator().notificationOccurred(status == .confirmed ? .success : .warning)
             await refreshReservations(announceNew: false)
+            if (status == .confirmed || status == .rejected), customerEmail == .failed || customerEmail == .notConfigured {
+                errorMessage = customerEmail == .notConfigured
+                    ? "Status saved, but the customer email is not configured. Add a valid Google App Password in Vercel, then retry from the owner dashboard."
+                    : "Status saved, but the customer email failed. Open the owner dashboard and retry the customer email."
+            }
         } catch {
             errorMessage = error.localizedDescription
             UINotificationFeedbackGenerator().notificationOccurred(.error)
         }
+    }
+
+    func isArchived(_ reservation: Reservation) -> Bool {
+        archivedReservationIDs.contains(reservation.id)
+    }
+
+    func archiveReservation(_ reservation: Reservation) {
+        archivedReservationIDs.insert(reservation.id)
+        persistArchivedReservations()
+        filter = .all
+        selectedReservationID = filteredReservations.first?.id
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+    }
+
+    func restoreReservation(_ reservation: Reservation) {
+        archivedReservationIDs.remove(reservation.id)
+        persistArchivedReservations()
+        filter = .all
+        selectedReservationID = reservation.id
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+    }
+
+    private func persistArchivedReservations() {
+        let values = archivedReservationIDs.map(\.uuidString).sorted()
+        UserDefaults.standard.set(values, forKey: Self.archivedReservationIDsKey)
     }
 
     private static func tokyoDateString() -> String {

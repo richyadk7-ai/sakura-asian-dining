@@ -4,7 +4,7 @@ import type { ContentDocument } from "@/types";
 const restaurantSchema = z.object({
   nameEn: z.string().min(1), nameJa: z.string().min(1), addressJa: z.string().min(1), addressEn: z.string().min(1),
   reservationPhone: z.string().min(1), directPhone: z.string().min(1), lunchHours: z.string().min(1), dinnerHours: z.string().min(1),
-  closed: z.string().min(1), stationWalkMinutes: z.number().int().positive(), seats: z.number().int().positive(), lastVerified: z.string().min(1),
+  closed: z.string().min(1), stationWalkMinutes: z.number().int().positive(), seats: z.number().int().positive().nullable(), lastVerified: z.string().min(1),
 });
 
 const menuSchema = z.array(z.object({

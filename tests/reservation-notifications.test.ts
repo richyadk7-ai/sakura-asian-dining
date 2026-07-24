@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { renderReservationEmail } from "@/lib/notifications/reservation-notifications";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { getReservationEmailConfiguration, renderReservationEmail } from "@/lib/notifications/reservation-notifications";
 
 const reservation = {
   reservationReference: "SKR-20260720-A1B2C3",
@@ -12,26 +12,32 @@ const reservation = {
 };
 
 describe("reservation customer emails", () => {
-  it("renders a safe English confirmation with a live status link", () => {
-    const email = renderReservationEmail({ event: "customer_confirmed", reservation, customerEmail: "aiko@example.com", preferredLanguage: "en", statusToken: "123e4567-e89b-42d3-a456-426614174000" });
-    expect(email.subject).toContain("confirmed");
-    expect(email.html).toContain("ACCEPTED · CONFIRMED");
-    expect(email.html).toContain("background:#2e7d5b");
-    expect(email.text).toContain("View live reservation status");
-    expect(email.text).toContain("token=123e4567-e89b-42d3-a456-426614174000");
-    expect(email.html).toContain("&lt;script&gt;Aiko&lt;/script&gt;");
-    expect(email.html).not.toContain("<script>Aiko</script>");
+  afterEach(() => vi.unstubAllEnvs());
+
+  it("renders only the confirmed status with no links or extra content", () => {
+    const email = renderReservationEmail({ event: "customer_confirmed", reservation, customerEmail: "aiko@example.com" });
+    expect(email).toEqual({ subject: "Confirmed", text: "Confirmed" });
+    expect(JSON.stringify(email)).not.toMatch(/https?:\/\/|href|\.com/i);
   });
 
-  it("renders the Japanese unavailable decision", () => {
-    const email = renderReservationEmail({ event: "customer_rejected", reservation: { ...reservation, status: "rejected" }, customerEmail: "aiko@example.com", preferredLanguage: "ja" });
-    expect(email.subject).toContain("予約リクエストについて");
-    expect(email.text).toContain("今回はご予約を確定できませんでした");
+  it("renders only the denied status with no links or extra content", () => {
+    const email = renderReservationEmail({ event: "customer_rejected", reservation: { ...reservation, status: "rejected" }, customerEmail: "aiko@example.com" });
+    expect(email).toEqual({ subject: "Denied", text: "Denied" });
+    expect(JSON.stringify(email)).not.toMatch(/https?:\/\/|href|\.com/i);
   });
 
-  it("makes the pending state explicit as on hold at the top of the email", () => {
-    const email = renderReservationEmail({ event: "customer_request_received", reservation: { ...reservation, status: "pending" }, customerEmail: "aiko@example.com", preferredLanguage: "en" });
-    expect(email.html).toContain("ON HOLD · AWAITING DECISION");
-    expect(email.text).toContain("Your request is pending");
+  it("rejects a normal account password and accepts a Google App Password", () => {
+    vi.stubEnv("GMAIL_USER", "richyadk7@gmail.com");
+    vi.stubEnv("GMAIL_APP_PASSWORD", "wrong-pass");
+    expect(getReservationEmailConfiguration()).toEqual({ configured: false, state: "invalid-app-password" });
+
+    vi.stubEnv("GMAIL_APP_PASSWORD", "abcd efgh ijkl mnop");
+    expect(getReservationEmailConfiguration()).toEqual({ configured: true, state: "ready" });
+  });
+
+  it("rejects a sender account other than Sakura's approved Gmail account", () => {
+    vi.stubEnv("GMAIL_USER", "someone-else@gmail.com");
+    vi.stubEnv("GMAIL_APP_PASSWORD", "abcd efgh ijkl mnop");
+    expect(getReservationEmailConfiguration()).toEqual({ configured: false, state: "unexpected-user" });
   });
 });

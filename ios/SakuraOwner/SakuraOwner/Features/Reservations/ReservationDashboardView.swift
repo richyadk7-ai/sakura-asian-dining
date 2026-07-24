@@ -91,6 +91,7 @@ private struct ReservationSidebar: View {
                             ) {
                                 withAnimation(.snappy(duration: 0.28)) {
                                     state.filter = filter
+                                    state.selectedReservationID = state.filteredReservations.first?.id
                                 }
                             }
                         }
@@ -170,16 +171,17 @@ private struct ReservationSidebar: View {
     }
 
     private var pendingCount: Int {
-        appState.reservations.filter { $0.status == .pending }.count
+        appState.visibleReservations.filter { $0.status == .pending }.count
     }
 
     private func count(for filter: ReservationFilter) -> Int {
         switch filter {
-        case .all: appState.reservations.count
+        case .all: appState.visibleReservations.count
         case .pending: pendingCount
-        case .confirmed: appState.reservations.filter { $0.status == .confirmed }.count
-        case .today: appState.reservations.filter { $0.reservationDate == tokyoToday }.count
-        case .upcoming: appState.reservations.filter { $0.reservationDate > tokyoToday }.count
+        case .confirmed: appState.visibleReservations.filter { $0.status == .confirmed }.count
+        case .today: appState.visibleReservations.filter { $0.reservationDate == tokyoToday }.count
+        case .upcoming: appState.visibleReservations.filter { $0.reservationDate > tokyoToday }.count
+        case .archived: appState.archivedReservationIDs.count
         }
     }
 

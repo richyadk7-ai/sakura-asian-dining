@@ -1,0 +1,3 @@
+# Keep the 78 MB archival source model in the repository, but deploy only the
+# optimized 3 MB runtime asset referenced by the application.
+public/models/signature-dish-original.glb

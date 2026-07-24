@@ -3,7 +3,7 @@ import Foundation
 enum SupabaseConfiguration {
     static let projectURL = URL(string: "https://hqvmcuzddwvtvzsobtur.supabase.co")!
     static let publishableKey = "sb_publishable_IokU2OqTcp9w8l5UXGRh0A__e__Q5UY"
-    static let ownerStatusURL = URL(string: "https://sakura-asian-dining-live.vercel.app/api/admin/reservations/status")!
+    static let ownerStatusURL = URL(string: "https://sakuradining.co/api/admin/reservations/status")!
 }
 
 enum SupabaseError: LocalizedError {
@@ -67,7 +67,7 @@ actor SupabaseClient {
         return try await send(request)
     }
 
-    func updateStatus(id: UUID, status: ReservationStatus) async throws {
+    func updateStatus(id: UUID, status: ReservationStatus) async throws -> CustomerEmailDelivery {
         let token = try await validAccessToken()
         var request = URLRequest(url: SupabaseConfiguration.ownerStatusURL)
         request.timeoutInterval = 30
@@ -76,7 +76,8 @@ actor SupabaseClient {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = try JSONEncoder().encode(["id": id.uuidString.lowercased(), "status": status.rawValue])
-        try await sendWithoutBody(request)
+        let response: OwnerStatusUpdateResponse = try await send(request)
+        return response.customerEmail
     }
 
     private func isAllowlistedOwner(userID: UUID) async throws -> Bool {
@@ -127,11 +128,6 @@ actor SupabaseClient {
         catch { throw SupabaseError.invalidResponse }
     }
 
-    private func sendWithoutBody(_ request: URLRequest) async throws {
-        let (data, response) = try await session.data(for: request)
-        try validate(response: response, data: data)
-    }
-
     private func validate(response: URLResponse, data: Data) throws {
         guard let http = response as? HTTPURLResponse else { throw SupabaseError.invalidResponse }
         guard (200..<300).contains(http.statusCode) else {
@@ -145,6 +141,22 @@ actor SupabaseClient {
 private struct OwnerRecord: Decodable {
     let userID: UUID
     enum CodingKeys: String, CodingKey { case userID = "user_id" }
+}
+
+enum CustomerEmailDelivery: String, Decodable {
+    case sent
+    case alreadySent = "already-sent"
+    case failed
+    case notConfigured = "not-configured"
+    case notApplicable = "not-applicable"
+}
+
+private struct OwnerStatusUpdateResponse: Decodable {
+    let customerEmail: CustomerEmailDelivery
+
+    enum CodingKeys: String, CodingKey {
+        case customerEmail
+    }
 }
 
 private struct SupabaseErrorPayload: Decodable { let message: String? }

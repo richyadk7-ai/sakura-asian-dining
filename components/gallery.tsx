@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Images, X } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { authorizedPhotos } from "@/data/photos";
 import type { Dictionary } from "@/locales";
 import type { Locale, RestaurantPhotoCategory } from "@/types";
@@ -13,7 +13,9 @@ type Filter = "all" | RestaurantPhotoCategory;
 export function Gallery({ locale, dictionary, preview = false, photoData = authorizedPhotos }: { locale: Locale; dictionary: Dictionary; preview?: boolean; photoData?: typeof authorizedPhotos }) {
   const [filter, setFilter] = useState<Filter>("all");
   const [selected, setSelected] = useState<number | null>(null);
+  const [visibleCount, setVisibleCount] = useState(preview ? 8 : 12);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
   const reduce = useReducedMotion();
   const labels: Record<Filter, string> = {
     all: dictionary.gallery.all,
@@ -27,11 +29,15 @@ export function Gallery({ locale, dictionary, preview = false, photoData = autho
   const usablePhotos = photoData.filter((photo) => photo.authorized && !photo.excluded);
   const categories: Filter[] = (["all", "food", "drinks", "interior", "exterior", "menu", "course"] as Filter[])
     .filter((category) => category === "all" || usablePhotos.some((photo) => photo.category === category));
-  const filtered = (filter === "all" ? usablePhotos : usablePhotos.filter((photo) => photo.category === filter)).slice(0, preview ? 8 : undefined);
+  const matchingPhotos = filter === "all" ? usablePhotos : usablePhotos.filter((photo) => photo.category === filter);
+  const filtered = matchingPhotos.slice(0, preview ? 8 : visibleCount);
 
-  const close = () => setSelected(null);
-  const previous = () => setSelected((current) => current === null ? 0 : (current - 1 + filtered.length) % filtered.length);
-  const next = () => setSelected((current) => current === null ? 0 : (current + 1) % filtered.length);
+  const close = useCallback(() => {
+    setSelected(null);
+    window.requestAnimationFrame(() => triggerRef.current?.focus());
+  }, []);
+  const previous = useCallback(() => setSelected((current) => current === null ? 0 : (current - 1 + filtered.length) % filtered.length), [filtered.length]);
+  const next = useCallback(() => setSelected((current) => current === null ? 0 : (current + 1) % filtered.length), [filtered.length]);
 
   useEffect(() => {
     if (selected === null) return;
@@ -42,13 +48,22 @@ export function Gallery({ locale, dictionary, preview = false, photoData = autho
       if (event.key === "Escape") close();
       if (event.key === "ArrowLeft") previous();
       if (event.key === "ArrowRight") next();
+      if (event.key === "Tab") {
+        const dialog = closeRef.current?.closest<HTMLElement>(".lightbox");
+        const focusable = Array.from(dialog?.querySelectorAll<HTMLElement>("button,a[href]") ?? []);
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
     };
     document.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", onKey);
     };
-  });
+  }, [close, next, previous, selected]);
 
   if (!usablePhotos.length) {
     return (
@@ -65,7 +80,7 @@ export function Gallery({ locale, dictionary, preview = false, photoData = autho
     <>
       {!preview ? (
         <div className="gallery-filters" role="group" aria-label={dictionary.gallery.title}>
-          {categories.map((category) => <button type="button" key={category} className={filter === category ? "active" : ""} onClick={() => { setFilter(category); setSelected(null); }}>{labels[category]}</button>)}
+          {categories.map((category) => <button type="button" key={category} aria-pressed={filter === category} className={filter === category ? "active" : ""} onClick={() => { setFilter(category); setSelected(null); setVisibleCount(12); }}>{labels[category]}</button>)}
         </div>
       ) : null}
       <motion.div className="gallery-grid" layout>
@@ -75,7 +90,7 @@ export function Gallery({ locale, dictionary, preview = false, photoData = autho
             className="gallery-item"
             key={photo.id}
             layout
-            onClick={() => setSelected(index)}
+            onClick={(event) => { triggerRef.current = event.currentTarget; setSelected(index); }}
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             aria-label={locale === "ja" ? photo.altJa : photo.altEn}
@@ -88,10 +103,12 @@ export function Gallery({ locale, dictionary, preview = false, photoData = autho
               sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
               placeholder={photo.blurDataUrl ? "blur" : "empty"}
               blurDataURL={photo.blurDataUrl}
+              loading="lazy"
             />
           </motion.button>
         ))}
       </motion.div>
+      {!preview && filtered.length < matchingPhotos.length ? <div className="gallery-load-more"><button className="button button-outline" type="button" onClick={() => setVisibleCount((count) => count + 12)}>{locale === "ja" ? "さらに表示" : "Load more"}</button><span>{filtered.length} / {matchingPhotos.length}</span></div> : null}
 
       <AnimatePresence>
         {selected !== null && filtered[selected] ? (

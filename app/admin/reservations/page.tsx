@@ -2,7 +2,7 @@ import { AlertTriangle, CalendarCheck2, CheckCircle2, Info, ShieldAlert, ShieldC
 import Link from "next/link";
 import { login, logout } from "@/app/admin/actions";
 import { OwnerReservationsDashboard } from "@/components/owner-reservations-dashboard";
-import { reservationNotificationService } from "@/lib/notifications/reservation-notifications";
+import { getReservationEmailConfiguration, reservationNotificationService } from "@/lib/notifications/reservation-notifications";
 import { getTokyoNow } from "@/lib/reservation-request";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -25,22 +25,21 @@ export default async function OwnerReservationsPage({ searchParams }: { searchPa
   if (error) return <AdminFrame><div className="admin-auth-card"><CalendarCheck2 /><p className="eyebrow">Reservation database</p><h1>Reservations are not ready</h1><p>{error.message}</p><p>Apply all files in <code>supabase/migrations</code>, then reload this page.</p><Link className="button button-outline" href="/admin">Content studio</Link></div></AdminFrame>;
 
   const reservationIds = (data ?? []).map((reservation) => reservation.id);
-  const { data: deliveries } = reservationIds.length ? await client.from("reservation_notification_outbox").select("reservation_id,event_type,delivery_status,last_error,sent_at,created_at").in("reservation_id", reservationIds).in("event_type", ["customer_confirmed", "customer_rejected", "customer_cancelled"]).order("created_at", { ascending: false }) : { data: [] };
+  const { data: deliveries } = reservationIds.length ? await client.from("reservation_notification_outbox").select("reservation_id,event_type,delivery_status,last_error,sent_at,created_at").in("reservation_id", reservationIds).in("event_type", ["customer_confirmed", "customer_rejected"]).order("created_at", { ascending: false }) : { data: [] };
   const latestDelivery = new Map<string, NonNullable<typeof deliveries>[number]>();
   for (const delivery of deliveries ?? []) if (!latestDelivery.has(delivery.reservation_id)) latestDelivery.set(delivery.reservation_id, delivery);
   const reservations = (data ?? []).map((reservation) => ({ ...reservation, notification_delivery: latestDelivery.get(reservation.id) ?? null })) as OwnerReservation[];
   const emailState = typeof query.email === "string" ? query.email : "";
-  return <AdminFrame><EmailDeliveryFeedback state={emailState} /><OwnerReservationsDashboard reservations={reservations} today={getTokyoNow().date} liveAlerts pushPublicKey={process.env.NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY ?? ""} emailConfigured={reservationNotificationService.configured} /></AdminFrame>;
+  const emailConfiguration = getReservationEmailConfiguration();
+  return <AdminFrame><EmailDeliveryFeedback state={emailState} /><OwnerReservationsDashboard reservations={reservations} today={getTokyoNow().date} liveAlerts pushPublicKey={process.env.NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY ?? ""} emailConfigured={reservationNotificationService.configured} emailConfigurationState={emailConfiguration.state} /></AdminFrame>;
 }
 
 function EmailDeliveryFeedback({ state }: { state: string }) {
   if (!state) return null;
-  if (state === "sent") return <div className="admin-email-feedback is-success" role="status"><CheckCircle2 /><div><strong>Status saved and customer email sent</strong><span>The guest received the latest reservation result and a live status link.</span></div></div>;
-  if (state === "test-sent") return <div className="admin-email-feedback is-success" role="status"><CheckCircle2 /><div><strong>Live Gmail test sent</strong><span>Check the configured owner inbox for “Sakura email notifications are live.”</span></div></div>;
-  if (state === "test-failed") return <div className="admin-email-feedback is-error" role="alert"><AlertTriangle /><div><strong>Live Gmail test failed</strong><span>The production server could not deliver the message. Recheck the Gmail app password and account.</span></div></div>;
-  if (state === "test-not-configured") return <div className="admin-email-feedback is-warning" role="alert"><AlertTriangle /><div><strong>Gmail is not configured</strong><span>Add a valid 16-character Google app password in the Production environment.</span></div></div>;
-  if (state === "not-configured") return <div className="admin-email-feedback is-warning" role="alert"><AlertTriangle /><div><strong>Status saved, but no email was sent</strong><span>Connect Gmail or Resend in the Vercel environment before relying on automatic customer mail.</span></div></div>;
-  if (state === "failed") return <div className="admin-email-feedback is-error" role="alert"><AlertTriangle /><div><strong>Status saved, but email delivery failed</strong><span>Check the email credentials, then use the resend button on this reservation.</span></div></div>;
+  if (state === "sent") return <div className="admin-email-feedback is-success" role="status"><CheckCircle2 /><div><strong>Status saved and customer email sent</strong><span>The guest received one decision email.</span></div></div>;
+  if (state === "already-sent") return <div className="admin-email-feedback is-success" role="status"><CheckCircle2 /><div><strong>Status saved</strong><span>This request already received its decision email, so no duplicate was sent.</span></div></div>;
+  if (state === "not-configured") return <div className="admin-email-feedback is-warning" role="alert"><AlertTriangle /><div><strong>Status saved, but no email was sent</strong><span>Add a valid 16-character Google App Password in Vercel, redeploy, then retry this reservation.</span></div></div>;
+  if (state === "failed") return <div className="admin-email-feedback is-error" role="alert"><AlertTriangle /><div><strong>Status saved, but email delivery failed</strong><span>Check the Gmail credentials and deployment logs.</span></div></div>;
   return <div className="admin-email-feedback" role="status"><Info /><div><strong>Reservation status saved</strong><span>This status does not send a customer email.</span></div></div>;
 }
 

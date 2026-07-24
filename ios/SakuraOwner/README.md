@@ -1,6 +1,6 @@
 # Sakura Owner for iPad
 
-A native bilingual SwiftUI owner application for Sakura Asian Dining & Bar. It supports persistent English/Nepali switching, signs in through the existing Supabase owner allowlist, reads reservations under Row Level Security, polls every five seconds while active, plays a synthesized two-stage native alert, and allows owners to confirm, reject or update reservation status. Customer-facing status decisions pass through Sakura's protected production API so approval, rejection and cancellation emails are sent consistently with the web dashboard.
+A native bilingual SwiftUI owner application for Sakura Asian Dining & Bar. It supports persistent English/Nepali switching, signs in through the existing Supabase owner allowlist, reads reservations under Row Level Security, polls every five seconds while active, plays a synthesized two-stage native alert, and allows owners to confirm, reject or update reservation status. The first confirmed or rejected decision passes through Sakura's protected `sakuradining.co` production API so the customer receives one `Confirmed` or `Denied` email, matching the web dashboard.
 
 ## Generate and build
 

@@ -164,18 +164,16 @@ Never expose `WEB_PUSH_PRIVATE_KEY` or `PUSH_DISPATCH_SECRET` through a `NEXT_PU
 
 ### Customer email notifications
 
-The reservation API now sends a bilingual request-received email immediately. Confirming, rejecting or cancelling in the owner dashboard sends the matching result and a secure live-status link; staff can resend a result email from the reservation card. The dashboard reports whether delivery succeeded instead of claiming that an unsent message was delivered.
+The reservation API does not email customers while a request is pending. The first confirmed or denied staff decision sends exactly one plain-text Gmail message containing only `Confirmed` or `Denied`. It includes no links, reservation details or follow-up messages, and later status edits do not send duplicates.
 
 For the simplest free setup, enable Google 2-Step Verification, create a 16-character Google App Password, and add these production environment variables in Vercel:
 
 ```text
-GMAIL_USER=restaurant-email@gmail.com
+GMAIL_USER=richyadk7@gmail.com
 GMAIL_APP_PASSWORD=the-16-character-app-password
-RESERVATION_OWNER_EMAIL=restaurant-email@gmail.com
-RESERVATION_REPLY_TO=restaurant-email@gmail.com
 ```
 
-Use the app password only—never the Google account password. Redeploy after changing environment variables. As an alternative, configure `RESEND_API_KEY` and `RESERVATION_EMAIL_FROM`; Resend takes priority when both are present and requires a verified sending domain for arbitrary customer addresses. Notification outbox rows remain as an auditable delivery record.
+Use the app password only—never the Google account password. Redeploy after changing environment variables. `NEXT_PUBLIC_SITE_URL` must be `https://sakuradining.co` in production. Decision emails contain no URL; notification outbox rows remain as an auditable delivery record and prevent a second decision email for the same request.
 
 ## Project structure
 

@@ -1,7 +1,8 @@
+import { restaurantConfig } from "@/data/restaurant";
 import type { Locale } from "@/types";
 
 export function BreadcrumbJsonLd({ locale, path, label }: { locale: Locale; path: string; label: string }) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || restaurantConfig.canonicalUrl;
   const data = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",

@@ -16,7 +16,7 @@ export function LoadingScreen({ dictionary }: { dictionary: Dictionary }) {
     const timer = window.setTimeout(() => {
       setVisible(false);
       window.localStorage.setItem(SEEN_KEY, "1");
-    }, 1200);
+    }, 650);
     return () => { window.cancelAnimationFrame(frame); window.clearTimeout(timer); };
   }, [reduce]);
 
@@ -27,7 +27,7 @@ export function LoadingScreen({ dictionary }: { dictionary: Dictionary }) {
           className="loading-screen"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.28 }}
+          transition={{ duration: 0.18 }}
           aria-live="polite"
           aria-label={dictionary.common.loading}
         >

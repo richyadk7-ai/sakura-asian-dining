@@ -5,6 +5,7 @@ struct ReservationDetailView: View {
     @Environment(SakuraTheme.self) private var theme
     @Environment(SakuraLanguageStore.self) private var language
     @Environment(\.openURL) private var openURL
+    @State private var showingRemoveConfirmation = false
     let reservation: Reservation
 
     private let metricColumns = [GridItem(.adaptive(minimum: 145), spacing: 10)]
@@ -23,6 +24,7 @@ struct ReservationDetailView: View {
                     if reservation.status == .pending { pendingActions }
                     guestDetails
                     statusMenu
+                    displayManagement
                 }
                 .padding(24)
                 .frame(maxWidth: 900, alignment: .leading)
@@ -31,6 +33,17 @@ struct ReservationDetailView: View {
         }
         .navigationTitle(reservation.customerName)
         .navigationBarTitleDisplayMode(.inline)
+        .alert(language.text("Remove from display?", "डिस्प्लेबाट हटाउने?"), isPresented: $showingRemoveConfirmation) {
+            Button(language.text("Remove", "हटाउनुहोस्"), role: .destructive) {
+                appState.archiveReservation(reservation)
+            }
+            Button(language.text("Cancel", "रद्द गर्नुहोस्"), role: .cancel) {}
+        } message: {
+            Text(language.text(
+                "This reservation will leave the active queue and move to Removed. Its customer record and status will stay safe.",
+                "यो आरक्षण सक्रिय सूचीबाट हटेर हटाइएका सूचीमा जान्छ। ग्राहकको रेकर्ड र स्थिति सुरक्षित रहनेछ।"
+            ))
+        }
     }
 
     private var hero: some View {
@@ -197,6 +210,40 @@ struct ReservationDetailView: View {
         Label(language.text("Status", "स्थिति"), systemImage: "arrow.triangle.2.circlepath")
             .font(.headline)
             .foregroundStyle(theme.paleGold)
+    }
+
+    private var displayManagement: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            sectionLabel(language.text("DISPLAY", "डिस्प्ले"))
+            if appState.isArchived(reservation) {
+                Button {
+                    appState.restoreReservation(reservation)
+                } label: {
+                    Label(language.text("Restore to reservations", "आरक्षण सूचीमा फर्काउनुहोस्"), systemImage: "arrow.uturn.backward.circle.fill")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(theme.ink)
+                        .frame(maxWidth: .infinity)
+                        .padding(14)
+                        .background(theme.paleGold, in: RoundedRectangle(cornerRadius: 15, style: .continuous))
+                }
+                .buttonStyle(SakuraPressButtonStyle())
+            } else {
+                Button(role: .destructive) {
+                    showingRemoveConfirmation = true
+                } label: {
+                    Label(language.text("Remove from display", "डिस्प्लेबाट हटाउनुहोस्"), systemImage: "archivebox.fill")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(14)
+                        .background(Color.red.opacity(0.22), in: RoundedRectangle(cornerRadius: 15, style: .continuous))
+                        .overlay { RoundedRectangle(cornerRadius: 15).stroke(Color.red.opacity(0.34)) }
+                }
+                .buttonStyle(SakuraPressButtonStyle())
+            }
+        }
+        .padding(17)
+        .sakuraGlass(cornerRadius: 18, tint: theme.wine.opacity(0.08))
     }
 
     @ViewBuilder

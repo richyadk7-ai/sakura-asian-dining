@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: process.cwd(),
   turbopack: { root: process.cwd() },
   images: {
+    qualities: [75, 86, 88, 90, 92],
     remotePatterns: [
       {
         protocol: "https",

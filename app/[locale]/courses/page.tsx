@@ -19,5 +19,24 @@ export default async function CoursesPage({ params }: LocalePageProps) {
   const { locale } = await params;
   const lang = isLocale(locale) ? locale : "en";
   const [d, courseData, photos] = await Promise.all([getPublishedDictionary(lang), getPublishedPayload("courses", courses), getPublishedPhotos(authorizedPhotos)]);
-  return <><BreadcrumbJsonLd locale={lang} path="courses" label={d.courses.title} /><PageHero eyebrow="Sakura · Courses" title={d.courses.title} intro={d.courses.intro} /><section className="section"><div className="container"><CourseGrid locale={lang} dictionary={d} courseData={courseData} photos={photos} showDetails /></div></section></>;
+  const heroPhoto = photos.find((photo) => photo.id === "food-013") ?? photos.find((photo) => photo.category === "food");
+
+  return (
+    <>
+      <BreadcrumbJsonLd locale={lang} path="courses" label={d.courses.title} />
+      <PageHero
+        locale={lang}
+        variant="courses"
+        eyebrow={d.courses.heroEyebrow}
+        title={d.courses.heroTitle}
+        intro={d.courses.heroIntro}
+        photo={heroPhoto}
+      />
+      <section className="section">
+        <div className="container">
+          <CourseGrid locale={lang} dictionary={d} courseData={courseData} photos={photos} showDetails />
+        </div>
+      </section>
+    </>
+  );
 }

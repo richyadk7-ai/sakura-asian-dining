@@ -1,143 +1,218 @@
-import { Beer, Clock3, Flame, Images, MapPin, MoonStar, Sparkles, Soup, Sprout, UtensilsCrossed } from "lucide-react";
+import { ArrowRight, Clock3, Flame, MapPin, PhoneCall, Sparkles, Sprout } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { CinematicHomeFilm } from "@/components/cinematic-home-film";
+import { CinematicHomeHero } from "@/components/cinematic-home-hero";
 import { CourseGrid } from "@/components/course-grid";
-import { Gallery } from "@/components/gallery";
+import { HeroMotionReel } from "@/components/hero-motion-reel";
+import { LazyDishScroll3D } from "@/components/lazy-dish-scroll-3d";
 import { MotionReveal } from "@/components/motion-reveal";
-import { restaurant } from "@/data/restaurant";
+import { courses } from "@/data/courses";
+import { restaurant, restaurantConfig } from "@/data/restaurant";
 import { drinkItems, foodItems, lunchItems } from "@/data/menu";
 import { authorizedPhotos } from "@/data/photos";
 import { localizePath } from "@/lib/locale";
 import type { Dictionary } from "@/locales";
 import type { Course, Locale, MenuItem, RestaurantInfo, RestaurantPhoto } from "@/types";
 
-export function HomePage({ locale, dictionary, restaurantInfo = restaurant, menuData = [...foodItems, ...drinkItems, ...lunchItems], courseData, photos = authorizedPhotos }: { locale: Locale; dictionary: Dictionary; restaurantInfo?: RestaurantInfo; menuData?: MenuItem[]; courseData?: Course[]; photos?: RestaurantPhoto[] }) {
+const popularPairings = [
+  { itemId: "food-032", photoId: "food-030" },
+  { itemId: "food-073", photoId: "food-029" },
+  { itemId: "food-027", photoId: "food-034" },
+  { itemId: "food-049", photoId: "food-022" },
+  { itemId: "food-044", photoId: "food-031" },
+  { itemId: "food-088", photoId: "food-028" },
+] as const;
+
+const atmospherePhotoIds = ["interior-003", "interior-001", "exterior-001", "drinks-001"] as const;
+
+export function HomePage({
+  locale,
+  dictionary,
+  restaurantInfo = restaurant,
+  menuData = [...foodItems, ...drinkItems, ...lunchItems],
+  courseData = courses,
+  photos = authorizedPhotos,
+}: {
+  locale: Locale;
+  dictionary: Dictionary;
+  restaurantInfo?: RestaurantInfo;
+  menuData?: MenuItem[];
+  courseData?: Course[];
+  photos?: RestaurantPhoto[];
+}) {
   const foods = menuData.filter((item) => item.section === "food");
-  const drinks = menuData.filter((item) => item.section === "drinks");
-  const lunches = menuData.filter((item) => item.section === "lunch");
-  const signatureNames = foods.filter((item) => item.recommended && item.kind !== "notice").slice(0, 10);
-  const heroPhoto = photos.find((photo) => photo.featured) ?? photos.find((photo) => photo.width > photo.height);
+  const heroPhoto = photos.find((photo) => photo.id === "food-030") ?? photos.find((photo) => photo.category === "food");
+  const signatureSet = foods.find((item) => item.id === "food-088");
+  const popularDishes = popularPairings.flatMap(({ itemId, photoId }) => {
+    const item = foods.find((candidate) => candidate.id === itemId);
+    const photo = photos.find((candidate) => candidate.id === photoId);
+    return item && photo ? [{ item, photo }] : [];
+  });
+  const atmospherePhotos = atmospherePhotoIds.flatMap((id) => {
+    const photo = photos.find((candidate) => candidate.id === id);
+    return photo ? [photo] : [];
+  });
+
+  const menuHref = localizePath(locale, "menu");
+  const reservationHref = localizePath(locale, "reservation");
+  const galleryHref = localizePath(locale, "gallery");
+  const accessHref = localizePath(locale, "access");
+
   return (
     <>
-      <section className="home-hero">
-        <div className="hero-spotlight" aria-hidden="true" />
-        <div className="hero-light-sweep" aria-hidden="true" />
-        <div className="hero-wordmark" aria-hidden="true">Sakura</div>
-        <div className="hero-orbit hero-orbit-one" aria-hidden="true" />
-        <div className="hero-orbit hero-orbit-two" aria-hidden="true" />
-        <div className="container home-hero-grid">
-          <div className="hero-copy">
-            <p className="eyebrow">{dictionary.home.eyebrow}</p>
-            <p className="hero-japanese">{restaurantInfo.nameJa}</p>
-            <h1>{dictionary.home.title}</h1>
-            <p className="hero-subtitle">{restaurantInfo.nameEn}</p>
-            <div className="hero-actions">
-              <Link className="button button-gold" href={localizePath(locale, "menu")}>{dictionary.common.viewMenu}</Link>
-              <Link className="button button-outline" href={localizePath(locale, "reservation")}>{dictionary.common.reserve}</Link>
-              <Link className="text-link" href={localizePath(locale, "courses")}>{dictionary.common.viewCourses}</Link>
-            </div>
-            <div className="hero-facts">
-              <span><MapPin />{dictionary.common.location}</span>
-              <span><Clock3 />{restaurantInfo.lunchHours} · {restaurantInfo.dinnerHours}</span>
-            </div>
-          </div>
-          <div className="hero-visual-stage">
-            <div className="hero-photo-aura" aria-hidden="true" />
-            <div className="hero-blossom-vortex" aria-hidden="true">
-              {Array.from({ length: 12 }, (_, index) => <span key={index} />)}
-            </div>
-            <div className={`hero-image-frame ${heroPhoto ? "has-photo" : ""}`} aria-label={heroPhoto ? (locale === "ja" ? heroPhoto.altJa : heroPhoto.altEn) : dictionary.common.photoPending}>
-              <span className="hero-frame-label" aria-hidden="true">桜 · SAKURA</span>
-              {heroPhoto ? <Image src={heroPhoto.src} alt={locale === "ja" ? heroPhoto.altJa : heroPhoto.altEn} width={heroPhoto.width} height={heroPhoto.height} sizes="(max-width: 1050px) 100vw, 55vw" priority placeholder={heroPhoto.blurDataUrl ? "blur" : "empty"} blurDataURL={heroPhoto.blurDataUrl} /> : <><span className="hero-kanji" aria-hidden="true">桜</span><div><Images aria-hidden="true" /><p>{dictionary.common.photoPending}</p><small>{dictionary.common.photoPendingBody}</small></div></>}
-            </div>
-            <div className="hero-stage-glint" aria-hidden="true" />
-          </div>
-        </div>
-        <div className="hero-gold-line" aria-hidden="true" />
-      </section>
+      {heroPhoto ? (
+        <CinematicHomeHero
+          locale={locale}
+          photo={heroPhoto}
+          restaurantNameEn={restaurantInfo.nameEn}
+          restaurantNameJa={restaurantInfo.nameJa}
+          kicker={dictionary.home.heroKicker}
+          titleLineOne={dictionary.home.heroTitleLineOne}
+          titleLineTwo={dictionary.home.heroTitleLineTwo}
+          description={dictionary.home.heroDescription}
+          location={dictionary.common.location}
+          reserveLabel={dictionary.home.heroReserve}
+          menuLabel={dictionary.common.viewMenu}
+          menuHref={menuHref}
+          reservationHref={reservationHref}
+        />
+      ) : null}
 
-      <section className="section intro-section">
-        <div className="container split-copy">
-          <MotionReveal><p className="eyebrow">01 · Sakura</p><h2>{dictionary.home.introTitle}</h2></MotionReveal>
-          <MotionReveal delay={0.1}><p>{dictionary.home.introBody}</p><Link className="text-link" href={localizePath(locale, "about")}>{dictionary.common.learnMore}</Link></MotionReveal>
+      <CinematicHomeFilm label={dictionary.home.filmLabel} />
+
+      <section className="home-trust" aria-label={locale === "ja" ? "店舗情報" : "Restaurant information"} data-scroll-chapter="1">
+        <div className="container home-trust-grid">
+          <div><MapPin aria-hidden="true" /><span>{locale === "ja" ? restaurantConfig.location.stationNameJa : restaurantConfig.location.stationNameEn}</span><strong>{restaurantInfo.stationWalkMinutes} {locale === "ja" ? "分" : "minutes"}</strong></div>
+          <div><Flame aria-hidden="true" /><span>{locale === "ja" ? "インド・ネパール・アジア料理" : "Indian · Nepalese · Asian"}</span><strong>{locale === "ja" ? "窯焼きとスパイス" : "Tandoor & spice"}</strong></div>
+          <div><Clock3 aria-hidden="true" /><span>{dictionary.access.hours}</span><strong>{restaurantInfo.lunchHours} · {restaurantInfo.dinnerHours}</strong></div>
+          <Link href={accessHref}>{dictionary.nav.access}<ArrowRight aria-hidden="true" /></Link>
         </div>
       </section>
 
-      <section className="section signature-section">
+      <section className="home-popular" aria-labelledby="popular-dishes-title" data-scroll-chapter="2">
         <div className="container">
-          <MotionReveal className="section-heading"><p className="eyebrow">02 · Flavours</p><h2>{dictionary.home.signatures}</h2><p>{dictionary.home.signaturesBody}</p></MotionReveal>
-          <div className="signature-grid">
-            <Feature icon={<Flame />} title={locale === "ja" ? "窯焼き" : "Tandoor fire"} body={locale === "ja" ? "タンドリーチキン、ティッカ、カバブ、海老を香ばしく。" : "Tandoori chicken, tikka, kebabs and prawns cooked over intense heat."} />
-            <Feature icon={<Soup />} title={locale === "ja" ? "豊富なカレー" : "Curries for every mood"} body={locale === "ja" ? "野菜、チキン、マトン、シーフードを幅広く。" : "Vegetable, chicken, mutton and seafood curries across a broad selection."} />
-            <Feature icon={<Sprout />} title={locale === "ja" ? "アジアの定番" : "Asian comfort dishes"} body={locale === "ja" ? "モモ、チョウメン、ガパオ、フォー、ナシゴレン。" : "Momo, chow mein, gapao, pho and nasi goreng alongside Indian favorites."} />
+          <MotionReveal className="home-scene-heading">
+            <p className="eyebrow">{locale === "ja" ? "人気の一皿" : "Popular dishes"}</p>
+            <h2 id="popular-dishes-title">{locale === "ja" ? "火とスパイスが生む、サクラの定番。" : "The dishes guests return for."}</h2>
+            <p>{locale === "ja" ? "窯焼き、カレー、モモ、焼きたてのナンから、まず味わってほしい六皿を。" : "Six house favourites spanning the tandoor, curries, Nepalese momo and freshly baked naan."}</p>
+          </MotionReveal>
+          <div className="popular-dish-rail" tabIndex={0} role="region" aria-label={locale === "ja" ? "人気料理を横にスクロール" : "Scrollable popular dishes"}>
+            {popularDishes.map(({ item, photo }, index) => (
+              <MotionReveal className={`popular-dish-card popular-dish-card-${index + 1}`} delay={Math.min(index * 0.04, 0.16)} key={item.id}>
+                <article>
+                  <Image
+                    src={photo.src}
+                    alt={locale === "ja" ? photo.altJa : photo.altEn}
+                    width={photo.width}
+                    height={photo.height}
+                    sizes="(max-width: 760px) 82vw, (max-width: 1100px) 44vw, 31vw"
+                    loading="lazy"
+                    placeholder={photo.blurDataUrl ? "blur" : "empty"}
+                    blurDataURL={photo.blurDataUrl}
+                  />
+                  <div className="popular-dish-overlay">
+                    <div className="popular-dish-badges">
+                      {item.recommended ? <span><Sparkles aria-hidden="true" />{locale === "ja" ? "おすすめ" : "Popular"}</span> : null}
+                      {item.spicy ? <span><Flame aria-hidden="true" />{locale === "ja" ? "スパイス" : "Spiced"}</span> : null}
+                      {item.vegetarian ? <span><Sprout aria-hidden="true" />{locale === "ja" ? "ベジタリアン" : "Vegetarian"}</span> : null}
+                    </div>
+                    <p>{locale === "ja" ? item.nameEn : item.nameJa}</p>
+                    <h3>{locale === "ja" ? item.nameJa : item.nameEn}</h3>
+                    <div><small>{locale === "ja" ? item.categoryJa : item.categoryEn}</small><strong>{item.price}</strong></div>
+                  </div>
+                </article>
+              </MotionReveal>
+            ))}
           </div>
+          <Link className="home-menu-link" href={menuHref}>{dictionary.common.viewMenu}<ArrowRight aria-hidden="true" /></Link>
         </div>
       </section>
 
-      <section className="food-marquee" aria-label={dictionary.home.signatures}>
-        <div>{[...signatureNames, ...signatureNames].map((item, index) => <span key={`${item.id}-${index}`}><Sparkles />{locale === "ja" ? item.nameJa : item.nameEn}</span>)}</div>
-      </section>
+      {signatureSet ? (
+        <LazyDishScroll3D
+          locale={locale}
+          item={signatureSet}
+          description={locale === "ja" ? "タンドールの熱、豊かなカレー、焼きたてのナン。一皿に重なるサクラの味わい。" : "Tandoor heat, layered curries and freshly baked naan—Sakura’s table brought together in one generous dish."}
+          menuHref={menuHref}
+          reservationHref={reservationHref}
+          menuLabel={dictionary.common.viewMenu}
+          reservationLabel={dictionary.common.reserve}
+        />
+      ) : null}
 
-      <section className="section menu-preview-section">
+      <section className="home-courses" aria-labelledby="home-courses-title" data-scroll-chapter="4">
         <div className="container">
-          <MotionReveal className="section-heading"><p className="eyebrow">03 · Menu</p><h2>{dictionary.home.menuPreview}</h2></MotionReveal>
-          <div className="menu-category-grid">
-            <CategoryCard icon={<UtensilsCrossed />} count={foods.length} title={dictionary.menu.food} href={localizePath(locale, "menu")} />
-            <CategoryCard icon={<Beer />} count={drinks.length} title={dictionary.menu.drinks} href={localizePath(locale, "menu")} />
-            <CategoryCard icon={<MoonStar />} count={lunches.length} title={dictionary.menu.lunch} href={localizePath(locale, "menu")} />
-          </div>
+          <MotionReveal className="home-scene-heading home-courses-heading">
+            <p className="eyebrow">{locale === "ja" ? "コース" : "Group dining"}</p>
+            <h2 id="home-courses-title">{dictionary.home.courseTitle}</h2>
+            <p>{dictionary.courses.intro}</p>
+          </MotionReveal>
+          <CourseGrid locale={locale} dictionary={dictionary} courseData={courseData} photos={photos} limit={2} />
+          <Link className="home-menu-link" href={localizePath(locale, "courses")}>{dictionary.common.viewCourses}<ArrowRight aria-hidden="true" /></Link>
         </div>
       </section>
 
-      <section className="section courses-section">
-        <div className="container">
-          <MotionReveal className="section-heading"><p className="eyebrow">04 · Courses</p><h2>{dictionary.home.courseTitle}</h2></MotionReveal>
-          <CourseGrid locale={locale} dictionary={dictionary} limit={3} courseData={courseData} photos={photos} />
-          <div className="center-action"><Link className="button button-outline" href={localizePath(locale, "courses")}>{dictionary.common.viewCourses}</Link></div>
+      <section className="home-atmosphere" aria-labelledby="atmosphere-title" data-scroll-chapter="5">
+        <div className="container atmosphere-heading-row">
+          <MotionReveal className="home-scene-heading">
+            <p className="eyebrow">{locale === "ja" ? "高田馬場の夜" : "The room"}</p>
+            <h2 id="atmosphere-title">{locale === "ja" ? "料理を囲む、あたたかな時間。" : "A warm table in the heart of Takadanobaba."}</h2>
+          </MotionReveal>
+          <MotionReveal delay={0.1}>
+            <p>{dictionary.home.atmosphereBody}</p>
+            <Link className="text-link" href={galleryHref}>{locale === "ja" ? "ギャラリーを見る" : "Explore the gallery"}<ArrowRight aria-hidden="true" /></Link>
+          </MotionReveal>
+        </div>
+        <div className="container atmosphere-mosaic">
+          {atmospherePhotos.slice(0, 2).map((photo, index) => (
+            <Link className={`atmosphere-photo atmosphere-photo-${index + 1}`} href={galleryHref} key={photo.id} aria-label={`${locale === "ja" ? photo.altJa : photo.altEn} · ${dictionary.nav.gallery}`}>
+              <Image src={photo.src} alt={locale === "ja" ? photo.altJa : photo.altEn} width={photo.width} height={photo.height} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" placeholder={photo.blurDataUrl ? "blur" : "empty"} blurDataURL={photo.blurDataUrl} />
+            </Link>
+          ))}
+          <div className="atmosphere-film"><HeroMotionReel locale={locale} /></div>
+          {atmospherePhotos.slice(2).map((photo, index) => (
+            <Link className={`atmosphere-photo atmosphere-photo-${index + 3}`} href={galleryHref} key={photo.id} aria-label={`${locale === "ja" ? photo.altJa : photo.altEn} · ${dictionary.nav.gallery}`}>
+              <Image src={photo.src} alt={locale === "ja" ? photo.altJa : photo.altEn} width={photo.width} height={photo.height} sizes="(max-width: 760px) 100vw, 40vw" loading="lazy" placeholder={photo.blurDataUrl ? "blur" : "empty"} blurDataURL={photo.blurDataUrl} />
+            </Link>
+          ))}
         </div>
       </section>
 
-      <StorySection number="05" icon={<Flame />} title={dictionary.home.tandoorTitle} body={dictionary.home.tandoorBody} accent="tandoor" />
-      <StorySection number="06" icon={<Soup />} title={dictionary.home.lunchTitle} body={dictionary.home.lunchBody} accent="lunch" cta={{ label: dictionary.common.viewMenu, href: localizePath(locale, "menu") }} />
-      <StorySection number="07" icon={<Beer />} title={dictionary.home.drinksTitle} body={dictionary.home.drinksBody} accent="drinks" />
-      <StorySection number="08" icon={<MoonStar />} title={dictionary.home.atmosphereTitle} body={dictionary.home.atmosphereBody} accent="atmosphere" />
-
-      <section className="section gallery-preview-section">
-        <div className="container">
-          <MotionReveal className="section-heading"><p className="eyebrow">09 · Gallery</p><h2>{dictionary.home.galleryTitle}</h2></MotionReveal>
-          <Gallery locale={locale} dictionary={dictionary} preview photoData={photos} />
+      <section className="home-access-summary" aria-labelledby="home-access-title" data-scroll-chapter="6">
+        <div className="container home-access-summary-grid">
+          <MotionReveal>
+            <p className="eyebrow">{locale === "ja" ? "アクセス" : "Find Sakura"}</p>
+            <h2 id="home-access-title">{dictionary.home.accessTitle}</h2>
+            <p>{locale === "ja" ? restaurantInfo.addressJa : restaurantInfo.addressEn}</p>
+          </MotionReveal>
+          <MotionReveal className="home-access-summary-actions" delay={0.08}>
+            <Link className="button button-gold" href={accessHref}><MapPin aria-hidden="true" />{dictionary.nav.access}</Link>
+            <a className="button button-outline" href={`tel:${restaurantInfo.reservationPhone}`}><PhoneCall aria-hidden="true" />{restaurantInfo.reservationPhone}</a>
+          </MotionReveal>
         </div>
       </section>
 
-      <section className="section home-access">
-        <div className="container home-access-grid">
-          <MotionReveal><p className="eyebrow">10 · Access</p><h2>{dictionary.home.accessTitle}</h2><p>{locale === "ja" ? restaurantInfo.addressJa : restaurantInfo.addressEn}</p><Link className="button button-outline" href={localizePath(locale, "access")}>{dictionary.nav.access}</Link></MotionReveal>
-          <div className="hours-card"><MapPin /><strong>{restaurantInfo.stationWalkMinutes} min</strong><span>Takadanobaba Station</span><Clock3 /><strong>{restaurantInfo.lunchHours}</strong><span>{dictionary.common.lunch}</span><Clock3 /><strong>{restaurantInfo.dinnerHours}</strong><span>{dictionary.common.dinner}</span></div>
+      <section className="home-reservation-finale" aria-labelledby="final-reservation-title" data-scroll-chapter="7">
+        <div className="finale-light" aria-hidden="true" />
+        <div className="finale-petals" aria-hidden="true">{Array.from({ length: 9 }, (_, index) => <i key={index} />)}</div>
+        <div className="container finale-layout">
+          <MotionReveal className="finale-copy">
+            <p className="eyebrow">{locale === "ja" ? "ご予約" : "Your table"}</p>
+            <h2 id="final-reservation-title">{dictionary.home.finalTitle}</h2>
+            <p>{dictionary.home.finalBody}</p>
+            <div className="finale-actions">
+              <Link className="button button-gold" href={reservationHref}>{dictionary.common.reserve}<ArrowRight aria-hidden="true" /></Link>
+              <Link className="button button-outline" href={accessHref}>{dictionary.nav.access}<MapPin aria-hidden="true" /></Link>
+            </div>
+          </MotionReveal>
+          <MotionReveal className="finale-details" delay={0.1}>
+            <div><MapPin aria-hidden="true" /><span>{locale === "ja" ? restaurantInfo.addressJa : restaurantInfo.addressEn}</span></div>
+            <div><Clock3 aria-hidden="true" /><span>{dictionary.common.lunch} {restaurantInfo.lunchHours}<br />{dictionary.common.dinner} {restaurantInfo.dinnerHours}</span></div>
+            <a href={`tel:${restaurantInfo.reservationPhone}`}><PhoneCall aria-hidden="true" /><span>{restaurantInfo.reservationPhone}</span></a>
+          </MotionReveal>
         </div>
-      </section>
-
-      <section className="final-cta">
-        <div className="container"><p className="eyebrow">11 · Reservation</p><h2>{dictionary.home.finalTitle}</h2><p>{dictionary.home.finalBody}</p><Link className="button button-gold" href={localizePath(locale, "reservation")}>{dictionary.common.reserve}</Link></div>
       </section>
     </>
-  );
-}
-
-function Feature({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
-  return <MotionReveal className="feature-card"><div>{icon}</div><h3>{title}</h3><p>{body}</p></MotionReveal>;
-}
-
-function CategoryCard({ icon, count, title, href }: { icon: React.ReactNode; count: number; title: string; href: string }) {
-  return <Link className="category-card" href={href}><span>{icon}</span><div><small>{count} entries</small><h3>{title}</h3></div><b>↗</b></Link>;
-}
-
-function StorySection({ number, icon, title, body, accent, cta }: { number: string; icon: React.ReactNode; title: string; body: string; accent: string; cta?: { label: string; href: string } }) {
-  return (
-    <section className={`section story-section story-${accent}`}>
-      <div className="container story-grid">
-        <MotionReveal className="story-art"><span aria-hidden="true">{icon}</span><b>{number}</b></MotionReveal>
-        <MotionReveal className="story-copy"><p className="eyebrow">{number} · Sakura</p><h2>{title}</h2><p>{body}</p>{cta ? <Link className="text-link" href={cta.href}>{cta.label}</Link> : null}</MotionReveal>
-      </div>
-    </section>
   );
 }

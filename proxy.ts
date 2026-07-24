@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { restaurantConfig } from "@/data/restaurant";
 import { LOCALES, PUBLIC_PATHS } from "@/lib/constants";
 
 function preferredLocale(request: NextRequest) {
@@ -10,6 +11,14 @@ function preferredLocale(request: NextRequest) {
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const host = request.headers.get("host")?.split(":")[0]?.toLowerCase();
+  if (host === `www.${restaurantConfig.canonicalHost}`) {
+    const canonical = request.nextUrl.clone();
+    canonical.protocol = "https";
+    canonical.hostname = restaurantConfig.canonicalHost;
+    canonical.port = "";
+    return NextResponse.redirect(canonical, 308);
+  }
   const firstSegment = pathname.split("/")[1];
   const barePath = pathname.replace(/^\//, "");
   const isPublicBare = PUBLIC_PATHS.includes(barePath as (typeof PUBLIC_PATHS)[number]);

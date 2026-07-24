@@ -1,6 +1,7 @@
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { MotionReveal } from "@/components/motion-reveal";
 import { PageHero } from "@/components/page-hero";
+import { restaurantConfig } from "@/data/restaurant";
 import { getPublishedDictionary } from "@/lib/content";
 import { isLocale } from "@/lib/locale";
 import { pageMetadata } from "@/lib/seo";
@@ -17,8 +18,11 @@ export default async function PrivacyPage({ params }: LocalePageProps) {
   const { locale } = await params;
   const lang = isLocale(locale) ? locale : "en";
   const d = await getPublishedDictionary(lang);
+  const operatorBody = lang === "ja"
+    ? `${restaurantConfig.identity.nameJa}（${restaurantConfig.location.addressJa}）は、当ウェブサイトを通じて送信された個人情報を管理します。`
+    : `${restaurantConfig.identity.nameEn}, ${restaurantConfig.location.addressEn}, manages the personal information submitted through this website.`;
   const sections = [
-    [d.privacy.operatorTitle, d.privacy.operatorBody],
+    [d.privacy.operatorTitle, operatorBody],
     [d.privacy.collectionTitle, d.privacy.collectionBody],
     [d.privacy.purposeTitle, d.privacy.purposeBody],
     [d.privacy.sharingTitle, d.privacy.sharingBody],
@@ -32,7 +36,7 @@ export default async function PrivacyPage({ params }: LocalePageProps) {
   return (
     <>
       <BreadcrumbJsonLd locale={lang} path="privacy" label={d.privacy.title} />
-      <PageHero eyebrow={d.privacy.eyebrow} title={d.privacy.title} intro={d.privacy.intro} />
+      <PageHero locale={lang} eyebrow={d.privacy.eyebrow} title={d.privacy.title} intro={d.privacy.intro} />
       <section className="section privacy-section">
         <div className="container privacy-layout">
           <aside className="privacy-summary">

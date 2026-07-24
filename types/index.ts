@@ -188,7 +188,7 @@ export type RestaurantInfo = {
   dinnerHours: string;
   closed: string;
   stationWalkMinutes: number;
-  seats: number;
+  seats: number | null;
   lastVerified: string;
 };
 

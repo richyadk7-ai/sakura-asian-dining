@@ -1,6 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
-import { reservationNotificationService } from "@/lib/notifications/reservation-notifications";
 import { sendOwnerReservationPush } from "@/lib/notifications/owner-web-push";
 import { reservationConfirmationSchema, reservationIssueField, reservationRequestSchema, reservationRpcParams } from "@/lib/reservation-request";
 import { isSupabaseConfigured, supabaseEnvironment } from "@/lib/supabase/config";
@@ -11,11 +10,15 @@ export async function POST(request: NextRequest) {
   const origin = request.headers.get("origin");
   if (origin && origin !== new URL(request.url).origin) return NextResponse.json({ error: "invalid_origin" }, { status: 403 });
   if (!request.headers.get("content-type")?.toLowerCase().includes("application/json")) return NextResponse.json({ error: "invalid_content_type" }, { status: 415 });
+  const contentLength = Number(request.headers.get("content-length") ?? "0");
+  if (Number.isFinite(contentLength) && contentLength > 32_768) return NextResponse.json({ error: "payload_too_large" }, { status: 413 });
   if (!isSupabaseConfigured()) return NextResponse.json({ error: "reservation_service_unavailable" }, { status: 503 });
 
   let body: unknown;
   try {
-    body = await request.json();
+    const rawBody = await request.text();
+    if (new TextEncoder().encode(rawBody).byteLength > 32_768) return NextResponse.json({ error: "payload_too_large" }, { status: 413 });
+    body = JSON.parse(rawBody);
   } catch {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }
@@ -46,15 +49,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "reservation_submission_failed" }, { status: 500 });
   }
 
-  let customerEmailSent = false;
   if (row?.was_created) {
-    const [, customerNotification] = await Promise.all([
-      reservationNotificationService.deliver({ event: "owner_new_request", reservation: confirmation.data, customerEmail: parsed.data.customerEmail, preferredLanguage: parsed.data.preferredLanguage, idempotencyKey: `owner-new-${parsed.data.submissionToken}` }),
-      reservationNotificationService.deliver({ event: "customer_request_received", reservation: confirmation.data, customerEmail: parsed.data.customerEmail, preferredLanguage: parsed.data.preferredLanguage, statusToken: parsed.data.submissionToken, idempotencyKey: `customer-received-${parsed.data.submissionToken}` }),
-      sendOwnerReservationPush(confirmation.data),
-    ]);
-    customerEmailSent = customerNotification.sent;
+    await sendOwnerReservationPush(confirmation.data);
   }
 
-  return NextResponse.json({ reservation: confirmation.data, customerEmailSent, notificationProviderConfigured: reservationNotificationService.configured }, { status: row?.was_created ? 201 : 200 });
+  return NextResponse.json(
+    { reservation: confirmation.data },
+    { status: row?.was_created ? 201 : 200, headers: { "Cache-Control": "no-store" } },
+  );
 }

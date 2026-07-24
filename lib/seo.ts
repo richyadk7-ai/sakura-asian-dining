@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { restaurantConfig } from "@/data/restaurant";
 import type { Locale } from "@/types";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || restaurantConfig.canonicalUrl;
 
 export function pageMetadata(locale: Locale, path: string, title: string, description: string): Metadata {
   const clean = path ? `/${path}` : "";

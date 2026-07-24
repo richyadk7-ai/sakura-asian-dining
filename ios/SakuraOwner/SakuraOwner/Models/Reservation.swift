@@ -82,7 +82,7 @@ struct Reservation: Codable, Identifiable, Hashable, Sendable {
 }
 
 enum ReservationFilter: String, CaseIterable, Identifiable {
-    case all, pending, today, upcoming, confirmed
+    case all, pending, today, upcoming, confirmed, archived
 
     var id: String { rawValue }
     var title: String { title(in: .english) }
@@ -94,6 +94,7 @@ enum ReservationFilter: String, CaseIterable, Identifiable {
         case .today: language == .english ? "Today" : "आज"
         case .upcoming: language == .english ? "Upcoming" : "आगामी"
         case .confirmed: language == .english ? "Confirmed" : "पुष्टि"
+        case .archived: language == .english ? "Removed" : "हटाइएका"
         }
     }
     var icon: String {
@@ -103,6 +104,7 @@ enum ReservationFilter: String, CaseIterable, Identifiable {
         case .today: "sun.max"
         case .upcoming: "calendar"
         case .confirmed: "checkmark.seal"
+        case .archived: "archivebox"
         }
     }
 }

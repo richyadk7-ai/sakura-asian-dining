@@ -1,19 +1,20 @@
 "use client";
 
-import { CalendarCheck2, Clock3, LogOut, Mail, MailCheck, MailWarning, Phone, Printer, Search, Send, StickyNote, Users } from "lucide-react";
+import { CalendarCheck2, Clock3, LogOut, Mail, MailCheck, MailWarning, Phone, Printer, RotateCw, Search, StickyNote, Users } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { logout } from "@/app/admin/actions";
-import { resendReservationStatusEmail, sendReservationTestEmail, updateReservationDetails, updateReservationStatus } from "@/app/admin/reservations/actions";
+import { retryReservationStatusEmail, updateReservationDetails, updateReservationStatus } from "@/app/admin/reservations/actions";
 import { getCourseById } from "@/data/courses";
 import { MAX_RESERVATION_GUESTS, MIN_RESERVATION_GUESTS, RESERVATION_TIME_SLOTS } from "@/lib/reservation-request";
 import { ReservationLiveAlerts } from "@/components/reservation-live-alerts";
+import type { ReservationEmailConfigurationState } from "@/lib/notifications/reservation-notifications";
 import type { OwnerReservation, ReservationStatus } from "@/types";
 
 const statusLabels: Record<ReservationStatus, string> = { pending: "Pending", confirmed: "Confirmed", rejected: "Rejected", cancelled: "Cancelled", completed: "Completed", no_show: "No-show" };
 const actionStatuses: ReservationStatus[] = ["confirmed", "rejected", "cancelled", "completed", "no_show"];
 
-export function OwnerReservationsDashboard({ reservations, today, liveAlerts = false, pushPublicKey = "", emailConfigured = false }: { reservations: OwnerReservation[]; today: string; liveAlerts?: boolean; pushPublicKey?: string; emailConfigured?: boolean }) {
+export function OwnerReservationsDashboard({ reservations, today, liveAlerts = false, pushPublicKey = "", emailConfigured = false, emailConfigurationState = "missing-user" }: { reservations: OwnerReservation[]; today: string; liveAlerts?: boolean; pushPublicKey?: string; emailConfigured?: boolean; emailConfigurationState?: ReservationEmailConfigurationState }) {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<"all" | ReservationStatus>("all");
   const [view, setView] = useState<"all" | "today" | "upcoming" | "calendar">("all");
@@ -50,7 +51,7 @@ export function OwnerReservationsDashboard({ reservations, today, liveAlerts = f
 
   return (
     <div className="admin-dashboard reservations-dashboard">
-      <header className="admin-header"><div><p className="eyebrow">Protected owner area</p><h1>Reservations</h1><p className="admin-reservation-summary">{pendingCount} pending · {reservations.length} total</p><div className={`admin-email-health ${emailConfigured ? "is-ready" : "is-offline"}`}>{emailConfigured ? <MailCheck /> : <MailWarning />}<span><strong>{emailConfigured ? "Customer email active" : "Customer email needs setup"}</strong><small>{emailConfigured ? "Confirming or rejecting automatically emails the guest." : "Statuses save, but guests will not receive an email yet."}</small></span></div>{emailConfigured ? <form className="admin-email-test" action={sendReservationTestEmail}><button className="button button-outline"><Send />Send live test email</button></form> : null}</div><div className="admin-header-actions">{liveAlerts ? <ReservationLiveAlerts pushPublicKey={pushPublicKey} initialLatestCreatedAt={latestCreatedAt} /> : null}<Link className="button button-outline" href="/admin">Content studio</Link><form action={logout}><button className="button button-outline"><LogOut />Sign out</button></form></div></header>
+      <header className="admin-header"><div><p className="eyebrow">Protected owner area</p><h1>Reservations</h1><p className="admin-reservation-summary">{pendingCount} pending · {reservations.length} total</p><div className={`admin-email-health ${emailConfigured ? "is-ready" : "is-offline"}`}>{emailConfigured ? <MailCheck /> : <MailWarning />}<span><strong>{emailConfigured ? "Customer email active" : "Customer email needs setup"}</strong><small>{emailConfigured ? "The first confirmed or denied decision emails the guest once." : emailConfigurationState === "unexpected-user" ? "The Vercel Gmail user does not match Sakura’s approved sender account." : emailConfigurationState === "invalid-app-password" ? "The Vercel password is not a 16-character Google App Password." : "Add the Gmail user and 16-character Google App Password in Vercel."}</small></span></div></div><div className="admin-header-actions">{liveAlerts ? <ReservationLiveAlerts pushPublicKey={pushPublicKey} initialLatestCreatedAt={latestCreatedAt} /> : null}<Link className="button button-outline" href="/admin">Content studio</Link><form action={logout}><button className="button button-outline"><LogOut />Sign out</button></form></div></header>
       <section className="reservation-admin-tools" aria-label="Reservation filters">
         <label className="reservation-admin-search"><Search /><span className="sr-only">Search reservations</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Name, phone, email or reference" /></label>
         <select aria-label="Filter by status" value={status} onChange={(event) => setStatus(event.target.value as typeof status)}><option value="all">All statuses</option>{Object.entries(statusLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select>
@@ -80,7 +81,7 @@ function OwnerReservationCard({ reservation, today }: { reservation: OwnerReserv
           <dl><div><dt>Course</dt><dd>{course?.nameEn ?? "No course selected"}</dd></div><div><dt><CalendarCheck2 />Date</dt><dd>{reservation.reservation_date}</dd></div><div><dt><Clock3 />Time</dt><dd>{time}</dd></div><div><dt><Users />Guests</dt><dd>{reservation.guest_count}</dd></div><div><dt>Seating</dt><dd>{reservation.seating_preference.replace("_", " ")}</dd></div><div><dt>Occasion</dt><dd>{reservation.occasion}</dd></div><div><dt>Preferred language</dt><dd>{reservation.preferred_language.toUpperCase()}</dd></div><div><dt>Allergies / dietary</dt><dd>{reservation.allergies || "None provided"}</dd></div><div><dt>Special requests</dt><dd>{reservation.special_requests || "None provided"}</dd></div></dl>
           <form className="owner-reservation-edit" action={updateReservationDetails}><input type="hidden" name="id" value={reservation.id} /><label>Date<input type="date" name="reservationDate" min={today} defaultValue={reservation.reservation_date} required /></label><label>Time<select name="reservationTime" defaultValue={time}>{RESERVATION_TIME_SLOTS.map((slot) => <option key={slot}>{slot}</option>)}</select></label><label>Guests<select name="guestCount" defaultValue={reservation.guest_count}>{Array.from({ length: MAX_RESERVATION_GUESTS - MIN_RESERVATION_GUESTS + 1 }, (_, index) => index + MIN_RESERVATION_GUESTS).map((count) => <option key={count}>{count}</option>)}</select></label><label className="owner-notes"><StickyNote />Private owner notes<textarea name="ownerNotes" maxLength={4000} defaultValue={reservation.owner_notes ?? ""} /></label><button className="button button-outline">Save details</button></form>
           <div className="owner-status-actions">{actionStatuses.filter((nextStatus) => nextStatus !== reservation.status).map((nextStatus) => <form action={updateReservationStatus} key={nextStatus}><input type="hidden" name="id" value={reservation.id} /><input type="hidden" name="status" value={nextStatus} /><button className={nextStatus === "confirmed" ? "button button-gold" : "button button-outline"}>{statusLabels[nextStatus]}</button></form>)}</div>
-          {eventCanBeResent(reservation.status) ? <form className="owner-resend-email" action={resendReservationStatusEmail}><input type="hidden" name="id" value={reservation.id} /><button className="button button-outline"><Send />Resend {statusLabels[reservation.status].toLowerCase()} email</button></form> : null}
+          {canRetryDecisionEmail(reservation) ? <form className="owner-resend-email" action={retryReservationStatusEmail}><input type="hidden" name="id" value={reservation.id} /><button className="button button-outline"><RotateCw />Retry customer email</button></form> : null}
           <p className="owner-reservation-audit">Created {new Date(reservation.created_at).toLocaleString()} · Updated {new Date(reservation.updated_at).toLocaleString()}</p>
         </div>
       </details>
@@ -88,6 +89,7 @@ function OwnerReservationCard({ reservation, today }: { reservation: OwnerReserv
   );
 }
 
-function eventCanBeResent(status: ReservationStatus) {
-  return status === "confirmed" || status === "rejected" || status === "cancelled";
+function canRetryDecisionEmail(reservation: OwnerReservation) {
+  if (reservation.status !== "confirmed" && reservation.status !== "rejected") return false;
+  return reservation.notification_delivery?.delivery_status !== "sent";
 }

@@ -1,44 +1,53 @@
 "use client";
 
-import { Ban, CheckCircle2, Clock3, MailCheck, RefreshCw, XCircle } from "lucide-react";
+import { Ban, CalendarPlus, CheckCircle2, Clock3, MapPinned, RefreshCw, XCircle } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { getCourseById } from "@/data/courses";
+import { restaurantConfig } from "@/data/restaurant";
 import { parseReservationConfirmation, parseReservationStatusSnapshot } from "@/lib/reservation-request";
 import type { Dictionary } from "@/locales";
 import type { Locale, ReservationConfirmation as Confirmation, ReservationStatus, ReservationStatusSnapshot } from "@/types";
 
 export function ReservationConfirmation({ locale, dictionary, reference, statusToken = "" }: { locale: Locale; dictionary: Dictionary; reference: string; statusToken?: string }) {
+  const [activeReference, setActiveReference] = useState(reference);
   const [confirmation, setConfirmation] = useState<Confirmation | null>(null);
   const [snapshot, setSnapshot] = useState<ReservationStatusSnapshot | null>(null);
   const [token, setToken] = useState(statusToken);
   const [loaded, setLoaded] = useState(false);
   const [checking, setChecking] = useState(false);
   const [statusError, setStatusError] = useState(false);
-  const [emailState, setEmailState] = useState<"sent" | "not-sent" | "unknown">("unknown");
 
   useEffect(() => {
     let active = true;
     queueMicrotask(() => {
       if (!active) return;
-      const storedConfirmation = sessionStorage.getItem(`sakura-reservation:${reference}`);
+      let resolvedReference = reference;
+      let resolvedToken = statusToken;
+      if (reference === "—" || !statusToken) {
+        try {
+          const latest = JSON.parse(sessionStorage.getItem("sakura-reservation:last") ?? "null") as { reference?: unknown; token?: unknown } | null;
+          if (reference === "—" && typeof latest?.reference === "string" && /^SKR-\d{8}-[A-Z0-9]{6}$/.test(latest.reference)) resolvedReference = latest.reference;
+          if (!statusToken && typeof latest?.token === "string" && /^[0-9a-f-]{36}$/i.test(latest.token)) resolvedToken = latest.token;
+        } catch { /* Ignore malformed browser session data. */ }
+      }
+      setActiveReference(resolvedReference);
+      const storedConfirmation = sessionStorage.getItem(`sakura-reservation:${resolvedReference}`);
       if (storedConfirmation) {
         try { setConfirmation(parseReservationConfirmation(JSON.parse(storedConfirmation))); } catch { setConfirmation(null); }
       }
-      const storedToken = sessionStorage.getItem(`sakura-reservation-token:${reference}`) ?? "";
-      if (!statusToken && storedToken) setToken(storedToken);
-      const storedEmail = sessionStorage.getItem(`sakura-reservation-email:${reference}`);
-      if (storedEmail === "sent" || storedEmail === "not-sent") setEmailState(storedEmail);
+      const storedToken = sessionStorage.getItem(`sakura-reservation-token:${resolvedReference}`) ?? "";
+      setToken(resolvedToken || storedToken);
       setLoaded(true);
     });
     return () => { active = false; };
   }, [reference, statusToken]);
 
   const checkStatus = useCallback(async () => {
-    if (!token || reference === "—") return;
+    if (!token || activeReference === "—") return;
     setChecking(true);
     try {
-      const response = await fetch(`/api/reservations/status?reference=${encodeURIComponent(reference)}&token=${encodeURIComponent(token)}`, { cache: "no-store" });
+      const response = await fetch(`/api/reservations/status?reference=${encodeURIComponent(activeReference)}&token=${encodeURIComponent(token)}`, { cache: "no-store" });
       const payload = await response.json().catch(() => null) as { reservation?: unknown } | null;
       const next = response.ok ? parseReservationStatusSnapshot(payload?.reservation) : null;
       if (!next) {
@@ -52,7 +61,7 @@ export function ReservationConfirmation({ locale, dictionary, reference, statusT
     } finally {
       setChecking(false);
     }
-  }, [reference, token]);
+  }, [activeReference, token]);
 
   useEffect(() => {
     if (!token) return;
@@ -74,7 +83,8 @@ export function ReservationConfirmation({ locale, dictionary, reference, statusT
   const statusCopy = getStatusCopy(status, dictionary);
   const StatusIcon = status === "confirmed" || status === "completed" ? CheckCircle2 : status === "pending" ? Clock3 : status === "cancelled" ? Ban : XCircle;
   const stepResult = status === "confirmed" || status === "completed" ? dictionary.reservation.confirmed : status === "pending" ? dictionary.reservation.awaitingDecision : statusCopy.label;
-  const lastUpdated = snapshot?.updatedAt ? new Intl.DateTimeFormat(locale === "ja" ? "ja-JP" : "en-GB", { dateStyle: "medium", timeStyle: "short" }).format(new Date(snapshot.updatedAt)) : "";
+  const lastUpdated = snapshot?.updatedAt ? new Intl.DateTimeFormat(locale === "ja" ? "ja-JP" : "en-GB", { dateStyle: "medium", timeStyle: "short", timeZone: restaurantConfig.timeZone }).format(new Date(snapshot.updatedAt)) : "";
+  const calendarHref = details ? `data:text/calendar;charset=utf-8,${encodeURIComponent(["BEGIN:VCALENDAR", "VERSION:2.0", `PRODID:-//${restaurantConfig.identity.nameEn}//Reservation//EN`, "BEGIN:VEVENT", `UID:${activeReference}@${restaurantConfig.canonicalHost}`, `DTSTART;TZID=${restaurantConfig.timeZone}:${details.reservationDate.replaceAll("-", "")}T${details.reservationTime.replace(":", "")}00`, "DURATION:PT2H", `SUMMARY:${status === "confirmed" ? "Sakura reservation" : "Sakura reservation request (pending)"}`, `LOCATION:${restaurantConfig.identity.nameEn}, ${restaurantConfig.location.addressEn}`, "END:VEVENT", "END:VCALENDAR"].join("\r\n"))}` : "";
 
   return (
     <div className={`reservation-confirmation-card is-${status}`} aria-live="polite">
@@ -100,16 +110,18 @@ export function ReservationConfirmation({ locale, dictionary, reference, statusT
       </ol>
 
       <dl>
-        <div><dt>{dictionary.reservation.reference}</dt><dd>{reference}</dd></div>
+        <div><dt>{dictionary.reservation.reference}</dt><dd>{activeReference}</dd></div>
         {details ? <><div><dt>{dictionary.reservation.course}</dt><dd>{selectedCourse ? (locale === "ja" ? selectedCourse.nameJa : selectedCourse.nameEn) : dictionary.reservation.noCourse}</dd></div><div><dt>{dictionary.reservation.customer}</dt><dd>{details.customerName}</dd></div><div><dt>{dictionary.reservation.date}</dt><dd>{details.reservationDate}</dd></div><div><dt>{dictionary.reservation.time}</dt><dd>{details.reservationTime}</dd></div><div><dt>{dictionary.reservation.guests}</dt><dd>{details.guestCount}</dd></div></> : null}
         <div><dt>{dictionary.reservation.status}</dt><dd><span className={`reservation-status-result is-${status}`}>{statusCopy.label}</span></dd></div>
       </dl>
 
-      {emailState === "sent" ? <p className="reservation-email-delivery is-sent"><MailCheck />{dictionary.reservation.emailSent}</p> : null}
-      {emailState === "not-sent" ? <p className="reservation-email-delivery is-warning">{dictionary.reservation.emailNotSent}</p> : null}
       {statusError ? <p className="form-error">{dictionary.reservation.statusCheckFailed}</p> : null}
       {loaded && !details ? <p className="form-error">{dictionary.reservation.confirmationUnavailable}</p> : null}
-      <Link className="button button-gold" href={`/${locale}`}>{dictionary.reservation.returnHome}</Link>
+      <div className="reservation-confirmation-actions">
+        <Link className="button button-gold" href={`/${locale}/access`}><MapPinned aria-hidden="true" />{locale === "ja" ? "道順を見る" : "Directions"}</Link>
+        {calendarHref ? <a className="button button-outline" href={calendarHref} download={`sakura-${activeReference}.ics`}><CalendarPlus aria-hidden="true" />{locale === "ja" ? "カレンダーに追加" : "Add to calendar"}</a> : null}
+        <Link className="text-link" href={`/${locale}`}>{dictionary.reservation.returnHome}</Link>
+      </div>
     </div>
   );
 }

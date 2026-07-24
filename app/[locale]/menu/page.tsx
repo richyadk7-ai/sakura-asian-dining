@@ -1,5 +1,7 @@
+import Image from "next/image";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 import { MenuExplorer } from "@/components/menu-explorer";
+import { MotionReveal } from "@/components/motion-reveal";
 import { PageHero } from "@/components/page-hero";
 import { courses } from "@/data/courses";
 import { allMenuItems } from "@/data/menu";
@@ -20,5 +22,38 @@ export default async function MenuPage({ params }: LocalePageProps) {
   const { locale } = await params;
   const lang = isLocale(locale) ? locale : "en";
   const [d, items, courseData, photos] = await Promise.all([getPublishedDictionary(lang), getPublishedPayload("menu", allMenuItems), getPublishedPayload("courses", courses), getPublishedPhotos(authorizedPhotos)]);
-  return <><BreadcrumbJsonLd locale={lang} path="menu" label={d.menu.title} /><PageHero eyebrow="Sakura · Menu" title={d.menu.title} intro={d.menu.intro} /><section className="section"><div className="container"><MenuExplorer locale={lang} dictionary={d} items={items} courseData={courseData} photos={photos} /></div></section></>;
+  const heroPhoto = photos.find((photo) => photo.id === "food-029") ?? photos.find((photo) => photo.category === "food");
+
+  return (
+    <>
+      <BreadcrumbJsonLd locale={lang} path="menu" label={d.menu.title} />
+      <PageHero
+        locale={lang}
+        variant="menu"
+        eyebrow={d.menu.heroEyebrow}
+        title={d.menu.heroTitle}
+        intro={d.menu.heroIntro}
+        photo={heroPhoto}
+      />
+      <section className="menu-curry-feature" aria-labelledby="menu-curry-feature-title">
+        <MotionReveal className="menu-curry-feature-frame">
+          <Image
+            src="/images/features/curries-from-the-fire.png"
+            alt={d.menu.curryFeatureAlt}
+            width={1672}
+            height={941}
+            sizes="(max-width: 760px) 100vw, 94vw"
+            quality={92}
+          />
+          <div className="menu-curry-feature-shade" aria-hidden="true" />
+          <p id="menu-curry-feature-title">{d.menu.curryFeature}</p>
+        </MotionReveal>
+      </section>
+      <section className="section">
+        <div className="container">
+          <MenuExplorer locale={lang} dictionary={d} items={items} courseData={courseData} photos={photos} />
+        </div>
+      </section>
+    </>
+  );
 }

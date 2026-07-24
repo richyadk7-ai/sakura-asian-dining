@@ -1,6 +1,6 @@
 import { ChevronDown, Clock3, Images, Infinity as InfinityIcon, Utensils } from "lucide-react";
 import Image from "next/image";
-import { ExternalLink } from "@/components/external-link";
+import Link from "next/link";
 import { courseDetailsById } from "@/data/course-details";
 import { courses } from "@/data/courses";
 import { authorizedPhotos } from "@/data/photos";
@@ -63,9 +63,9 @@ export function CourseGrid({ locale, dictionary, limit, courseData = courses, ph
             ) : null}
             <div className="course-card-footer">
               <div className="course-price">{course.previousPrice ? <del>{course.previousPrice}</del> : null}<strong>{course.price}</strong><small>{dictionary.common.taxIncluded}</small></div>
-              <ExternalLink className="text-link" href={`/${locale}/reservation?course=${encodeURIComponent(course.id)}`} showIcon aria-label={`${dictionary.courses.viewReserve}: ${locale === "ja" ? course.nameJa : course.nameEn}`}>
+              <Link className="text-link" href={`/${locale}/reservation?course=${encodeURIComponent(course.id)}`} aria-label={`${dictionary.courses.viewReserve}: ${locale === "ja" ? course.nameJa : course.nameEn}`}>
                 {dictionary.courses.viewReserve}
-              </ExternalLink>
+              </Link>
             </div>
           </div>
         </article>

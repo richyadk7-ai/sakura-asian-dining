@@ -18,5 +18,26 @@ export default async function GalleryPage({ params }: LocalePageProps) {
   const { locale } = await params;
   const lang = isLocale(locale) ? locale : "en";
   const [d, photos] = await Promise.all([getPublishedDictionary(lang), getPublishedPhotos(authorizedPhotos)]);
-  return <><BreadcrumbJsonLd locale={lang} path="gallery" label={d.gallery.title} /><PageHero eyebrow="Sakura · Gallery" title={d.gallery.title} intro={d.gallery.intro} /><section className="section"><div className="container"><Gallery locale={lang} dictionary={d} photoData={photos} /></div></section></>;
+  const heroPhoto = photos.find((photo) => photo.id === "interior-003") ?? photos[0];
+  const secondaryPhoto = photos.find((photo) => photo.id === "drinks-001");
+
+  return (
+    <>
+      <BreadcrumbJsonLd locale={lang} path="gallery" label={d.gallery.title} />
+      <PageHero
+        locale={lang}
+        variant="gallery"
+        eyebrow={d.gallery.heroEyebrow}
+        title={d.gallery.heroTitle}
+        intro={d.gallery.heroIntro}
+        photo={heroPhoto}
+        secondaryPhoto={secondaryPhoto}
+      />
+      <section className="section">
+        <div className="container">
+          <Gallery locale={lang} dictionary={d} photoData={photos} />
+        </div>
+      </section>
+    </>
+  );
 }

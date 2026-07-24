@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
+import { restaurantConfig } from "@/data/restaurant";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Sakura Asian Dining & Bar — Owner Reservations",
+    name: `${restaurantConfig.identity.nameEn} — Owner Reservations`,
     short_name: "Sakura Reservations",
-    description: "Protected reservation alerts and owner dashboard for Sakura Asian Dining & Bar.",
+    description: `Protected reservation alerts and owner dashboard for ${restaurantConfig.identity.nameEn}.`,
     start_url: "/admin/reservations",
     scope: "/",
     display: "standalone",
